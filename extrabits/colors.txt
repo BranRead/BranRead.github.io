@@ -1,0 +1,8 @@
+Original Mods if any
+#acc8ce |Base Color no mods
+	|
+#c3acce |#625667 <- Just for Navbar gradient otherwise orig is used
+	|
+#ceb2ac |#675956 Background for items
+	|
+#b7ceac |#dbe7d6 #c5d0c1 Background for text and the shade for buttons

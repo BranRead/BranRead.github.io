@@ -1,0 +1,79 @@
+body {
+    background-color: #000 !important;
+    height: 100%;
+}
+
+.navbar{
+    background-color: #581A67;
+    background-image: linear-gradient(to right, #581A67, #230A29);
+    border-bottom: 1px solid #AEC5EB;
+    border-radius: 0px 0px 30px 30px;
+    font-family: 'Press Start 2P', cursive;
+}
+
+.navbar-brand {
+    font-size: 32px !important;
+    color: #FFFFF0 !important;
+}
+
+#navbarNav {
+    margin-right: 100px;
+}
+
+#logo {
+    width: 4vw;
+    margin-left: 100px;
+}
+
+.outside {
+    border:2px solid #AEC5EB;
+    background-color: #581A67;
+    color: #FFFFF0;
+    font-family: 'Chakra Petch', sans-serif;
+}
+
+.inside {
+    border: 2px solid #AEC5EB;
+    font-size: 24px;
+}
+
+.nameBox {
+    border: 2px solid #AEC5EB;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 24px !important;
+}
+
+
+#profilepic {
+    height: 35vh !important;
+    border: 2px solid #000;
+}
+
+.photo-creds {
+    font-family: 'Chakra Petch', sans-serif;
+    margin-bottom: 1vh;
+    font-size: 0.8rem;
+}
+
+#contact {
+    background-color: #9B1D20;
+    color: #FFFFF0;
+    border: 10px solid #FFFFF0;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 32px !important;
+}
+
+.footer {
+    border-top: 2px solid #AEC5EB;
+    border-radius: 30px 30px 0px 0px;
+    font-family: 'Press Start 2P', cursive;
+    color: #fffff0;
+    margin-top: 110px;
+}
+
+.footer h1 {
+    font-size: 32px;
+}
+
+
+
