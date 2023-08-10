@@ -1,8 +1,6 @@
-body {
-    background-color: #000 !important;
-    height: 100%;
-}
-
+/*////////////////////////////////////////////////////*/
+/*Navbar and Footer*/
+/*////////////////////////////////////////////////////*/
 .navbar{
     background-color: #581A67;
     background-image: linear-gradient(to right, #581A67, #230A29);
@@ -16,51 +14,20 @@ body {
     color: #FFFFF0 !important;
 }
 
+#logo {
+    width: 50px;
+    margin-left: 100px;
+}
+
 #navbarNav {
     margin-right: 100px;
 }
 
-#logo {
-    width: 4vw;
-    margin-left: 100px;
-}
-
-.outside {
-    border:2px solid #AEC5EB;
-    background-color: #581A67;
-    color: #FFFFF0;
-    font-family: 'Chakra Petch', sans-serif;
-}
-
-.inside {
-    border: 2px solid #AEC5EB;
-    font-size: 24px;
-}
-
-.nameBox {
-    border: 2px solid #AEC5EB;
-    font-family: 'Press Start 2P', cursive;
-    font-size: 24px !important;
-}
-
-
-#profilepic {
-    height: 35vh !important;
-    border: 2px solid #000;
-}
-
-.photo-creds {
-    font-family: 'Chakra Petch', sans-serif;
-    margin-bottom: 1vh;
-    font-size: 0.8rem;
-}
-
-#contact {
-    background-color: #9B1D20;
-    color: #FFFFF0;
-    border: 10px solid #FFFFF0;
-    font-family: 'Press Start 2P', cursive;
-    font-size: 32px !important;
+.nav-item {
+    width: 50px;
+    height: auto;
+    display: inline;
+    transition: all .2s ease-in-out;
 }
 
 .footer {
@@ -68,12 +35,161 @@ body {
     border-radius: 30px 30px 0px 0px;
     font-family: 'Press Start 2P', cursive;
     color: #fffff0;
-    margin-top: 110px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 4rem; /* Footer height */
 }
 
 .footer h1 {
     font-size: 32px;
+    margin-bottom: 0 !important;
 }
 
+.footer div  {
+    font: 12px;
+    font-family: 'Chakra Petch', sans-serif;
+}
 
+/*////////////////////////////////////////////////////*/
+/*General Stuff*/
+/*////////////////////////////////////////////////////*/
+#page-container {
+    background-color: #000 !important;
+    position: relative;
+    min-height: 100vh;
+  }
+  
+  #content-wrap {
+    padding-top: 3rem;
+    padding-bottom: 4rem;    /* Footer height */
+  }
 
+.outside {
+    border: 2px solid #AEC5EB;
+    background-color: #581A67;
+    padding: 10px !important;
+}
+
+.inside, .inside-card {
+    border: 2px solid #000;
+    border-radius: 5px;
+    color: #000;
+    font-size: 24px;
+    padding: 2rem;
+    background-color: #F8F8F8;
+    height: 100%;
+    display: block;
+}
+
+.heading {
+    font-family: 'Press Start 2P', cursive;
+    text-align: center;
+    border-bottom: 2px solid #000;
+}
+
+.line {
+    height: 2px;
+    width: 100%;
+    background-color: #000;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+/*Exists just to position something*/
+.position-div {
+    width: 100%
+}
+
+/*////////////////////////////////////////////////////*/
+/*Index*/
+/*////////////////////////////////////////////////////*/
+#me {
+    border: 2px solid black;
+    width: 100px;
+    height: 100px;
+}
+
+#myName {
+    font-family: 'Press Start 2P', cursive;
+    text-align: center;
+}
+
+#logo-div {
+    width: 50%;
+}
+
+.contact-logo {
+    width: auto;
+    height: 50px;
+}
+
+#advanceText {
+    width: 15%;
+    border-radius: 30px;
+}
+
+#info {
+    height: 150px;
+    font-family: 'Chakra Petch', sans-serif;
+    padding: 5px;
+}
+
+#email:hover, #advanceText:hover {
+    cursor: pointer;
+}
+
+/*////////////////////////////////////////////////////*/
+/*Projects*/
+/*////////////////////////////////////////////////////*/
+#content-wrap-projects {
+    padding-top: 3rem;
+    padding-bottom: 7rem;    /* Footer height plus 3 for extra space */
+  }
+
+.project {
+    font-size: 16px;
+    font-family: 'Chakra Petch', sans-serif;
+    background-color: #F8F8F8;
+    color: #000;
+    height: 15vh;
+    padding: 5px;
+}
+
+.inside-card {
+    transition: all .2s ease-in-out;
+}
+
+a.inside-card:link, a.inside-card:visited {
+    text-decoration: none;
+}
+
+a.inside-card:hover, a.inside-card:active {
+    text-decoration: none;
+    transform: scale(1.2);
+    filter: grayscale(100%) brightness(80%);
+    z-index: 2;
+}
+
+.project-name {
+    font-size: 16px;
+    font-family: 'Press Start 2P', cursive;
+    color: #000;
+    height: 48px;
+}
+
+.project-pic {
+    width: 100%;
+    height: 185px;
+    overflow: hidden;
+}
+
+.project-pic > img {
+    width: 100%;
+    height: 100%;
+}
+
+.project p {
+    margin-bottom: 0;
+    padding: 5px;
+}

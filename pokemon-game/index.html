@@ -1,0 +1,90 @@
+<!--Pokemon JavaScript Game Tutorial with HTML Canvas-->
+<!--https://www.youtube.com/watch?v=yP5DKzriqXA-->
+<!DOCTYPE html>
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="stylesheets/styles.css">
+</head>
+<div id="content">
+    
+    <div id="overlappingDiv"></div>
+    <div id="menu">
+        <button id="back-btn-menu">Back</button>
+        <div><h3 id="menu-title">Menu</h3></div>
+        
+    </div>
+
+    <div id="menu-options">
+        <button class="menu-item">Team</button>
+        <button class="menu-item">Inventory</button>
+        <button class="menu-item">Settings</button>
+        <button class="menu-item">Save</button>
+        <button class="menu-item">Quit</button>
+    </div>
+    
+    <canvas></canvas>
+
+    <div id="userInterface">
+        <!-- Represents health bar of enemy-->
+        <div id="hpBackgroundEnemy">
+            <h1 id="enemyName"></h1>
+            <div class="healthBackground">
+                <div class="health"></div>
+                <div id="enemyHealthBar"></div>
+            </div>
+        </div>
+
+        <!-- Represents health bar of player monster (Emby)-->
+        <div id="hpBackgroundPlayer">
+            <h1 id="playerName"></h1>
+            <div class="healthBackground" style="position: relative;">
+                <div class="health"></div>
+                <div id="playerHealthBar"></div>
+            </div>
+            <div id="hpTextBackground"><p id="hpText">100/100</p></div>
+
+            <div class="expBackground" style="position: relative;">
+                <div class="exp"></div>
+                <div id="playerEXPBar"></div>
+            </div>
+        </div>
+
+        <div id="dialogBackground">
+            <div id="dialogueBox"></div>
+            <div id="attacksBox"></div>
+            <div id="attackTypeBox">
+                <h1 id="attackType">Attack Type</h1>
+            </div>
+        </div>
+    </div> <!--#userInterface-->
+
+</div> <!--#content-->
+<!--Audio (Howler)-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js" 
+    integrity="sha512-6+YN/9o9BWrk6wSfGxQGpt3EUK6XeHi6yeHV+TYD2GR0Sj/cggRpXr1BrAQf0as6XslxomMUxXp2vIl+fv0QRA==" 
+    crossorigin="anonymous" 
+    referrerpolicy="no-referrer">
+</script>
+<!--Animations (GSAP)-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js" 
+    integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+</script>
+<script src="/pokemon-game/scripts/audio.js"></script>
+<script src="/pokemon-game/data/battleZones.js"></script>
+<script src="/pokemon-game/data/collisions.js"></script>
+<script src="/pokemon-game/scripts/attacks.js"></script>
+<script src="/pokemon-game/scripts/monsters.js"></script>
+<script src="/pokemon-game/scripts/classes.js"></script> 
+<script src="/pokemon-game/scripts/items.js"></script>  
+<script src="/pokemon-game/scripts/inventory.js"></script>  
+<script src="/pokemon-game/scripts/team.js"></script>  
+<script src="/pokemon-game/scripts/menu.js"></script>  
+<script src="/pokemon-game/scripts/person.js"></script>
+<script src="/pokemon-game/scripts/index.js"></script>
+<script src="/pokemon-game/scripts/fight.js"></script>
+<script src="/pokemon-game/scripts/enemyAttack.js"></script>
+<script src="/pokemon-game/scripts/battleOptions.js"></script>
+<script src="/pokemon-game/scripts/battleScene.js"></script> 
