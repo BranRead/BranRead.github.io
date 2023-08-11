@@ -10,13 +10,13 @@
 }
 
 .navbar-brand {
-    font-size: 32px !important;
     color: #FFFFF0 !important;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #logo {
     width: 50px;
-    margin-left: 100px;
 }
 
 #navbarNav {
@@ -54,6 +54,7 @@
 /*////////////////////////////////////////////////////*/
 /*General Stuff*/
 /*////////////////////////////////////////////////////*/
+
 #page-container {
     background-color: #000 !important;
     position: relative;
@@ -75,10 +76,8 @@
     border: 2px solid #000;
     border-radius: 5px;
     color: #000;
-    font-size: 24px;
     padding: 2rem;
     background-color: #F8F8F8;
-    height: 100%;
     display: block;
 }
 
@@ -119,24 +118,37 @@
     width: 50%;
 }
 
+#contact-heading {
+    border: 1px outset black;
+    border-radius: 5px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    padding: .5rem;
+    font-family: 'Chakra Petch', sans-serif;
+}
+
 .contact-logo {
     width: auto;
     height: 50px;
 }
 
 #advanceText {
-    width: 15%;
+    width: 100%;
     border-radius: 30px;
 }
 
 #info {
-    height: 150px;
+    height: 250px;
     font-family: 'Chakra Petch', sans-serif;
-    padding: 5px;
 }
 
 #email:hover, #advanceText:hover {
     cursor: pointer;
+}
+
+#advanceText:hover {
+    background-color: #c6c6c6;
 }
 
 /*////////////////////////////////////////////////////*/
@@ -154,6 +166,11 @@
     color: #000;
     height: 15vh;
     padding: 5px;
+}
+
+.rowProjects {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
 }
 
 .inside-card {
@@ -192,4 +209,209 @@ a.inside-card:hover, a.inside-card:active {
 .project p {
     margin-bottom: 0;
     padding: 5px;
+}
+
+/*////////////////////////////////////////////////////*/
+/*Responsive*/
+/*////////////////////////////////////////////////////*/
+@media only screen and (max-width: 576px) {
+    /*Navbar and Footer*/
+    #logo {
+        display: none;
+    }
+
+    #logo-div {
+        width: 100%;
+    }
+
+    #iconRow {
+        width: 100%;
+        justify-content: space-around;
+    }
+
+    #name-container {
+        width: 100%;
+        text-align: center;
+    }
+
+    .navbar-brand {
+        font-size: 1.4rem !important;
+    }
+
+    .footer > h5 {
+        display: none;
+    }
+
+    .footer > h6 {
+        margin-top: 1rem;
+        display: block;
+    }
+
+    .footer {
+        height: 6rem;
+    }
+
+    /*Content*/
+    #content-wrap {
+        width: 100%;
+        padding-bottom: 4rem;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    #content-wrap-projects {
+        padding-bottom: 7rem;
+    }
+
+    .row {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    .outside {
+        margin-bottom: 2rem;
+    }
+
+    #info {
+        height: 43vh;
+        padding-left: 0;
+        padding-right: 0;
+        font-size: 1rem;
+    }
+
+}
+
+@media only screen and (min-width: 576px) {
+    #logo {
+        display: none;
+    }
+
+    #iconRow {
+        width: 100%;
+        justify-content: center;
+    }
+
+    #name-container {
+        width: 100%;
+        text-align: center;
+    }
+
+    .navbar-brand {
+        font-size: 1.4rem !important;
+    }
+
+    .footer > h5 {
+        display: none;
+    }
+
+    .footer > h6 {
+        margin-top: 1rem;
+        display: block;
+    }
+
+    .footer {
+        height: 6rem;
+    }
+
+    /*Content*/
+    #content-wrap {
+        width: 100%;
+        padding-bottom: 6rem;
+    }
+
+    .container {
+        max-width: 100% !important;
+    }
+
+    #content-wrap-projects {
+        padding-bottom: 7rem;
+        padding-left: 0;
+        padding-right: 0;
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .outside {
+        margin-left: 1rem;
+        margin-right: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    #info {
+        height: 15vh;
+        padding-left: 0;
+        padding-right: 0;
+        font-size: 1rem;
+    }
+
+}
+
+@media only screen and (min-width: 768px) {
+    .navbar-brand {
+        font-size: 2rem !important;
+    }
+
+    .footer > h5 {
+        margin-top: 1rem;
+        display: block;
+    }
+
+    .footer > h6 {
+        margin-top: 1rem;
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    #logo {
+        display: block;
+    }
+
+    #iconRow {
+        width: fit-content;
+        justify-content: space-around;
+    }
+
+    .navbar-brand {
+        font-size: 2.5rem !important;
+    }
+
+    #nav-container {
+        width: 100%;
+        justify-content: space-around;
+    }
+
+    #name-container {
+        width: fit-content;
+        text-align: center;
+    }
+
+    .footer > h5 {
+        margin-top: 1rem;
+        display: block;
+    }
+
+    .footer > h6 {
+        margin-top: 1rem;
+        display: none;
+    }
+
+    .footer {
+        height: 6rem;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    #contact-heading {
+        font-size: 1.2rem;
+    }
+
+    #info {
+        font-size: 1.2rem;
+    }
+}
+
+@media only screen and (min-width: 1400px) {
+
 }

@@ -141,9 +141,7 @@ class Monster extends Sprite {
                     healthBar = '#enemyHealthBar'
                     rotation = 1
                 }
-            
-            
-            
+
             switch(attack.name) {
                 //Switch statement for animations
                 case 'Fireball':
