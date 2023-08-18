@@ -2,7 +2,10 @@ const canvas = document.querySelector('canvas');
 const c = canvas.getContext('2d'); 
 const menu = document.querySelectorAll(".menu-item");
 const backBtn = document.getElementById("back-btn-menu");
+const dialogueBox = document.querySelector("#dialogueBox");
 const statsSave = []
+let queue = [];
+let endQueue = [];
 
 const offset = {
     x: -832,
@@ -209,6 +212,8 @@ let healer = new Sprite({
     },
 })
 
+
+//event listener for healer
 canvas.addEventListener('click', () => {
     if(rectangularCollision({
         rectangle1: player, 
@@ -236,10 +241,35 @@ canvas.addEventListener('click', () => {
         }}
     })
     ){
-        ///////////////////////////////////////////////////////////
-        //////////Function and dialog to heal monsters!!!//////////
-        ///////////////////////////////////////////////////////////
-        console.log("Heal your monsters!!")
+        //Heals monsters
+        dialogBackground.style.display = "flex";
+        dialogueBox.style.display = "block";
+        dialogueBox.innerHTML = "Would you like to heal your monsters?";
+        
+        const yesBtn = document.createElement("button");
+        yesBtn.className = "yesBtn";
+        yesBtn.innerHTML = "Yes";
+        yesBtn.addEventListener("click", () => {
+            player.team.roster.forEach((monster) => {
+                monster.stats.hp = monster.stats.maxHP;
+                queue.push(() => {
+                    dialogueBox.innerHTML = "Your monsters are healed!";
+
+                }, () => {
+                    dialogBackground.style.display = "none";
+                })
+            })
+        })
+
+        const noBtn = document.createElement("button");
+        noBtn.className = "noBtn";
+        noBtn.innerHTML = "No";
+        noBtn.addEventListener("click", () => {
+            dialogBackground.style.display = "none";
+        })
+        
+        dialogueBox.append(yesBtn);
+        dialogueBox.append(noBtn);
     }
 })
 

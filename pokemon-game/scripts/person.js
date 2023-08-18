@@ -47,4 +47,31 @@ class Person extends Sprite{
         localStorage.setItem("monsterGame", JSON.stringify(saveState));
         console.log("Saved");
     }
+
+    quit(){
+        //Dialogue
+        closeMenu();
+        dialogBackground.style.display = "flex";
+        dialogueBox.style.display = "block";
+        dialogueBox.innerHTML = "Are you sure you'd like to quit? Unsaved changes will be lost.";
+        
+        const yesBtn = document.createElement("button");
+        yesBtn.className = "yesBtn";
+        yesBtn.innerHTML = "Yes";
+        yesBtn.addEventListener("click", () => {
+           //This path may not work on github
+        window.location.href = "/projects.html";
+        })
+
+        const noBtn = document.createElement("button");
+        noBtn.className = "noBtn";
+        noBtn.innerHTML = "No";
+        noBtn.addEventListener("click", () => {
+            dialogBackground.style.display = "none";
+        })
+        
+        dialogueBox.append(yesBtn);
+        dialogueBox.append(noBtn);
+        
+    }
 }

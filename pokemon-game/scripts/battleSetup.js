@@ -1,5 +1,7 @@
 const battleBackgroundImage = new Image();
 battleBackgroundImage.src = "/pokemon-game/img/battleBackground.png";
+let dialogBackground = document.querySelector("#dialogBackground")
+
 
 // let tempFriendship;
 // let tempAtk;
@@ -18,10 +20,10 @@ let enemyMonster;
 let playerMonster;
 let renderedSprites;
 let battleAnimationID;
-let queue;
-let endQueue;
+
 
 function initBattle() {
+    dialogBackground.style.display = "flex";
     player.inBattle = true;
     c.translate(-canvasMove.x, -canvasMove.y);
     document.querySelector('#userInterface').style.display = 'block';

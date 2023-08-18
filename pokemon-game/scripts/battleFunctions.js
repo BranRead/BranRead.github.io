@@ -187,6 +187,7 @@ function endBattle(message){
                     opacity: 0,
                 })
                 c.translate(canvasMove.x, canvasMove.y);
+                dialogBackground.style.display = "none"
                 battleBackground.opacity = 0;   
                 battle.initiated = false;
                 audio.Map.play();
