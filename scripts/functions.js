@@ -37,7 +37,7 @@ function dialog() {
     }
 }
 
-if(window.location.href == "https://branread.github.io/index.html") {
+if(window.location.href == "https://branread.github.io/" || window.location.href == "https://branread.github.io/index.html") {
 
     setInterval(() => {
         
