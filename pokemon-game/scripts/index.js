@@ -165,7 +165,9 @@ const foreground = new Sprite({
     image: foregroundImage 
 });
 
-player = new Person({
+
+
+let player = new Person({
     name: "Brandon",
     team: team,
     inventory: inventory,
@@ -186,6 +188,62 @@ player = new Person({
 
     },
 });
+
+
+
+let healer = new Sprite({
+    position: {
+        x: 356,
+        y: 182
+    },
+    image: playerDownImage,
+    frames: {
+        max: 4,
+        hold: 10
+    },
+    sprites: {
+        up: playerUpImage,
+        left: playerLeftImage,
+        right: playerRightImage,
+        down: playerDownImage,
+    },
+})
+
+canvas.addEventListener('click', () => {
+    if(rectangularCollision({
+        rectangle1: player, 
+        rectangle2: {...healer, position: {
+            x: healer.position.x + 3,
+            y: healer.position.y
+        }}
+    }) || rectangularCollision({
+        rectangle1: player, 
+        rectangle2: {...healer, position: {
+            x: healer.position.x - 3,
+            y: healer.position.y
+        }}
+    }) || rectangularCollision({
+        rectangle1: player, 
+        rectangle2: {...healer, position: {
+            x: healer.position.x,
+            y: healer.position.y + 3
+        }}
+    }) || rectangularCollision({
+        rectangle1: player, 
+        rectangle2: {...healer, position: {
+            x: healer.position.x,
+            y: healer.position.y - 3
+        }}
+    })
+    ){
+        ///////////////////////////////////////////////////////////
+        //////////Function and dialog to heal monsters!!!//////////
+        ///////////////////////////////////////////////////////////
+        console.log("Heal your monsters!!")
+    }
+})
+
+
 
 const keys = {
     w: {
@@ -217,6 +275,17 @@ const battle = {
     initiated: false
 };
 
+let rectDoor = new Rectangle({
+    width: 60,
+    height: 1,
+    position: {
+        x: 480,
+        y: 250
+    }
+})
+
+
+
 function animate() {
     const animationID = window.requestAnimationFrame(animate)
 
@@ -230,8 +299,13 @@ function animate() {
         battleZone.draw()
     });
 
+   
     player.draw();
+    healer.draw();
 
+    rectDoor.drawRect();
+    
+    
     foreground.draw();
 
     let moving = true;
@@ -310,6 +384,12 @@ function animate() {
                     x: boundary.position.x,
                     y: boundary.position.y + 3
                 }}
+            }) || rectangularCollision({
+                rectangle1: player, 
+                rectangle2: {...healer, position: {
+                    x: healer.position.x,
+                    y: healer.position.y + 3
+                }}
             })
             )  {
                 moving = false;
@@ -332,6 +412,12 @@ function animate() {
                 rectangle2: {...boundary, position: {
                     x: boundary.position.x + 3,
                     y: boundary.position.y  
+                }}
+            }) || rectangularCollision({
+                rectangle1: player, 
+                rectangle2: {...healer, position: {
+                    x: healer.position.x + 3,
+                    y: healer.position.y
                 }}
             })
             )  {
@@ -356,6 +442,12 @@ function animate() {
                     x: boundary.position.x,
                     y: boundary.position.y - 3
                 }}
+            }) || rectangularCollision({
+                rectangle1: player, 
+                rectangle2: {...healer, position: {
+                    x: healer.position.x,
+                    y: healer.position.y - 3
+                }}
             })
             )  {
                 moving = false;
@@ -379,6 +471,12 @@ function animate() {
                 rectangle2: {...boundary, position: {
                     x: boundary.position.x - 3,
                     y: boundary.position.y
+                }}
+            })  || rectangularCollision({
+                rectangle1: player, 
+                rectangle2: {...healer, position: {
+                    x: healer.position.x - 3,
+                    y: healer.position.y
                 }}
             })
             )  {
@@ -463,3 +561,21 @@ function clearDialog(){
         button.remove();
     })
 }
+
+function queueChecker(){
+    queue.forEach(item => {
+        console.log(item)
+    })
+}
+
+canvas.addEventListener('click', () => {
+    if(rectangularCollision({
+        rectangle1: player, 
+        rectangle2: rectDoor
+    })){
+        ///////////////////////////////////////////////////////////
+        //////////////////Function to enter house//////////////////
+        ///////////////////////////////////////////////////////////
+        console.log("Entering house")
+    }
+})

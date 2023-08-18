@@ -1,3 +1,20 @@
+class Rectangle {
+    constructor({
+        width, 
+        height, 
+        position
+    }){
+        this.width = width;
+        this.height = height;
+        this.position = position
+    }
+
+    drawRect(fillStyle = 'white'){
+        c.fillStyle = fillStyle;
+        c.fillRect(this.position.x, this.position.y, this.width, this.height);
+    }
+}
+
 class Sprite {
     constructor({ 
         position, 
@@ -108,161 +125,70 @@ class Monster extends Sprite {
         this.attacks = attacks
     }
     faint() {
-        audio.victory.play();
-        audio.battle.stop();
+        let message; 
+        
         gsap.to(this.position, {
             y: this.position.y + 20
         })
         gsap.to(this, {
             opacity: 0
         })
-
-        renderedSprites = []
-        battleBackground.opacity = 0;
-    }
-
-    attack({attack, user, recipient, renderedSprites}) {
-        let hit = true;
-        if(hit && player.monsterAttack){
-            let ranNum = (Math.random() * (1 - 0.75 + 1) + 0.75);
-            let trueDamage = Math.floor((((user.stats.atk + user.stats.tempAtk) / (recipient.stats.def + user.stats.tempDef)) * attack.damage) * ranNum)
-            document.querySelector('#dialogueBox').style.display = 'block'
-            document.querySelector('#dialogueBox').innerHTML = 
-                `${user.name} used ${attack.name}! ${recipient.name} took ${trueDamage} points of damage.`
-    
-                let healthBar;
-                let rotation;
-                recipient.stats.hp -= trueDamage;
-    
-                if (this.isEnemy) {
-                    healthBar = '#playerHealthBar'
-                    rotation = 4
-                } else {
-                    healthBar = '#enemyHealthBar'
-                    rotation = 1
-                }
-
-            switch(attack.name) {
-                //Switch statement for animations
-                case 'Fireball':
-                audio.initFireball.play()
-                const fireballImage = new Image();
-                fireballImage.src="/pokemon-game/img/fireball.png"
-    
-                    const fireball = new Sprite({
-                        position: {
-                            x: this.position.x,
-                            y: this.position.y
-                        },
-                        image: fireballImage,
-                        frames: {
-                            max: 4,
-                            hold: 10
-                        },
-                        animate: true,
-                        rotation
-                    })
-                    
-                    renderedSprites.splice(1, 0, fireball)
-    
-                    gsap.to(fireball.position, {
-                        x: recipient.position.x,
-                        y: recipient.position.y,
-                        onComplete: () => {
-                            //Enemy actually gets hit
-                            audio.fireballHit.play()
-                            renderedSprites.splice(1, 1)
-                            gsap.to(healthBar, {
-                                width: recipient.stats.hp + '%'
-                            })
-                            gsap.to(recipient.position, {
-                                x: recipient.position.x + 10,
-                                yoyo: true,
-                                repeat: 5,
-                                duration: 0.08,
-                            })
-                            gsap.to(recipient, {
-                                opacity: 0,
-                                repeat: 5,
-                                yoyo: true,
-                                duration: 0.08
-                            })
-                            if(recipient == playerMonster){
-                                let healthText = `${playerMonster.stats.hp}/${playerMonster.stats.maxHP}`;
-                                document.querySelector("#hpText").innerHTML = healthText
-                            }
-                            
-                        }
-                    })
-    
-                break
-                case 'Tackle':
-    
-                    const tl = gsap.timeline()
-    
-                    
-            let movementDistance = 20
-            if (this.isEnemy) movementDistance = -20
-                    tl.to(this.position, {
-                        x: this.position.x - movementDistance
-                    })
-                        .to(this.position, {
-                        x: this.position.x + movementDistance * 2,
-                        duration: 0.1,
-                        onComplete: () => {
-                            //Enemy actually gets hit
-                            audio.tackleHit.play()
-                            gsap.to(healthBar, {
-                                width: recipient.stats.hp + '%'
-                            })
-                            gsap.to(recipient.position, {
-                                x: recipient.position.x + 10,
-                                yoyo: true,
-                                repeat: 5,
-                                duration: 0.08,
-                            })
-                            gsap.to(recipient, {
-                                opacity: 0,
-                                repeat: 5,
-                                yoyo: true,
-                                duration: 0.08
-                            })
-                        }
-                    })
-                        .to(this.position, {
-                        x: this.position.x
-                    })
-                break
-            }
-        } else if (hit && !player.monsterAttack) {
-            document.querySelector('#dialogueBox').style.display = 'block'
-            document.querySelector('#dialogueBox').innerHTML = 
-                `${user.name} used ${attack.name}! ${recipient.name} took ${attack.damage} points of damage.`
-    
-                let healthBar;
-                let rotation;
-    
-                if (this.isEnemy) {
-                    healthBar = '#playerHealthBar'
-                    rotation = 4
-                } else {
-                    healthBar = '#enemyHealthBar'
-                    rotation = 1
-                }
-    
-            
-            recipient.stats.hp -= attack.damage;
-            
-            //////////////////////////////
-            //Fix animation
-            //////////////////////////////
-            gsap.to(healthBar, {
-                width: recipient.stats.hp + '%'
+        if(this == playerMonster){
+            message =  `${this.name} can't fight any longer!`
+            gsap.to(enemyMonster, {
+                opacity: 0
+            })
+        } else if (this == enemyMonster){
+            audio.victory.play();
+            message = `${this.name} was defeated!`;
+            gsap.to(playerMonster, {
+                opacity: 0
             })
         }
-        
-        
+        audio.battle.stop();
+        endQueue.push(endBattle(message))
     }
+
+    attack({attack, renderedSprites}) {
+        clearDialog();
+        let hit = true;
+        if(hit && this == playerMonster){
+            let ranNum = (Math.random() * (1 - 0.75 + 1) + 0.75);
+            let trueDamage = Math.floor((((playerMonster.stats.atk + playerMonster.stats.tempAtk) / (enemyMonster.stats.def + enemyMonster.stats.tempDef)) * attack.damage) * ranNum)
+            
+    
+                let healthBar;
+                let rotation;
+                enemyMonster.stats.hp -= trueDamage;
+                enemyMonster.damage = trueDamage;
+                healthBar = '#enemyHealthBar'
+                rotation = 1
+
+                animateAttack(attack, playerMonster, enemyMonster, renderedSprites, healthBar, rotation);
+                
+                document.querySelector('#dialogueBox').style.display = 'block'
+                document.querySelector('#dialogueBox').innerHTML = 
+                `${playerMonster.name} used ${attack.name}!`
+           
+        } else if (hit && this == enemyMonster) {
+            let ranNum = (Math.random() * (1 - 0.75 + 1) + 0.75);
+            let trueDamage = Math.floor((((playerMonster.stats.atk + playerMonster.stats.tempAtk) / (enemyMonster.stats.def + enemyMonster.stats.tempDef)) * attack.damage) * ranNum)
+            
+    
+            let healthBar;
+            let rotation;
+            playerMonster.stats.hp -= trueDamage;
+            playerMonster.damage = trueDamage;
+            healthBar = '#playerHealthBar'
+            rotation = 4
+
+            animateAttack(attack, enemyMonster, playerMonster, renderedSprites, healthBar, rotation);
+            
+            document.querySelector('#dialogueBox').style.display = 'block'
+            document.querySelector('#dialogueBox').innerHTML = 
+            `${enemyMonster.name} used ${attack.name}!`  
+        } 
+    }  
 }
 
 class Boundary {

@@ -19,6 +19,7 @@ let playerMonster;
 let renderedSprites;
 let battleAnimationID;
 let queue;
+let endQueue;
 
 function initBattle() {
     player.inBattle = true;
@@ -40,7 +41,6 @@ function initBattle() {
     // const encounters = ["Wyvy", "Slime"];
 
     let ranChance = Math.floor(Math.random() * (100 + 1));
-    console.log(ranChance);
 
     if(ranChance > 30){
         enemyMonster = new Monster(monsters.Slime);
@@ -58,6 +58,7 @@ function initBattle() {
     renderedSprites = [enemyMonster, playerMonster];
     playerActions = ["Fight", "Use Item", "Befriend", "Flee"];
     queue = [];
+    endQueue = [];
     tempFriendship = enemyMonster.stats.friend;
 
     battleOptions();

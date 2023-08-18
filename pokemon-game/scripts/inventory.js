@@ -72,14 +72,15 @@ class Inventory {
                 closeMenu();
                 document.querySelector('#dialogueBox').style.display = 'block'
                 document.querySelector('#dialogueBox').innerHTML = 
-                `${player.team.roster[monsterIndex]} healed ${healedFor} points of damage!`
+                `${player.team.roster[monsterIndex].name} healed ${healedFor} points of damage!`
                 
                 if(player.inBattle) {
                     let healthBar = '#playerHealthBar';
                     gsap.to(healthBar, {
                         width: player.team.roster[monsterIndex].stats.hp + '%'
                     })
-                    enemyAttack();
+                    player.otherAction = true;
+                    startBattle();
                 }
                 break;
                 case "flee":
@@ -89,21 +90,22 @@ class Inventory {
                         //Will add dialog to say "Can't use this here!"
                     }
                     break;
-                case "attack":
-                    if(initBattle) {
-                        let playerMonster = player.team.roster[0];
-                        player.monsterAttack = false;
-                        let nameOfStaff = player.inventory.items[itemIndex];
-                        playerMonster.attack({
-                            attack: attacks[nameOfStaff],
-                            user: player,
-                            recipient: enemyMonster,
-                            renderedSprites
-                        })
-                    } else {
-                        //Will add dialog to say "Can't use this here!"
-                    }
-                    break;
+                    //Modifying attack items, or removing
+                // case "attack":
+                //     if(initBattle) {
+                //         let playerMonster = player.team.roster[0];
+                //         player.useItem = true;
+                //         let nameOfStaff = player.inventory.items[itemIndex];
+                //         playerMonster.attack({
+                //             attack: attacks[nameOfStaff],
+                //             user: player,
+                //             recipient: enemyMonster,
+                //             renderedSprites
+                //         })
+                //     } else {
+                //         //Will add dialog to say "Can't use this here!"
+                //     }
+                //     break;
                 case "stat boost":
                     if(initBattle) {
                         switch(player.inventory.items[itemIndex].boost.stat){
@@ -120,7 +122,8 @@ class Inventory {
                                 `${playerMonster.name}'s defense rose!`
                                 break;
                         }
-                        enemyAttack();
+                        player.otherAction = true;
+                        startBattle();
                     }
                     break;
         }
