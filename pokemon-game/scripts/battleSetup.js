@@ -42,19 +42,19 @@ function initBattle() {
 
     // const encounters = ["Wyvy", "Slime"];
 
-    let ranChance = Math.floor(Math.random() * (100 + 1));
+    // let ranChance = Math.floor(Math.random() * (100 + 1));
 
-    if(ranChance > 30){
-        enemyMonster = new Monster(monsters.Slime);
-    } else {
-        enemyMonster = new Monster(monsters.Wyvy);
-    }
+    // if(ranChance > 30){
+    //     enemyMonster = new Monster(monsters.Axolot);
+    // } else {
+    //     enemyMonster = new Monster(monsters.Wyvy);
+    // }
+    enemyMonster = new Monster(monsters.Axy)
     enemyMonster.position =  {
         x: 800,
         y: 100
     }
     enemyMonster.isEnemy = true;
-    // enemyMonster.image = enemyMonster.sprites.frontImage;
     document.querySelector('#enemyName').innerHTML = enemyMonster.name;
     playerMonster = player.team.roster[0];
     renderedSprites = [enemyMonster, playerMonster];

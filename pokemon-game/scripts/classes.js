@@ -81,10 +81,12 @@ class Sprite {
 class Monster extends Sprite {
     constructor({ 
         position, 
-        image, 
+        image,
         icon,
         frames = { max: 1, hold: 10 }, 
-        sprites, 
+        sprites,
+        frontImage,
+        backImage, 
         animate, 
         rotation = 0,
         isEnemy = false, 
@@ -123,7 +125,62 @@ class Monster extends Sprite {
         this.isEnemy = isEnemy
         this.name = name
         this.attacks = attacks
+        this.frontImage = frontImage
+        this.backImage = backImage
     }
+
+    drawMonster() {
+        c.save()
+        c.translate(
+            this.position.x + this.width / 2, 
+            this.position.y + this.height / 2
+        )
+        c.rotate(this.rotation)
+        c.translate(
+            -this.position.x - this.width / 2, 
+            -this.position.y - this.height / 2
+        )
+        c.globalAlpha = this.opacity
+        if(this.frontImage){
+            c.drawImage(
+                this.image, 
+                0,
+                this.frames.val * 86,
+                this.image.width / this.frames.max, 
+                this.image.height / this.frames.max,
+                this.position.x,
+                this.position.y,
+                this.image.width / this.frames.max,
+                this.image.height / this.frames.max
+            );
+        } else if(this.backImage){
+            c.drawImage(
+                this.image, 
+                86,
+                this.frames.val * 86,
+                this.image.width / this.frames.max, 
+                this.image.height / this.frames.max,
+                this.position.x,
+                this.position.y,
+                this.image.width / this.frames.max,
+                this.image.height / this.frames.max
+            );
+        }
+       
+        c.restore()
+        
+        if(!this.animate) return
+
+        if(this.frames.max > 1) {
+            this.frames.elapsed ++
+        }
+
+        if(this.frames.elapsed % this.frames.hold === 0) {
+            if(this.frames.val < this.frames.max - 1) this.frames.val++
+            else this.frames.val = 0  
+            }
+    }
+
     faint() {
         let message; 
         

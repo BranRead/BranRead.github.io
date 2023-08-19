@@ -95,7 +95,14 @@ let playerPosition;
         y: (canvas.height / 2) - (68 / 2)
     };
 
-    team.roster.push(new Monster(monsters.Emby));
+    team.roster.push(new Monster(monsters.Axy));
+    team.roster[0].frontImage = false;
+    team.roster[0].backImage = true;
+    team.roster[0].position = {
+                x: 280,
+                y: 325
+            };
+
         
 // } else {
 //     let save = JSON.parse(localStorage.getItem("monsterGame"));

@@ -22,6 +22,8 @@ class Person extends Sprite{
         this.team = team;
         this.inventory = inventory;
     }
+
+   
     
     save(){
         player.team.roster.forEach(monster => {

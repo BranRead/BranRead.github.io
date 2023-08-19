@@ -5,7 +5,7 @@ function animateBattle() {
     battleBackground.draw();
     
     renderedSprites.forEach((sprite) => {
-        sprite.draw()
+        sprite.drawMonster()
     })
 }
 
