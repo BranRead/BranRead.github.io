@@ -1,157 +1,55 @@
-const embyBack = new Image();
-embyBack.src = '/pokemon-game/img/embyBack.png';
+const axyImage = new Image();
+axyImage.src = '/pokemon-game/img/monsterSpriteSheets/axy.png';
 
-const embyFront = new Image();
-embyFront.src = '/pokemon-game/img/embyBack.png';
+const axyBlueImage = new Image();
+axyBlueImage.src = '/pokemon-game/img/monsterSpriteSheets/axyBlue.png';
 
-const wyvyBack = new Image();
-wyvyBack.src = '/pokemon-game/img/wyvyBack.png';
+const bambooImage = new Image();
+bambooImage.src = '/pokemon-game/img/monsterSpriteSheets/bamboo.png';
 
-const wyvyFront = new Image();
-wyvyFront.src = '/pokemon-game/img/wyvyFront.png';
+const bambooYellowImage = new Image();
+bambooYellowImage.src = '/pokemon-game/img/monsterSpriteSheets/bambooYellow.png';
 
-const slimeBack = new Image();
-slimeBack.src = '/pokemon-game/img/slimeBack.png';
+const butterflyImage = new Image();
+butterflyImage.src = '/pokemon-game/img/monsterSpriteSheets/butterfly.png';
 
-const slimeFront = new Image();
-slimeFront.src = '/pokemon-game/img/slimeFront.png';
+const butterflyBlueImage = new Image();
+butterflyBlueImage.src = '/pokemon-game/img/monsterSpriteSheets/butterflyBlue.png';
 
-const axolotImage = new Image();
-axolotImage.src = '/pokemon-game/img/axy.png'
+const cyclopeImage = new Image();
+cyclopeImage.src = '/pokemon-game/img/monsterSpriteSheets/cyclope.png';
+
+const draggleImage = new Image();
+draggleImage.src = '/pokemon-game/img/monsterSpriteSheets/draggle.png';
+
+const embyImage = new Image();
+embyImage.src = '/pokemon-game/img/monsterSpriteSheets/emby.png';
+
+const skullImage = new Image();
+skullImage.src = '/pokemon-game/img/monsterSpriteSheets/skull.png';
+
+const skullBlueImage = new Image();
+skullBlueImage.src = '/pokemon-game/img/monsterSpriteSheets/skullBlue.png';
+
+const spiritImage = new Image();
+spiritImage.src = '/pokemon-game/img/monsterSpriteSheets/spirit.png';
+
+const spiritRedImage = new Image();
+spiritRedImage.src = '/pokemon-game/img/monsterSpriteSheets/spiritRed.png';
 
 const monsters = {
-    // Emby: {
-    //     position: {
-    //         x: 280,
-    //         y: 325
-    //     },
-    //     image: embyBack,
-    //     icon: "/pokemon-game/img/iconEmby.png",
-    //     frames: {
-    //         max: 4,
-    //         hold: 30
-    //     },
-    //     sprites: {
-    //         backImage: embyBack,
-    //         frontImage: embyFront
-    //     },
-    //     animate: true,
-    //     isEnemy: false,
-    //     name: 'Emby',
-    //     attacks: [attacks.Tackle, attacks.Fireball, attacks.DisarmingLook, attacks.SleepCharm],
-    //     stats: {
-    //         hp: 100,
-    //         maxHP: 100,
-    //         atk: 10,
-    //         tempAtk: 0,
-    //         def: 10,
-    //         tempDef: 0,
-    //         magAtk: 10,
-    //         tempMagAtk: 0,
-    //         magDef: 10,
-    //         tempMagDef: 0,
-    //         spd: 10,
-    //         tempSpd: 0,
-    //         friend: 50,
-    //         tempFriend: 0,
-    //         level: 1,
-    //         currentEXP: 0,
-    //         toNextLevelEXP: 10
-    //     }
-    // },
-
-    // Wyvy: {
-    //     position: {
-    //         x: 800,
-    //         y: 100
-    //     },
-    //     image: wyvyFront,
-    //     icon: "/pokemon-game/img/iconWyvy.png",
-    //     frames: {
-    //         max: 4,
-    //         hold: 30
-    //     },
-    //     sprites: {
-    //         backImage: wyvyBack,
-    //         frontImage: wyvyFront
-    //     },
-    //     animate: true,
-    //     isEnemy: true,
-    //     name: 'Wyvy',
-    //     attacks: [attacks.Tackle, attacks.Fireball],
-    //     stats: {
-    //         hp: 100,
-    //         maxHP: 100,
-    //         atk: 10,
-    //         tempAtk: 0,
-    //         def: 10,
-    //         tempDef: 0,
-    //         magAtk: 10,
-    //         tempMagAtk: 0,
-    //         magDef: 10,
-    //         tempMagDef: 0,
-    //         spd: 50,
-    //         tempSpd: 0,
-    //         friend: 10,
-    //         tempFriend: 0,
-    //         level: 1,
-    //         currentEXP: 0,
-    //         toNextLevelEXP: 10
-    //     }
-    // },
-
-    // Slime: {
-    //     position: {
-    //         x: 800,
-    //         y: 100
-    //     },
-    //     image: slimeFront,
-    //     icon: "/pokemon-game/img/iconEmby.png",
-    //     frames: {
-    //         max: 4,
-    //         hold: 30
-    //     },
-    //     sprites: {
-    //         backImage: slimeBack,
-    //         frontImage: slimeFront
-    //         },
-    //     animate: true,
-    //     isEnemy: true,
-    //     name: 'Slime',
-    //     attacks: [attacks.Tackle, attacks.Fireball],
-    //     stats: {
-    //         hp: 100,
-    //         maxHP: 100,
-    //         atk: 10,
-    //         tempAtk: 0,
-    //         def: 10,
-    //         tempDef: 0,
-    //         magAtk: 10,
-    //         tempMagAtk: 0,
-    //         magDef: 10,
-    //         tempMagDef: 0,
-    //         spd: 50,
-    //         tempSpd: 0,
-    //         friend: 10,
-    //         tempFriend: 0,
-    //         level: 1,
-    //         currentEXP: 0,
-    //         toNextLevelEXP: 10
-    //     }
-    // },
-
     Axy: {
         position: {
             x: 800,
             y: 100
         },
-        image: axolotImage,
-        icon: "/pokemon-game/img/iconEmby.png",
+        image: axyImage,
+        icon: "/pokemon-game/img/icons/axyIcon.png",
         frames: {
             max: 4,
             hold: 30
         },
-        sprites: axolotImage,
+        sprites: axyImage,
         frontImage: true,
         backImage: false,
         animate: true,
@@ -169,7 +67,7 @@ const monsters = {
             tempMagAtk: 0,
             magDef: 10,
             tempMagDef: 0,
-            spd: 50,
+            spd: 10,
             tempSpd: 0,
             friend: 10,
             tempFriend: 0,
@@ -177,5 +75,279 @@ const monsters = {
             currentEXP: 0,
             toNextLevelEXP: 10
         }
-    }
+    },
+
+    Bambo: {
+        position: {
+            x: 800,
+            y: 100
+        },
+        image: bambooImage,
+        icon: "/pokemon-game/img/icons/bambooIcon.png",
+        frames: {
+            max: 4,
+            hold: 30
+        },
+        sprites: bambooImage,
+        frontImage: true,
+        backImage: false,
+        animate: true,
+        isEnemy: true,
+        name: 'Bambo',
+        attacks: [attacks.Tackle, attacks.Fireball],
+        stats: {
+            hp: 100,
+            maxHP: 100,
+            atk: 10,
+            tempAtk: 0,
+            def: 10,
+            tempDef: 0,
+            magAtk: 10,
+            tempMagAtk: 0,
+            magDef: 10,
+            tempMagDef: 0,
+            spd: 10,
+            tempSpd: 0,
+            friend: 10,
+            tempFriend: 0,
+            level: 1,
+            currentEXP: 0,
+            toNextLevelEXP: 10
+        }
+    },
+
+    Boscis: {
+        position: {
+            x: 800,
+            y: 100
+        },
+        image: butterflyImage,
+        icon: "/pokemon-game/img/icons/butterflyIcon.png",
+        frames: {
+            max: 4,
+            hold: 30
+        },
+        sprites: butterflyImage,
+        frontImage: true,
+        backImage: false,
+        animate: true,
+        isEnemy: true,
+        name: 'Boscis',
+        attacks: [attacks.Tackle, attacks.Fireball],
+        stats: {
+            hp: 100,
+            maxHP: 100,
+            atk: 10,
+            tempAtk: 0,
+            def: 10,
+            tempDef: 0,
+            magAtk: 10,
+            tempMagAtk: 0,
+            magDef: 10,
+            tempMagDef: 0,
+            spd: 10,
+            tempSpd: 0,
+            friend: 10,
+            tempFriend: 0,
+            level: 1,
+            currentEXP: 0,
+            toNextLevelEXP: 10
+        }
+    },
+
+    Cranio: {
+        position: {
+            x: 800,
+            y: 100
+        },
+        image: skullImage,
+        icon: "/pokemon-game/img/icons/skullIcon.png",
+        frames: {
+            max: 4,
+            hold: 30
+        },
+        sprites: skullImage,
+        frontImage: true,
+        backImage: false,
+        animate: true,
+        isEnemy: true,
+        name: 'Cranio',
+        attacks: [attacks.Tackle, attacks.Fireball],
+        stats: {
+            hp: 100,
+            maxHP: 100,
+            atk: 10,
+            tempAtk: 0,
+            def: 10,
+            tempDef: 0,
+            magAtk: 10,
+            tempMagAtk: 0,
+            magDef: 10,
+            tempMagDef: 0,
+            spd: 10,
+            tempSpd: 0,
+            friend: 10,
+            tempFriend: 0,
+            level: 1,
+            currentEXP: 0,
+            toNextLevelEXP: 10
+        }
+    },
+
+    Draggle: {
+        position: {
+            x: 800,
+            y: 100
+        },
+        image: draggleImage,
+        icon: "/pokemon-game/img/icons/draggleIcon.png",
+        frames: {
+            max: 4,
+            hold: 30
+        },
+        sprites: draggleImage,
+        frontImage: true,
+        backImage: false,
+        animate: true,
+        isEnemy: true,
+        name: 'Draggle',
+        attacks: [attacks.Tackle, attacks.Fireball],
+        stats: {
+            hp: 100,
+            maxHP: 100,
+            atk: 10,
+            tempAtk: 0,
+            def: 10,
+            tempDef: 0,
+            magAtk: 10,
+            tempMagAtk: 0,
+            magDef: 10,
+            tempMagDef: 0,
+            spd: 10,
+            tempSpd: 0,
+            friend: 10,
+            tempFriend: 0,
+            level: 1,
+            currentEXP: 0,
+            toNextLevelEXP: 10
+        }
+    },
+
+    Emby: {
+        position: {
+            x: 280,
+            y: 325
+        },
+        image: embyImage,
+        icon: "/pokemon-game/img/icons/embyIcon.png",
+        frames: {
+            max: 4,
+            hold: 30
+        },
+        sprites: embyImage,
+        frontImage: true,
+        backImage: false,
+        animate: true,
+        isEnemy: false,
+        name: 'Emby',
+        attacks: [attacks.Tackle, attacks.Fireball, attacks.DisarmingLook, attacks.SleepCharm],
+        stats: {
+            hp: 100,
+            maxHP: 100,
+            atk: 10,
+            tempAtk: 0,
+            def: 10,
+            tempDef: 0,
+            magAtk: 10,
+            tempMagAtk: 0,
+            magDef: 10,
+            tempMagDef: 0,
+            spd: 10,
+            tempSpd: 0,
+            friend: 10,
+            tempFriend: 0,
+            level: 1,
+            currentEXP: 0,
+            toNextLevelEXP: 10
+        }
+    },
+
+    Spookli: {
+        position: {
+            x: 800,
+            y: 100
+        },
+        image: spiritImage,
+        icon: "/pokemon-game/img/icons/spiritIcon.png",
+        frames: {
+            max: 4,
+            hold: 30
+        },
+        sprites: spiritImage,
+        frontImage: true,
+        backImage: false,
+        animate: true,
+        isEnemy: true,
+        name: 'Spookli',
+        attacks: [attacks.Tackle, attacks.Fireball],
+        stats: {
+            hp: 100,
+            maxHP: 100,
+            atk: 10,
+            tempAtk: 0,
+            def: 10,
+            tempDef: 0,
+            magAtk: 10,
+            tempMagAtk: 0,
+            magDef: 10,
+            tempMagDef: 0,
+            spd: 10,
+            tempSpd: 0,
+            friend: 10,
+            tempFriend: 0,
+            level: 1,
+            currentEXP: 0,
+            toNextLevelEXP: 10
+        }
+    },
+
+    UnoUne: {
+        position: {
+            x: 800,
+            y: 100
+        },
+        image: cyclopeImage,
+        icon: "/pokemon-game/img/icons/cyclopeIcon.png",
+        frames: {
+            max: 4,
+            hold: 30
+        },
+        sprites: cyclopeImage,
+        frontImage: true,
+        backImage: false,
+        animate: true,
+        isEnemy: true,
+        name: 'Uno-Une',
+        attacks: [attacks.Tackle, attacks.Fireball],
+        stats: {
+            hp: 100,
+            maxHP: 100,
+            atk: 10,
+            tempAtk: 0,
+            def: 10,
+            tempDef: 0,
+            magAtk: 10,
+            tempMagAtk: 0,
+            magDef: 10,
+            tempMagDef: 0,
+            spd: 10,
+            tempSpd: 0,
+            friend: 10,
+            tempFriend: 0,
+            level: 1,
+            currentEXP: 0,
+            toNextLevelEXP: 10
+        }
+    },
+    
 }

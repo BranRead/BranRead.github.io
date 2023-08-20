@@ -1,21 +1,23 @@
-
-
 function animateBattle() {
     battleAnimationId = window.requestAnimationFrame(animateBattle)
     battleBackground.draw();
     
-    renderedSprites.forEach((sprite) => {
+    renderedMonsters.forEach((sprite) => {
         sprite.drawMonster()
+    })
+
+    renderedAttacks.forEach((sprite) => {
+        sprite.draw()
     })
 }
 
-function animateAttack(attack, user, target, renderedSprites, healthBar, rotation) {
+function animateAttack(attack, user, target, renderedAttacks, healthBar, rotation) {
     switch(attack.name) {
         //Switch statement for animations
         case 'Fireball':
         audio.initFireball.play()
         const fireballImage = new Image();
-        fireballImage.src="/pokemon-game/img/fireball.png"
+        fireballImage.src="/pokemon-game/img/attacks/fireball.png"
 
             const fireball = new Sprite({
                 position: {
@@ -31,7 +33,7 @@ function animateAttack(attack, user, target, renderedSprites, healthBar, rotatio
                 rotation
             })
             
-            renderedSprites.splice(1, 0, fireball)
+            renderedAttacks.splice(0, 0, fireball)
 
             gsap.to(fireball.position, {
                 x: target.position.x,
@@ -39,7 +41,7 @@ function animateAttack(attack, user, target, renderedSprites, healthBar, rotatio
                 onComplete: () => {
                     //Enemy actually gets hit
                     audio.fireballHit.play()
-                    renderedSprites.splice(1, 1)
+                    renderedAttacks.splice(0, 1)
                     gsap.to(healthBar, {
                         width: target.stats.hp + '%'
                     })
@@ -116,12 +118,11 @@ function animateAttack(attack, user, target, renderedSprites, healthBar, rotatio
 }
 
 function startTurn(selectedAttack){
-    
-    let ranAtk = Math.floor(Math.random() * (enemyMonster.attacks.length))
+    document.querySelector("#goBack").style.display = "none";
+    let ranAtk = Math.floor(Math.random() * (enemyMonster.attacks.length));
     let turnOrder = [];
 
     if(!player.otherAction) {
-       
         if(enemyMonster.stats.spd > playerMonster.stats.spd){
             turnOrder.push(enemyMonster);
             turnOrder.push(playerMonster);
@@ -138,36 +139,41 @@ function startTurn(selectedAttack){
                 turnOrder.push(playerMonster);
             }
         }
+        turnOrder.forEach(monster => {
+            if(monster == playerMonster){
+                playerMonster.attacking = true;
+                queue.push(() => {
+                    playerMonster.attack({
+                        attack: selectedAttack,
+                        renderedAttacks
+                    })
+                },
+                () => {
+                    faintCheck(enemyMonster);
+                })
+            } else {
+                playerMonster.attacking = false;
+                queue.push(() => {
+                    enemyMonster.attack({
+                        attack: enemyMonster.attacks[ranAtk],
+                        renderedAttacks
+                    })
+                },
+                () => {
+                    faintCheck(playerMonster);
+                }) 
+            }
+        })
     } else {
-        turnOrder.push(enemyMonster);
+        playerMonster.attacking = false;
+        queue.push(() => {
+            faintCheck(playerMonster);
+        }) 
+        enemyMonster.attack({
+            attack: enemyMonster.attacks[ranAtk],
+            renderedAttacks
+        })
     }
-
-    turnOrder.forEach(monster => {
-        if(monster == playerMonster){
-            playerMonster.attacking = true;
-            queue.push(() => {
-                playerMonster.attack({
-                    attack: selectedAttack,
-                    renderedSprites
-                })
-            },
-            () => {
-                faintCheck(enemyMonster);
-            })
-        } else {
-            playerMonster.attacking = false;
-            queue.push(() => {
-                enemyMonster.attack({
-                    attack: enemyMonster.attacks[ranAtk],
-                    renderedSprites
-                })
-            },
-            () => {
-                faintCheck(playerMonster);
-            }) 
-        }
-    })
-
     if(!player.otherAction){
         queue[0]()
         queue.shift()
@@ -201,17 +207,50 @@ function endBattle(message){
 
 function faintCheck(target){
     if(target.stats.hp <= 0){
-        player.monsterFainted = true;
-        endQueue.push(() => {target.faint()})
-        document.querySelector('#dialogueBox').innerHTML = 
-                `${target.name} took ${target.damage} points of damage,
-                they have no more HP left.`
+        if(target == playerMonster){
+            endQueue.push(() => {target.faint()})
+            document.querySelector('#dialogueBox').innerHTML = 
+                    `${target.name} took ${target.damage} points of damage,
+                    they have no more HP left.`
+        } else if(target == enemyMonster){
+            endQueue.push(() => {expYield()}, () => {target.faint()})
+            document.querySelector('#dialogueBox').innerHTML = 
+                    `${target.name} took ${target.damage} points of damage,
+                    they have no more HP left.`
+        }
+        
     } else {
         document.querySelector('#dialogueBox').innerHTML = 
         `${target.name} took ${target.damage} points of damage!`
         if(queue.length == 1){
             battleOptions();
         }
+    }
+}
+
+function levelUp(){
+
+}
+
+function expYield(){
+    let exp = enemyMonster.stats.level * 5;
+    playerMonster.stats.currentEXP += exp;
+    if(playerMonster.stats.currentEXP >= playerMonster.stats.toNextLevelExp){
+        queue.push(() => {
+            levelUp()
+        })
+        playerMonster.stats.level++;
+        dialogueBox.innerHTML = `${playerMonster.name} leveled up to level ${playerMonster.stats.level}.`
+    } else {
+        queue.push(() => {
+            let currentEXP = playerMonster.stats.currentEXP / playerMonster.stats.toNextLevelExp;
+            currentEXP *= 100;
+            gsap.to(playerEXP, {
+                width: currentEXP + '%'
+            })
+            playerEXP.style.width = playerEXPPercent;
+        })
+        dialogueBox.innerHTML = `${playerMonster.name} gained ${exp} EXP.`
     }
 }
 

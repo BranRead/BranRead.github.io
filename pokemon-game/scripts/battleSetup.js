@@ -1,6 +1,7 @@
 const battleBackgroundImage = new Image();
-battleBackgroundImage.src = "/pokemon-game/img/battleBackground.png";
+battleBackgroundImage.src = "/pokemon-game/img/gameWorld/battleBackground.png";
 let dialogBackground = document.querySelector("#dialogBackground")
+const playerEXP = document.querySelector("#playerEXPBar");
 
 
 // let tempFriendship;
@@ -18,7 +19,8 @@ const battleBackground = new Sprite({
 
 let enemyMonster;
 let playerMonster;
-let renderedSprites;
+let renderedMonsters = [];
+let renderedAttacks = [];
 let battleAnimationID;
 
 
@@ -35,21 +37,22 @@ function initBattle() {
     health *= 100;
     roundedHealth = Math.ceil(health);
     healthPercentage = roundedHealth + "%";
+
+    let exp = player.team.roster[0].stats.currentEXP / player.team.roster[0].stats.toNextLevelEXP;
+    exp *= 100;
+    expPercentage = exp + "%"
+    playerEXP.style.width = expPercentage;
     document.querySelector('#playerHealthBar').style.width = healthPercentage;
     document.querySelector('#hpText').innerHTML = healthText;
     document.querySelector('#playerName').innerHTML = player.team.roster[0].name;
     document.querySelector('#attacksBox').replaceChildren();
 
-    // const encounters = ["Wyvy", "Slime"];
+    const encounters = [monsters.Draggle, monsters.Axy, monsters.Bambo, monsters.Boscis, monsters.UnoUne, monsters.Cranio, monsters.Spookli];
 
-    // let ranChance = Math.floor(Math.random() * (100 + 1));
+    let ranIndex = Math.floor(Math.random() * (encounters.length));
 
-    // if(ranChance > 30){
-    //     enemyMonster = new Monster(monsters.Axolot);
-    // } else {
-    //     enemyMonster = new Monster(monsters.Wyvy);
-    // }
-    enemyMonster = new Monster(monsters.Axy)
+    enemyMonster = new Monster(encounters[ranIndex])
+    
     enemyMonster.position =  {
         x: 800,
         y: 100
@@ -57,7 +60,7 @@ function initBattle() {
     enemyMonster.isEnemy = true;
     document.querySelector('#enemyName').innerHTML = enemyMonster.name;
     playerMonster = player.team.roster[0];
-    renderedSprites = [enemyMonster, playerMonster];
+    renderedMonsters = [enemyMonster, playerMonster];
     playerActions = ["Fight", "Use Item", "Befriend", "Flee"];
     queue = [];
     endQueue = [];
@@ -65,3 +68,8 @@ function initBattle() {
 
     battleOptions();
 }
+
+document.querySelector("#goBack").addEventListener("click", () => {
+    document.querySelector("#goBack").style.display = "none";
+    battleOptions();
+})

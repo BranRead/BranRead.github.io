@@ -70,6 +70,7 @@ class Inventory {
                 document.querySelector("#hpText").innerHTML = healthText;
                 player.menuDisplayed = false;
                 closeMenu();
+                console.log(`${player.team.roster[monsterIndex].name} healed ${healedFor} points of damage!`)
                 document.querySelector('#dialogueBox').style.display = 'block'
                 document.querySelector('#dialogueBox').innerHTML = 
                 `${player.team.roster[monsterIndex].name} healed ${healedFor} points of damage!`
@@ -80,7 +81,9 @@ class Inventory {
                         width: player.team.roster[monsterIndex].stats.hp + '%'
                     })
                     player.otherAction = true;
-                    startBattle();
+                    queue.push(() => {
+                        startTurn();
+                    })
                 }
                 break;
                 case "flee":
@@ -123,7 +126,9 @@ class Inventory {
                                 break;
                         }
                         player.otherAction = true;
-                        startBattle();
+                        queue.push(() => {
+                            startTurn();
+                        })
                     }
                     break;
         }

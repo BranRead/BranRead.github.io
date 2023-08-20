@@ -179,10 +179,15 @@ button:hover {
     cursor: pointer;
 }
 
+#goBack {
+    width: 7%;
+    display: none;
+}
+
 #attacksBox {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    width: 66.66%;
+    width: 59.66%;
 }
 
 .monsterInfo {

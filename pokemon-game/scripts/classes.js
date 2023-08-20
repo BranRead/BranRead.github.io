@@ -206,7 +206,7 @@ class Monster extends Sprite {
         endQueue.push(endBattle(message))
     }
 
-    attack({attack, renderedSprites}) {
+    attack({attack, renderedAttacks}) {
         clearDialog();
         let hit = true;
         if(hit && this == playerMonster){
@@ -221,7 +221,7 @@ class Monster extends Sprite {
                 healthBar = '#enemyHealthBar'
                 rotation = 1
 
-                animateAttack(attack, playerMonster, enemyMonster, renderedSprites, healthBar, rotation);
+                animateAttack(attack, playerMonster, enemyMonster, renderedAttacks, healthBar, rotation);
                 
                 document.querySelector('#dialogueBox').style.display = 'block'
                 document.querySelector('#dialogueBox').innerHTML = 
@@ -231,7 +231,6 @@ class Monster extends Sprite {
             let ranNum = (Math.random() * (1 - 0.75 + 1) + 0.75);
             let trueDamage = Math.floor((((playerMonster.stats.atk + playerMonster.stats.tempAtk) / (enemyMonster.stats.def + enemyMonster.stats.tempDef)) * attack.damage) * ranNum)
             
-    
             let healthBar;
             let rotation;
             playerMonster.stats.hp -= trueDamage;
@@ -239,7 +238,7 @@ class Monster extends Sprite {
             healthBar = '#playerHealthBar'
             rotation = 4
 
-            animateAttack(attack, enemyMonster, playerMonster, renderedSprites, healthBar, rotation);
+            animateAttack(attack, enemyMonster, playerMonster, renderedAttacks, healthBar, rotation);
             
             document.querySelector('#dialogueBox').style.display = 'block'
             document.querySelector('#dialogueBox').innerHTML = 

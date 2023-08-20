@@ -64,22 +64,22 @@ for (let i = 0; i < battleZonesData.length; i += 70) {
 const boundaries = [];
 
 const image = new Image();
-image.src = '/pokemon-game/img/New Ridge Town.png';
+image.src = '/pokemon-game/img/gameWorld/newRidgeTown.png';
 
 const foregroundImage = new Image();
-foregroundImage.src = '/pokemon-game/img/foregroundObjects.png';
+foregroundImage.src = '/pokemon-game/img/gameWorld/foregroundObjects.png';
 
 const playerDownImage = new Image();
-playerDownImage.src = '/pokemon-game/img/playerDown.png';
+playerDownImage.src = '/pokemon-game/img/people/playerDown.png';
 
 const playerUpImage = new Image();
-playerUpImage.src = '/pokemon-game/img/playerUp.png';
+playerUpImage.src = '/pokemon-game/img/people/playerUp.png';
 
 const playerLeftImage = new Image();
-playerLeftImage.src = '/pokemon-game/img/playerLeft.png';
+playerLeftImage.src = '/pokemon-game/img/people/playerLeft.png';
 
 const playerRightImage = new Image();
-playerRightImage.src = '/pokemon-game/img/playerRight.png';
+playerRightImage.src = '/pokemon-game/img/people/playerRight.png';
 
 let team = new Team([], 4);
 let inventory = new Inventory([], 10);
@@ -95,7 +95,7 @@ let playerPosition;
         y: (canvas.height / 2) - (68 / 2)
     };
 
-    team.roster.push(new Monster(monsters.Axy));
+    team.roster.push(new Monster(monsters.Emby));
     team.roster[0].frontImage = false;
     team.roster[0].backImage = true;
     team.roster[0].position = {

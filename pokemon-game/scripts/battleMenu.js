@@ -2,10 +2,16 @@
 let befriendMag = 15;
 
 function battleOptions(){
-    const buttonToRemove = document.querySelectorAll('.attackOptions');
-    buttonToRemove.forEach(button => {
+    const attackBtn = document.querySelectorAll('.attackOptions');
+    const commandBtn = document.querySelectorAll('.battleCommands');
+    attackBtn.forEach(button => {
         button.remove();
     })
+    commandBtn.forEach(button => {
+        button.remove();
+    })
+
+   
 
     playerActions.forEach(option => {
         const button = document.createElement("button");
@@ -37,7 +43,8 @@ function battleOptions(){
 function fight(){
     
     clearDialog();
-
+    playerRightImage.otherAction = false;
+    document.querySelector("#goBack").style.display = "block";
     //Adds attack buttons in
     playerMonster.attacks.forEach(attack => {
         const button = document.createElement('button')
@@ -47,7 +54,7 @@ function fight(){
     });
 
     //Our event listeners for buttons
-    document.querySelectorAll('button').forEach(button => {
+    document.querySelectorAll('.attackOptions').forEach(button => {
     button.addEventListener('click', (e) => {
         const selectedAttack = attacks[(e.currentTarget.innerHTML).replace(/\s/g, '')];
         playerMonster.attacking = true; 
@@ -103,8 +110,10 @@ function befriend(){
     enemyMonster.stats.tempFriend += befriendMag;
 
     if((enemyMonster.stats.friend + enemyMonster.stats.tempFriend) < 50) {
-        player.otherAction = true;
-        startTurn();
+        queue.push(() => {
+            player.otherAction = true;
+            startTurn();
+        })
     } else {
         queue.push(() => {
             player.team.roster.push(enemyMonster);
@@ -122,20 +131,20 @@ function befriend(){
     }
 }
 
-
 function flee() {
     let fleeChance = Math.floor(Math.random() * (100) + 1);
     fleeChance -= (enemyMonster.stats.spd) / 4;
     fleeChance += (playerMonster.stats.spd) / 4;
     
-    if(fleeChance > 40) {
+    if(fleeChance > 50) {
         endBattle(`${playerMonster.name} fled`);
     } else {
+        player.otherAction = true;
+        queue.push(() => {
+            startTurn()
+        });
         document.querySelector('#dialogueBox').style.display = 'block';
         document.querySelector('#dialogueBox').innerHTML = `${playerMonster.name} couldn't get away...`;
-        startTurn();
     }
     
 }
-
-
