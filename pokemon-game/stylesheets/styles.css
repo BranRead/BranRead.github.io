@@ -60,6 +60,77 @@ button:hover {
     z-index: 3;
 }
 
+#fullMonsterView {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 324px;
+    padding: 10px;
+    background-color: #F8F8F8;
+    border: 2px solid black;
+}
+
+#fullMonsterView::before {
+    content: "";
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    bottom: 3px;
+    left: 3px;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+#nameType {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#monsterName {
+    width: 33.3%;
+}
+
+#type {
+    width: 33.3%;
+}
+
+#expHP {
+    width: 33.3%;
+}
+
+.hpEXPTextInfo {
+    font-size: 8px !important;
+}
+
+#infoTeam {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: row;
+}
+
+#leftMonViewBox {
+    width: 66.6%;
+}
+
+#spriteAnimate {
+    background-color: black;
+    width: 250px;
+    height: 250px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#rightMonViewBox {
+    width: 33.3%
+}
+
+#flavourText {
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
 #menu-options{
     flex-direction: column;
     background-color: #F8F8F8;
@@ -128,8 +199,16 @@ button:hover {
     font-size: 16px;
 }
 
+.monsterLvlText, .monsterHpText {
+    margin-bottom: 5px;
+}
+
 .healthBackground, .expBackground {
     position: relative;
+}
+
+.healthBackgroundTeam, .expBackgroundTeam {
+    margin-bottom: .5rem;
 }
 
 .health, .exp {
@@ -138,7 +217,7 @@ button:hover {
     margin-top: 10px;
 }
 
-#playerHealthBar, #enemyHealthBar, #playerEXPBar {
+.playerHealthBar, #enemyHealthBar, .playerEXPBar {
     height: 5px; 
     position: absolute; 
     top: 0; 
@@ -146,12 +225,12 @@ button:hover {
     right: 0;
 }
 
-#playerHealthBar, #enemyHealthBar {
+.playerHealthBar, #enemyHealthBar {
     background-color: green;
     border-radius: 3px;
 }
 
-#playerEXPBar {
+.playerEXPBar {
     background-color: blue;
     border-radius: 3px;
 }
@@ -197,29 +276,36 @@ button:hover {
     border: 2px solid black;
 }
 
-.monsterImgContainer {
+.imgContainer {
     display: flex;
-    
+    margin-left: 0.65rem;
 }
 
 .monsterImg {
     height: 38px !important;
     width: 38px !important;
-    margin-top: auto;
-    margin-bottom: auto;
+    align-self: center;
+}
+
+.monsterNameDiv {
+    display: flex;
+    width: 50%
 }
 
 .monsterName {
-    width: 35%;
+    width: 100%;
     margin-left: 1rem;
+    align-self: center;
 }
 
-.teamOptions {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+.statDisplay {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-end;
     font-size: 8px;
     text-align: center;
-    width: 50%;
+    width: 30%;
+    margin-right: 0.65rem;
 }
 
 .teamOptions > button {

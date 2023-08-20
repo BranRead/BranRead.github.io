@@ -188,10 +188,11 @@ function endBattle(message){
                 window.cancelAnimationFrame(battleAnimationID);
                 animate();
                 document.querySelector('#userInterface').style.display = 'none'
-    
                 gsap.to('#overlappingDiv', {
                     opacity: 0,
                 })
+                queue = [];
+                endQueue = [];
                 c.translate(canvasMove.x, canvasMove.y);
                 dialogBackground.style.display = "none"
                 battleBackground.opacity = 0;   
@@ -242,13 +243,12 @@ function expYield(){
         playerMonster.stats.level++;
         dialogueBox.innerHTML = `${playerMonster.name} leveled up to level ${playerMonster.stats.level}.`
     } else {
-        queue.push(() => {
-            let currentEXP = playerMonster.stats.currentEXP / playerMonster.stats.toNextLevelExp;
+        endQueue.splice(1, 0, () => {
+            let currentEXP = playerMonster.stats.currentEXP / playerMonster.stats.toNextLevelEXP;
             currentEXP *= 100;
             gsap.to(playerEXP, {
                 width: currentEXP + '%'
             })
-            playerEXP.style.width = playerEXPPercent;
         })
         dialogueBox.innerHTML = `${playerMonster.name} gained ${exp} EXP.`
     }

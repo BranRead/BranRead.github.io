@@ -57,9 +57,16 @@ function initBattle() {
         x: 800,
         y: 100
     }
+    
+
     enemyMonster.isEnemy = true;
     document.querySelector('#enemyName').innerHTML = enemyMonster.name;
     playerMonster = player.team.roster[0];
+    playerMonster.position = {
+        x: 280,
+        y: 325
+    }
+    playerMonster.opacity = 1;
     renderedMonsters = [enemyMonster, playerMonster];
     playerActions = ["Fight", "Use Item", "Befriend", "Flee"];
     queue = [];

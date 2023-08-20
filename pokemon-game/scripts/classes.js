@@ -212,20 +212,17 @@ class Monster extends Sprite {
         if(hit && this == playerMonster){
             let ranNum = (Math.random() * (1 - 0.75 + 1) + 0.75);
             let trueDamage = Math.floor((((playerMonster.stats.atk + playerMonster.stats.tempAtk) / (enemyMonster.stats.def + enemyMonster.stats.tempDef)) * attack.damage) * ranNum)
+            let healthBar;
+            let rotation;
+            enemyMonster.stats.hp -= trueDamage;
+            enemyMonster.damage = trueDamage;
+            healthBar = '#enemyHealthBar'
+            rotation = 1
+            animateAttack(attack, playerMonster, enemyMonster, renderedAttacks, healthBar, rotation);
             
-    
-                let healthBar;
-                let rotation;
-                enemyMonster.stats.hp -= trueDamage;
-                enemyMonster.damage = trueDamage;
-                healthBar = '#enemyHealthBar'
-                rotation = 1
-
-                animateAttack(attack, playerMonster, enemyMonster, renderedAttacks, healthBar, rotation);
-                
-                document.querySelector('#dialogueBox').style.display = 'block'
-                document.querySelector('#dialogueBox').innerHTML = 
-                `${playerMonster.name} used ${attack.name}!`
+            document.querySelector('#dialogueBox').style.display = 'block'
+            document.querySelector('#dialogueBox').innerHTML = 
+            `${playerMonster.name} used ${attack.name}!`
            
         } else if (hit && this == enemyMonster) {
             let ranNum = (Math.random() * (1 - 0.75 + 1) + 0.75);

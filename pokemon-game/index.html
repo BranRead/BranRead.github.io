@@ -10,8 +10,12 @@ Rework the sprite animation to accomodate the spritesheets DONE
 More monsters added DONE
 Make back button for attacks DONE
 fix befriend and flee functions DONE
+fixed animation for exp DONE
 
 Make better UI for monster team
+Make the fullscreen version of the UI
+
+
 Make better UI for items
 
 Settings
@@ -41,6 +45,56 @@ Make building enterable **This might as well come later so I can make the map be
         <button class="menu-item">Save</button>
         <button class="menu-item">Quit</button>
     </div>
+
+    <div id="fullMonsterView">
+        <div id="nameType">
+            <div id="monsterName"><h3>Emby</h3></div>
+            <div id="type">Fire</div>
+            <div id="expHP">
+                <div>
+                    <p class="monsterHP">HP</p>
+                    <p class="hpEXPTextInfo">100/100</p>
+                    <div class="healthBackground">
+                        <div class="health"></div>
+                        <div class="playerHealthBar"></div>
+                    </div>
+                </div>
+                <div>
+                    <p class="monsterLvl">EXP</p>
+                    <p class="hpEXPTextInfo">0/10</p>
+                    <div class="expBackground">
+                        <div class="exp"></div>
+                        <div class="playerEXPBar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="infoTeam">
+            <div id="leftMonViewBox">
+                <div id="topMonViewBox">
+                    <div id="spriteAnimate"></div>
+            
+                </div>
+                <div id="flavourText">
+                    <p>This is Emby. They are a wisp of flame given life by some unknown force. They develop close bonds with their friends and like to help out.</p>
+                </div>
+            </div>
+            <div id="rightMonViewBox">
+                <div id="stats">
+                    <p>HP: 100</p>
+                    <p>Attack: 10</p>
+                    <p>Defense: 10</p>
+                    <p>Magical Attack: 10</p>
+                    <p>Magical Defense: 10</p>
+                    <p>Speed: 10</p>
+                </div>
+                <div id="release">
+                    <button>Release</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
     
     <canvas></canvas>
 
@@ -59,13 +113,13 @@ Make building enterable **This might as well come later so I can make the map be
             <h1 id="playerName"></h1>
             <div class="healthBackground" style="position: relative;">
                 <div class="health"></div>
-                <div id="playerHealthBar"></div>
+                <div class="playerHealthBar"></div>
             </div>
             <div id="hpTextBackground"><p id="hpText">100/100</p></div>
 
             <div class="expBackground" style="position: relative;">
                 <div class="exp"></div>
-                <div id="playerEXPBar"></div>
+                <div class="playerEXPBar"></div>
             </div>
         </div>
 

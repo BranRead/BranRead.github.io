@@ -68,57 +68,107 @@ class Team{
             
             this.roster.forEach((monster, index) => {
                 const monsterBlock = document.createElement('div');
-                const monsterImgContainer = document.createElement('div');
-                const monsterImg = document.createElement('img');
-                const monsterName = document.createElement('h3');
-                const monsterOptions = document.createElement('div');
-                monsterOptions.className = "teamOptions"
-                const monsterLevel = document.createElement('p');
-                const monsterHP = document.createElement('p');
-                const monsterSwitch = document.createElement('button');
-                const monsterDelete = document.createElement('button');
-
-                monsterImgContainer.className = "imgContainer";
-                monsterImg.src = monster.icon;
-                monsterImg.className = "monsterImg"
-                monsterLevel.innerHTML = `Lvl: ${monster.stats.level}`;
-                monsterHP.innerHTML = `HP: ${monster.stats.hp}/${monster.stats.maxHP}`;
-                monsterSwitch.innerHTML = "Switch";
-                monsterDelete.innerHTML = "Release";
-                monsterName.className = "monsterName";
                 monsterBlock.className = "monsterInfo toRemove";
                 monsterBlock.value = index;
-                monsterSwitch.className = "newBtn";
-                monsterDelete.className = "releaseBtn";
+                monsterBlock.style.order = index;
+
+                const monsterImgContainer = document.createElement('div');
+                monsterImgContainer.className = "imgContainer";
+
+                const monsterImg = document.createElement('img');
+                monsterImg.src = monster.icon;
+                monsterImg.className = "monsterImg"
+
+                const monsterNameDiv = document.createElement('div');
+                monsterNameDiv.className = "monsterNameDiv";
+
+                const monsterName = document.createElement('h3');
+                monsterName.className = "monsterName";
                 monsterName.innerHTML = monster.name;
+
+                const statDisplay = document.createElement('div');
+                statDisplay.className = "statDisplay"
+
+                const lvlDiv = document.createElement('div');
+                const hpDiv = document.createElement('div');
+
+                const expBarDiv = document.createElement('div');
+                expBarDiv.classList.add("expBackground", "expBackgroundTeam"); 
+                const hpBarDiv = document.createElement('div');
+                hpBarDiv.classList.add("healthBackground", "healthBackgroundTeam");
+                
+                const expBarBackground = document.createElement('div');
+                expBarBackground.className = "exp"
+                const hpBarBackground = document.createElement('div');
+                hpBarBackground.className = "health"
+              
+                const expBar = document.createElement('div');
+                expBar.className = "playerEXPBar";
+                let exp = monster.stats.currentEXP / monster.stats.toNextLevelEXP;
+                exp *= 100;
+                expBar.style.width = `${exp}%`;
+                const hpBar = document.createElement('div');
+                hpBar.className = "playerHealthBar";
+                let hp = monster.stats.hp / monster.stats.maxHP;
+                hp *= 100;
+                hpBar.style.width = `${hp}%`;
+
+                const monsterLevel = document.createElement('p');
+                monsterLevel.className = "monsterLvlText"
+                monsterLevel.innerHTML = `Lvl: ${monster.stats.level}`;
+
+                const monsterHP = document.createElement('p');
+                monsterHP.className = "monsterHpText"
+                monsterHP.innerHTML = `HP: ${monster.stats.hp}/${monster.stats.maxHP}`;
 
                 monsterImgContainer.append(monsterImg);
                 monsterBlock.append(monsterImgContainer);
-                monsterBlock.append(monsterName);
-                monsterBlock.style.order = index;
+                monsterNameDiv.append(monsterName);
+                monsterBlock.append(monsterNameDiv);
 
-                monsterOptions.append(monsterLevel);
-                monsterOptions.append(monsterHP);
-                monsterOptions.append(monsterSwitch);
-                monsterOptions.append(monsterDelete);
+                lvlDiv.append(monsterLevel);
+                expBarDiv.append(expBarBackground);
+                expBarDiv.append(expBar);
+                lvlDiv.append(expBarDiv);
 
-                monsterBlock.append(monsterOptions);
-                
+                hpDiv.append(monsterHP);
+                hpBarDiv.append(hpBarBackground);
+                hpBarDiv.append(hpBar);
+                hpDiv.append(hpBarDiv);
+
+                statDisplay.append(lvlDiv);
+                statDisplay.append(hpDiv);
+                monsterBlock.append(statDisplay);
                 document.querySelector('#menu-options').append(monsterBlock);
-            })
-
-            document.querySelectorAll(".newBtn").forEach(button => {
-                button.addEventListener('click', (e) => {
-                    this.switchMonster(e);
-                })
-            })
-
-            document.querySelectorAll(".releaseBtn").forEach(button => {
-                button.addEventListener('click', (e) => {
-                    this.removeMonster(e);
+                monsterBlock.addEventListener('click', () => {
+                    
                 })
             })
         }
+    }
+
+    //In depth menu
+    teamMenu(){
+        // const monsterSwitch = document.createElement('button');
+        // const monsterDelete = document.createElement('button');
+
+        // monsterSwitch.innerHTML = "Switch";
+        // monsterDelete.innerHTML = "Release";
+
+        // monsterSwitch.className = "newBtn";
+        // monsterDelete.className = "releaseBtn";
+
+        // document.querySelectorAll(".newBtn").forEach(button => {
+        //     button.addEventListener('click', (e) => {
+        //         this.switchMonster(e);
+        //     })
+        // })
+
+        // document.querySelectorAll(".releaseBtn").forEach(button => {
+        //     button.addEventListener('click', (e) => {
+        //         this.removeMonster(e);
+        //     })
+        // })
     }
     
 }
