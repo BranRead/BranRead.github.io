@@ -61,14 +61,17 @@ button:hover {
 }
 
 #fullMonsterView {
+    display: none;
+    z-index: 3;
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 324px;
-    padding: 10px;
+    padding: 5px;
     background-color: #F8F8F8;
     border: 2px solid black;
+    font-size: 8px;
 }
 
 #fullMonsterView::before {
@@ -82,53 +85,97 @@ button:hover {
     border-radius: 5px;
 }
 
-#nameType {
+#header {
     display: flex;
     flex-direction: row;
     align-items: center;
+    padding: 1rem;
+    border-bottom: 2px solid black;
+    margin-bottom: 1rem;
+    font-size: 16px;
 }
 
 #monsterName {
-    width: 33.3%;
+    width: 50%;
+    text-align: center;
 }
 
 #type {
-    width: 33.3%;
+    width: 50%;
+    text-align: center;
 }
 
-#expHP {
-    width: 33.3%;
-}
-
-.hpEXPTextInfo {
-    font-size: 8px !important;
-}
-
-#infoTeam {
-    margin-top: 2rem;
+#monDescrip {
     display: flex;
-    flex-direction: row;
-}
-
-#leftMonViewBox {
-    width: 66.6%;
+    flex-direction: column;
+    align-items: center;
 }
 
 #spriteAnimate {
     background-color: black;
-    width: 250px;
-    height: 250px;
+    background-image: url("/pokemon-game/img/icons/embyIcon.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100px;
+    height: 100px;
     margin-left: auto;
     margin-right: auto;
 }
 
-#rightMonViewBox {
-    width: 33.3%
-}
-
 #flavourText {
+    position: relative;
+    width: 50%;
+    height: 75px;
     padding-left: 2rem;
     padding-right: 2rem;
+    border: 2px solid black;
+    margin: 1rem;
+}
+
+#flavourText::before {
+    content: "";
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    bottom: 3px;
+    left: 3px;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+#infoTeam {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#expHP {
+    width: 25%;
+    margin-left: 3rem;
+}
+
+#stats {
+    width: fit-content;
+    margin-right: 3rem;
+}
+
+#toolbarTeam {
+    margin-top: 3rem;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 40px !important;
+}
+
+#release {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#release > button {
+    font-size: 8px;
 }
 
 #menu-options{

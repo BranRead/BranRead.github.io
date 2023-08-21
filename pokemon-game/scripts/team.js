@@ -141,7 +141,7 @@ class Team{
                 monsterBlock.append(statDisplay);
                 document.querySelector('#menu-options').append(monsterBlock);
                 monsterBlock.addEventListener('click', () => {
-                    
+                    this.teamMenu();
                 })
             })
         }
@@ -149,6 +149,7 @@ class Team{
 
     //In depth menu
     teamMenu(){
+        document.querySelector('#fullMonsterView').style.display = "block";
         // const monsterSwitch = document.createElement('button');
         // const monsterDelete = document.createElement('button');
 

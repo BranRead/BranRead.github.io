@@ -7,6 +7,10 @@ const statsSave = []
 let queue = [];
 let endQueue = [];
 
+
+
+
+
 const offset = {
     x: -832,
     y: -230
@@ -323,6 +327,7 @@ let rectDoor = new Rectangle({
 
 
 
+
 function animate() {
     const animationID = window.requestAnimationFrame(animate)
 
@@ -336,6 +341,7 @@ function animate() {
         battleZone.draw()
     });
 
+   
    
     player.draw();
     healer.draw();
