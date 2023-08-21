@@ -136,8 +136,8 @@ class Team{
                 hpBarDiv.append(hpBar);
                 hpDiv.append(hpBarDiv);
 
-                statDisplay.append(lvlDiv);
                 statDisplay.append(hpDiv);
+                statDisplay.append(lvlDiv);
                 monsterBlock.append(statDisplay);
                 document.querySelector('#menu-options').append(monsterBlock);
                 monsterBlock.addEventListener('click', () => {

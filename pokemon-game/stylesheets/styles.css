@@ -170,12 +170,15 @@ button:hover {
 }
 
 #release {
+    font-size: 8px;
+    cursor: pointer;
     margin-left: auto;
     margin-right: auto;
+    z-index: 10;
 }
 
-#release > button {
-    font-size: 8px;
+#release:hover {
+    background-color: #ddd;
 }
 
 #menu-options{
@@ -321,6 +324,7 @@ button:hover {
     flex-direction: row;
     margin-bottom: 1rem;
     border: 2px solid black;
+    cursor: pointer; 
 }
 
 .imgContainer {
