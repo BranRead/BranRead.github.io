@@ -90,8 +90,10 @@ class Monster extends Sprite {
         animate, 
         rotation = 0,
         isEnemy = false, 
+        type,
         name, 
         attacks,
+        about,
         stats = {
             hp: 100,
             maxHP: 100,
@@ -120,29 +122,31 @@ class Monster extends Sprite {
             animate, 
             rotation,
         })
+        this.type = type;
         this.icon = icon;
         this.stats = stats
         this.isEnemy = isEnemy
         this.name = name
         this.attacks = attacks
+        this.about = about
         this.frontImage = frontImage
         this.backImage = backImage
     }
 
-    drawMonster() {
-        c.save()
-        c.translate(
+    drawMonster(context) {
+        context.save()
+        context.translate(
             this.position.x + this.width / 2, 
             this.position.y + this.height / 2
         )
-        c.rotate(this.rotation)
-        c.translate(
+        context.rotate(this.rotation)
+        context.translate(
             -this.position.x - this.width / 2, 
             -this.position.y - this.height / 2
         )
-        c.globalAlpha = this.opacity
+        context.globalAlpha = this.opacity
         if(this.frontImage){
-            c.drawImage(
+            context.drawImage(
                 this.image, 
                 0,
                 this.frames.val * 86,
@@ -154,7 +158,7 @@ class Monster extends Sprite {
                 this.image.height / this.frames.max
             );
         } else if(this.backImage){
-            c.drawImage(
+            context.drawImage(
                 this.image, 
                 86,
                 this.frames.val * 86,
@@ -167,7 +171,7 @@ class Monster extends Sprite {
             );
         }
        
-        c.restore()
+        context.restore()
         
         if(!this.animate) return
 
@@ -232,7 +236,7 @@ class Monster extends Sprite {
             let rotation;
             playerMonster.stats.hp -= trueDamage;
             playerMonster.damage = trueDamage;
-            healthBar = '#playerHealthBar'
+            healthBar = '.playerHealthBar'
             rotation = 4
 
             animateAttack(attack, enemyMonster, playerMonster, renderedAttacks, healthBar, rotation);

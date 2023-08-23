@@ -39,6 +39,7 @@ spiritRedImage.src = '/pokemon-game/img/monsterSpriteSheets/spiritRed.png';
 
 const monsters = {
     Axy: {
+        type: "Water",
         position: {
             x: 800,
             y: 100
@@ -56,6 +57,7 @@ const monsters = {
         isEnemy: true,
         name: 'Axy',
         attacks: [attacks.Tackle, attacks.Fireball],
+        about: "This is Axy. They are a wisp of flame given life by some unknown force. They develop close bonds with their friends and like to help out.",
         stats: {
             hp: 100,
             maxHP: 100,
@@ -78,6 +80,7 @@ const monsters = {
     },
 
     Bambo: {
+        type: "Plant",
         position: {
             x: 800,
             y: 100
@@ -95,6 +98,7 @@ const monsters = {
         isEnemy: true,
         name: 'Bambo',
         attacks: [attacks.Tackle, attacks.Fireball],
+        about: "This is Bambo. They are a wisp of flame given life by some unknown force. They develop close bonds with their friends and like to help out.",
         stats: {
             hp: 100,
             maxHP: 100,
@@ -117,6 +121,7 @@ const monsters = {
     },
 
     Boscis: {
+        type: "Insect",
         position: {
             x: 800,
             y: 100
@@ -134,6 +139,7 @@ const monsters = {
         isEnemy: true,
         name: 'Boscis',
         attacks: [attacks.Tackle, attacks.Fireball],
+        about: "This is Boscis. They are a wisp of flame given life by some unknown force. They develop close bonds with their friends and like to help out.",
         stats: {
             hp: 100,
             maxHP: 100,
@@ -156,6 +162,7 @@ const monsters = {
     },
 
     Cranio: {
+        type: "Ghost",
         position: {
             x: 800,
             y: 100
@@ -173,6 +180,7 @@ const monsters = {
         isEnemy: true,
         name: 'Cranio',
         attacks: [attacks.Tackle, attacks.Fireball],
+        about: "This is Cranio. They are a wisp of flame given life by some unknown force. They develop close bonds with their friends and like to help out.",
         stats: {
             hp: 100,
             maxHP: 100,
@@ -195,6 +203,7 @@ const monsters = {
     },
 
     Draggle: {
+        type: "Dragon",
         position: {
             x: 800,
             y: 100
@@ -212,6 +221,7 @@ const monsters = {
         isEnemy: true,
         name: 'Draggle',
         attacks: [attacks.Tackle, attacks.Fireball],
+        about: "This is Draggle. They are a wisp of flame given life by some unknown force. They develop close bonds with their friends and like to help out.",
         stats: {
             hp: 100,
             maxHP: 100,
@@ -234,6 +244,7 @@ const monsters = {
     },
 
     Emby: {
+        type: "Fire",
         position: {
             x: 280,
             y: 325
@@ -251,6 +262,7 @@ const monsters = {
         isEnemy: false,
         name: 'Emby',
         attacks: [attacks.Tackle, attacks.Fireball, attacks.DisarmingLook, attacks.SleepCharm],
+        about: "This is Emby. They are a wisp of flame given life by some unknown force. They develop close bonds with their friends and like to help out.",
         stats: {
             hp: 100,
             maxHP: 100,
@@ -273,6 +285,7 @@ const monsters = {
     },
 
     Spookli: {
+        type: "Ghost",
         position: {
             x: 800,
             y: 100
@@ -290,6 +303,7 @@ const monsters = {
         isEnemy: true,
         name: 'Spookli',
         attacks: [attacks.Tackle, attacks.Fireball],
+        about: "This is Spookli. They are a wisp of flame given life by some unknown force. They develop close bonds with their friends and like to help out.",
         stats: {
             hp: 100,
             maxHP: 100,
@@ -312,6 +326,7 @@ const monsters = {
     },
 
     UnoUne: {
+        type: "Normal",
         position: {
             x: 800,
             y: 100
@@ -329,6 +344,7 @@ const monsters = {
         isEnemy: true,
         name: 'Uno-Une',
         attacks: [attacks.Tackle, attacks.Fireball],
+        about: "This is Uno-Une. They are a wisp of flame given life by some unknown force. They develop close bonds with their friends and like to help out.",
         stats: {
             hp: 100,
             maxHP: 100,

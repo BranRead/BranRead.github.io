@@ -140,16 +140,58 @@ class Team{
                 statDisplay.append(lvlDiv);
                 monsterBlock.append(statDisplay);
                 document.querySelector('#menu-options').append(monsterBlock);
-                monsterBlock.addEventListener('click', () => {
-                    this.teamMenu();
+                monsterBlock.addEventListener('click', (e) => {
+                    this.teamMenu(player.team.roster[[e.currentTarget.value]]);
                 })
             })
         }
     }
 
     //In depth menu
-    teamMenu(){
+    teamMenu(monster){
+        let menuAnimate;
+        let hpPercent;
+        let expPercent;
+
+        let hp = monster.stats.hp / monster.stats.maxHP;
+        hp *= 100;
+        let exp = monster.stats.currentEXP / monster.stats.toNextLevelEXP;
+        exp *= 100;
+
+        hpPercent = hp + "%";
+        expPercent = exp + "%";
+
         document.querySelector('#fullMonsterView').style.display = "block";
+        document.querySelector('#nameTeamView').innerHTML = monster.name;
+        document.querySelector('#typeTeamView').innerHTML = monster.type;
+        document.querySelector('#flavourTextTeamView').innerHTML = monster.about;
+        document.querySelector('#hpTeamView').innerHTML = `${monster.stats.hp}/${monster.stats.maxHP}`;
+        document.querySelector('#hpBarTeamView').style.width = hpPercent;
+        document.querySelector('#expTeamView').innerHTML = `${monster.stats.currentEXP}/${monster.stats.toNextLevelEXP}`;
+        document.querySelector('#expBarTeamView').style.width = expPercent;
+        document.querySelector('#hpStatsTeamView').innerHTML = `HP: ${monster.stats.hp}`;
+        document.querySelector('#atkStatsTeamView').innerHTML = `Attack: ${monster.stats.atk}`;
+        document.querySelector('#defStatsTeamView').innerHTML = `Defense: ${monster.stats.def}`;
+        document.querySelector('#magAtkStatsTeamView').innerHTML = `Magical Attack: ${monster.stats.magAtk}`;
+        document.querySelector('#magDefStatsTeamView').innerHTML = `Magical Defense: ${monster.stats.magDef}`;
+        document.querySelector('#spdStatsTeamView').innerHTML = `Speed: ${monster.stats.spd}`;
+
+        monster.position = {
+            x: 7,
+            y: 10
+        }
+
+        monster.frontImage = true;
+        monster.backImage = true;
+
+        function animateMenu(){
+            menuAnimate = window.requestAnimationFrame(animateMenu);
+            ctxSprite.clearRect(0, 0, 100, 100);
+            monster.drawMonster(ctxSprite);
+        }
+
+        animateMenu();
+        
         // const monsterSwitch = document.createElement('button');
         // const monsterDelete = document.createElement('button');
 

@@ -8,49 +8,7 @@ class Inventory {
     }
 
     openInventory(){
-        let playerTeamIndex = 0;
-        if(!player.inventoryWindow) {
-            document.querySelectorAll(".menu-item").forEach(item => {
-                item.style.display = "none";
-            })
-            backBtn.style.display = "block";
-
-            document.querySelector("#menu-title").innerHTML = "Inventory";
-            player.inventoryWindow = true;
-
-        
-            player.inventory.items.forEach((item, index) => {
-                const inventoryBtnWrapper = document.createElement('div');
-                const inventoryBtn = document.createElement('button');
-                const inventoryQuantity = document.createElement('p');
-                inventoryBtn.className = "newBtn"
-                inventoryBtn.value = index;
-                inventoryBtn.innerHTML = item.name
-                inventoryQuantity.innerHTML = `x${item.quantity}`;
-                inventoryQuantity.style.marginTop = "auto";
-                inventoryQuantity.style.marginBottom = "auto";
-                inventoryBtnWrapper.append(inventoryBtn);
-                inventoryBtnWrapper.append(inventoryQuantity);
-                inventoryBtnWrapper.className = "toRemove";
-                inventoryBtnWrapper.style.display = 'flex';
-                inventoryBtnWrapper.style.flexDirection = 'row';
-                inventoryBtnWrapper.style.fontSize = '10px';
-
-                document.querySelector('#menu-options').append(inventoryBtnWrapper)
-            })
-
-            document.querySelectorAll(".newBtn").forEach(button => {
-                button.addEventListener('click', () => {
-                    let playerInventoryIndex = button.value;
-                    if(isNaN(playerInventoryIndex)){
-                        console.log("Not a number");
-                    }
-                    
-                    closeMenu();
-                    player.inventory.use(playerTeamIndex, playerInventoryIndex);
-                })
-            })
-        }
+        document.querySelector("#fullInventoryView").style.display = "block";
     }
 
     use(monsterIndex, itemIndex){

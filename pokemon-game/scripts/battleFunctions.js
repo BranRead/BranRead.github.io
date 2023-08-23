@@ -3,7 +3,7 @@ function animateBattle() {
     battleBackground.draw();
     
     renderedMonsters.forEach((sprite) => {
-        sprite.drawMonster()
+        sprite.drawMonster(c)
     })
 
     renderedAttacks.forEach((sprite) => {

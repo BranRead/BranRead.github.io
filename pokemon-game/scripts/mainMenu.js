@@ -30,6 +30,7 @@ function closeMenu(){
     item.remove();
     })
     document.querySelector('#fullMonsterView').style.display = "none";
+    document.querySelector("#fullInventoryView").style.display = "none";
     player.menuDisplayed = false;
     player.teamWindow = false;
     player.inventoryWindow = false;

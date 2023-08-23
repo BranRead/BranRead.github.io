@@ -3,7 +3,8 @@ const items = {
         name: "Health Potion", 
         sprite: null, 
         quantity: 3, 
-        useCategory: "healing", 
+        useCategory: "restore", 
+        description: "A health potion which heals 25 health.",
         strength: 25
     },
 
@@ -11,7 +12,8 @@ const items = {
         name: "Smoke Screen",
         sprite: null,
         quantity: 1,
-        useCategory: "flee"
+        useCategory: "flee",
+        description: "A health potion which heals 25 health.",
     },
 
     WaterStaff: {
@@ -19,6 +21,7 @@ const items = {
         sprite: null,
         quantity: 1,
         useCategory: "attack",
+        description: "A health potion which heals 25 health.",
         durability: 25,
         attack: attacks.WaterStaff
     },
@@ -27,7 +30,8 @@ const items = {
         name: "Atk Boost",
         sprite: null,
         quantity: 1,
-        useCategory: "stat boost",
+        useCategory: "restore",
+        description: "An item which temporarily boosts the attack of a monster by 10 points.",
         boost: {
             stat: "atk",
             amount: 10
@@ -39,6 +43,7 @@ const items = {
         sprite: null,
         quantity: 1,
         useCategory: "stat boost",
+        description: "A health potion which heals 25 health.",
         boost: {
             stat: "def",
             amount: 10
@@ -50,6 +55,7 @@ const items = {
         sprite: null,
         quantity: 1,
         useCategory: "stat boost",
+        description: "A health potion which heals 25 health.",
         boost: {
             stat: "magAtk",
             amount: 10
@@ -61,6 +67,7 @@ const items = {
         sprite: null,
         quantity: 1,
         useCategory: "stat boost",
+        description: "A health potion which heals 25 health.",
         boost: {
             stat: "magDef",
             amount: 10
@@ -72,6 +79,7 @@ const items = {
         sprite: null,
         quantity: 1,
         useCategory: "stat boost",
+        description: "A health potion which heals 25 health.",
         boost: {
             stat: "spd",
             amount: 10

@@ -60,7 +60,7 @@ button:hover {
     z-index: 3;
 }
 
-#fullMonsterView {
+#fullMonsterView, #fullInventoryView {
     display: none;
     z-index: 3;
     position: absolute;
@@ -69,12 +69,12 @@ button:hover {
     bottom: 0;
     left: 324px;
     padding: 5px;
-    background-color: #F8F8F8;
+    background-color: #ADD9F4;
     border: 2px solid black;
     font-size: 8px;
 }
 
-#fullMonsterView::before {
+#fullMonsterView::before, #fullInventoryView::before {
     content: "";
     position: absolute;
     top: 3px;
@@ -85,14 +85,23 @@ button:hover {
     border-radius: 5px;
 }
 
-#header {
+#header, #inventoryHeader {
+    background-color: #9067C6;
     display: flex;
     flex-direction: row;
     align-items: center;
     padding: 1rem;
-    border-bottom: 2px solid black;
+    border-bottom: 4px solid black;
     margin-bottom: 1rem;
     font-size: 16px;
+}
+
+#inventoryHeader {
+    justify-content: space-around;
+}
+
+.inventoryOption {
+    z-index: 3;
 }
 
 #monsterName {
@@ -112,23 +121,23 @@ button:hover {
 }
 
 #spriteAnimate {
-    background-color: black;
-    background-image: url("/pokemon-game/img/icons/embyIcon.png");
-    background-repeat: no-repeat;
-    background-size: cover;
+    border: 4px solid black;
+    border-radius: 5px;
     width: 100px;
     height: 100px;
     margin-left: auto;
     margin-right: auto;
+    background-color: #FFE87C;
 }
 
 #flavourText {
+    background-color: #FFE87C;
     position: relative;
     width: 50%;
     height: 75px;
     padding-left: 2rem;
     padding-right: 2rem;
-    border: 2px solid black;
+    border: 4px solid black;
     margin: 1rem;
 }
 
@@ -161,15 +170,20 @@ button:hover {
 }
 
 #toolbarTeam {
+    margin-top: 4.7rem !important;
+    background-color: #563e77;
     margin-top: 3rem;
     width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
     font-size: 40px !important;
+    border-top: 4px solid black;
 }
 
 #release {
+    background-color: #984447;
+    color: white;
     font-size: 8px;
     cursor: pointer;
     margin-left: auto;
@@ -195,17 +209,68 @@ button:hover {
     border-right: 2px solid black;
 }
 
-#inventoryTitle {
-    font-size: 16px;
-    border-bottom: 2px solid black;
-    text-align: center;
-    padding: 1rem;
+#inventoryBody {
+    position: relative;
+    height: 315px;
+    overflow-y: scroll;
+    z-index: 4;
 }
 
-.inventoryBtn {
-    padding: 0.7rem;
-    border-bottom: 2px solid black;
+#inventoryFooter {
+    position: relative;
+    height: 160px;
+    background-color: #563e77;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top: 4px solid black;
+    z-index: 4;
+    font-size: 16px;
+} 
+
+#itemDescriptionBox {
+    width: 100%;
 }
+
+#itemTitle {
+    text-align: center;
+}
+
+#itemDescription {
+    width: 100% !important;
+    text-align: left;
+    margin-left: 1rem;
+}
+
+.inventoryItem {
+    display: flex;
+    flex-direction: row;
+    font-size: 16px;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.inventoryImg {
+    background-image: url("/pokemon-game/img/inventory/restoration.png");
+    width: 50px;
+    height: 50px;
+    background-size: cover;
+    background-repeat: none;
+    margin-left: 40px;
+}
+
+.inventoryName {
+   margin-left: 150px;
+   width: 300px !important;
+   text-align: left !important;
+}
+
+.inventoryQuantity {
+   margin-right: 40px;
+}
+
+
 
 #userInterface {
     display: none;
@@ -230,7 +295,6 @@ button:hover {
 }
 
 #hpTextBackground {
-    
     width: 40%
 }
 

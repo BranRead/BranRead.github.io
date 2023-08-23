@@ -12,12 +12,13 @@ Make back button for attacks DONE
 fix befriend and flee functions DONE
 fixed animation for exp DONE
 
-Make better UI for monster team
-Make the fullscreen version of the UI
-need to dynamically populate it and change exp
+Make better UI for monster team DONE
+Make the fullscreen version of the UI DONE
+need to dynamically populate it and change exp DONE
+Still need to hook up release button and swap monster order 
+I'll do that after some more work on other things
 
-
-Make better UI for items
+**Make better UI for items**
 
 Settings
 Make building enterable **This might as well come later so I can make the map better at the same time. 
@@ -31,6 +32,27 @@ Make building enterable **This might as well come later so I can make the map be
     <link rel="stylesheet" type="text/css" href="stylesheets/styles.css">
 </head>
 <div id="content">
+
+    <div id="fullInventoryView">
+        <div id="inventoryHeader">
+            <div class="inventoryOption" data-value="restore"><img src="/pokemon-game/img/inventory/restoration.png" alt=""></div>
+            <div class="inventoryOption" data-value="battleItems"><img src="/pokemon-game/img/inventory/battleItems.png" alt=""></div>
+            <div class="inventoryOption" data-value="food"><img src="/pokemon-game/img/inventory/food.png" alt=""></div>
+            <div class="inventoryOption" data-value="valuables"><img src="/pokemon-game/img/inventory/valuables.png" alt=""></div>
+            <div class="inventoryOption" data-value="keyItems"><img src="/pokemon-game/img/inventory/keyItem.png" alt=""></div>
+        </div>
+        <div id="inventoryBody"></div>
+        <div id="inventoryFooter">
+            <div id="itemDescriptionBox">
+                <div id="itemTitle">
+                    <p id="itemTitleText"></p>
+                </div>
+                <div id="itemDescription">
+                    <p id="itemDescriptionText"></p>
+                </div>
+            </div>
+        </div>
+    </div>
     
     <div id="overlappingDiv"></div>
     <div id="menu">
@@ -48,13 +70,13 @@ Make building enterable **This might as well come later so I can make the map be
 
     <div id="fullMonsterView">
         <div id="header">
-            <div id="monsterName"><p>Name: Emby</p></div>
-            <div id="type"><p>Type: Fire</p></div>
+            <div id="monsterName"><p id="nameTeamView">Name: Emby</p></div>
+            <div id="type"><p id="typeTeamView">Type: Fire</p></div>
         </div>
         <div id="monDescrip">
-            <div id="spriteAnimate"></div>
+            <div id="spriteAnimate"><canvas id="spriteWindow"></canvas></div>
             <div id="flavourText">
-                <p>This is Emby. They are a wisp of flame given life by some unknown force. They develop close bonds with their friends and like to help out.</p>
+                <p id="flavourTextTeamView">This is Emby. They are a wisp of flame given life by some unknown force. They develop close bonds with their friends and like to help out.</p>
             </div>
         </div>
       
@@ -62,40 +84,38 @@ Make building enterable **This might as well come later so I can make the map be
             <div id="expHP">
                 <div>
                     <p class="monsterHP">HP</p>
-                    <p class="hpEXPTextInfo">100/100</p>
+                    <p id="hpTeamView" class="hpEXPTextInfo">100/100</p>
                     <div class="healthBackground">
                         <div class="health"></div>
-                        <div class="playerHealthBar"></div>
+                        <div id="hpBarTeamView" class="playerHealthBar"></div>
                     </div>
                 </div>
                 <div>
                     <p class="monsterLvl">EXP</p>
-                    <p class="hpEXPTextInfo">0/10</p>
+                    <p id="expTeamView" class="hpEXPTextInfo">0/10</p>
                     <div class="expBackground">
                         <div class="exp"></div>
-                        <div class="playerEXPBar"></div>
+                        <div id="expBarTeamView" class="playerEXPBar"></div>
                     </div>
                 </div>
             </div>
             <div id="stats">
-                <p>HP: 100</p>
-                <p>Attack: 10</p>
-                <p>Defense: 10</p>
-                <p>Magical Attack: 10</p>
-                <p>Magical Defense: 10</p>
-                <p>Speed: 10</p>
+                <p id="hpStatsTeamView">HP: 100</p>
+                <p id="atkStatsTeamView">Attack: 10</p>
+                <p id="defStatsTeamView">Defense: 10</p>
+                <p id="magAtkStatsTeamView">Magical Attack: 10</p>
+                <p id="magDefStatsTeamView">Magical Defense: 10</p>
+                <p id="spdStatsTeamView">Speed: 10</p>
             </div>
         </div>
-
         <div id="toolbarTeam">
-            
-                <button id="release">Release</button>
-            
+            <button id="release">Release</button>
         </div>
-        
     </div>
+
     
-    <canvas></canvas>
+    
+    <canvas id="gameCamera"></canvas>
 
     <div id="userInterface">
         <!-- Represents health bar of enemy-->
@@ -146,15 +166,16 @@ Make building enterable **This might as well come later so I can make the map be
     integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ==" 
     crossorigin="anonymous" referrerpolicy="no-referrer">
 </script>
-<script src="/pokemon-game/scripts/audio.js"></script>
+<script src="/pokemon-game/data/audio.js"></script>
 <script src="/pokemon-game/data/battleZones.js"></script>
 <script src="/pokemon-game/data/collisions.js"></script>
 <script src="/pokemon-game/scripts/battleFunctions.js"></script>
-<script src="/pokemon-game/scripts/attacks.js"></script>
-<script src="/pokemon-game/scripts/monsters.js"></script>
+<script src="/pokemon-game/data/attacks.js"></script>
+<script src="/pokemon-game/data/monsters.js"></script>
 <script src="/pokemon-game/scripts/classes.js"></script> 
-<script src="/pokemon-game/scripts/items.js"></script>  
+<script src="/pokemon-game/data/items.js"></script>  
 <script src="/pokemon-game/scripts/inventory.js"></script>  
+<script src="/pokemon-game/scripts/inventoryMenu.js"></script>  
 <script src="/pokemon-game/scripts/team.js"></script>  
 <script src="/pokemon-game/scripts/mainMenu.js"></script>  
 <script src="/pokemon-game/scripts/person.js"></script>

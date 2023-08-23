@@ -1,7 +1,7 @@
 const battleBackgroundImage = new Image();
 battleBackgroundImage.src = "/pokemon-game/img/gameWorld/battleBackground.png";
 let dialogBackground = document.querySelector("#dialogBackground")
-const playerEXP = document.querySelector("#playerEXPBar");
+const playerEXP = document.querySelector(".playerEXPBar");
 
 
 // let tempFriendship;
@@ -42,7 +42,7 @@ function initBattle() {
     exp *= 100;
     expPercentage = exp + "%"
     playerEXP.style.width = expPercentage;
-    document.querySelector('#playerHealthBar').style.width = healthPercentage;
+    document.querySelector('.playerHealthBar').style.width = healthPercentage;
     document.querySelector('#hpText').innerHTML = healthText;
     document.querySelector('#playerName').innerHTML = player.team.roster[0].name;
     document.querySelector('#attacksBox').replaceChildren();

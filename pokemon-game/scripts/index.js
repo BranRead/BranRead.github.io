@@ -1,5 +1,7 @@
-const canvas = document.querySelector('canvas');
+const canvas = document.querySelector('#gameCamera');
+const cvsSprite = document.querySelector('#spriteWindow');
 const c = canvas.getContext('2d'); 
+const ctxSprite = cvsSprite.getContext('2d'); 
 const menu = document.querySelectorAll(".menu-item");
 const backBtn = document.getElementById("back-btn-menu");
 const dialogueBox = document.querySelector("#dialogueBox");
@@ -7,9 +9,15 @@ const statsSave = []
 let queue = [];
 let endQueue = [];
 
-
-
-
+let inventoryOptions = document.querySelectorAll(".inventoryOption");
+inventoryOptions.forEach((option) =>{
+    option.addEventListener("click", (e) => {
+        document.querySelectorAll(".inventoryItem").forEach((item) => {
+            item.remove();
+        })
+        displayItems(e.currentTarget.dataset.value);
+    })
+})
 
 const offset = {
     x: -832,
@@ -54,6 +62,8 @@ menu.forEach(item => {
 
 canvas.width = 1024;
 canvas.height = 576;
+
+
 
 const collisionsMap = [];
 for (let i = 0; i < collisions.length; i += 70) {
