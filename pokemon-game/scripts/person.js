@@ -8,7 +8,8 @@ class Person extends Sprite{
             frames = { max: 1, hold: 10 }, 
             sprites, 
             animate, 
-            rotation = 0
+            rotation = 0,
+            monsterFriend,
         }) {
             super({
                 position, 
@@ -21,6 +22,7 @@ class Person extends Sprite{
         this.name = name;
         this.team = team;
         this.inventory = inventory;
+        this.monsterFriend = monsterFriend;
     }
 
    
