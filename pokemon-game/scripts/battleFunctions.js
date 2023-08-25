@@ -1,8 +1,8 @@
 //Might need to change how I track stat changes due to better javascripting
 const battleFunctions = {
     animateBattle: () => {
-        battleSetup.battleAnimationId = window.requestAnimationFrame(animateBattle)
-        battleSetup.battleBackground.draw();
+        battleSetup.battleAnimationId = window.requestAnimationFrame(battleFunctions.animateBattle)
+        battleBackground.draw();
         
         battleSetup.renderedMonsters.forEach((sprite) => {
             sprite.drawMonster(c);
@@ -63,16 +63,10 @@ const battleFunctions = {
                             repeat: 5,
                             yoyo: true,
                             duration: 0.08
-                        });
-                        //Only the player monster has detailed health info
-                        if(target == battleSetup.playerMonster){
-                            let healthText = `${battleSetup.playerMonster.stats.hp}/${battleSetup.playerMonster.stats.maxHP}`;
-                            document.querySelector("#hpText").innerHTML = healthText
-                        } 
+                        });           
                     }
                 })
                 break;
-    
             case 'Tackle':
                 //Creating timeline for tackle to first move user and then to hit target
                 const tl = gsap.timeline();
@@ -111,10 +105,6 @@ const battleFunctions = {
                                 yoyo: true,
                                 duration: 0.08
                             })
-                            if(target == battleSetup.playerMonster){
-                                let healthText = `${playerMonster.stats.hp}/${playerMonster.stats.maxHP}`;
-                                document.querySelector("#hpText").innerHTML = healthText
-                            }
                         }
                     }).to(user.position, {
                         x: user.position.x
@@ -126,18 +116,19 @@ const battleFunctions = {
                 gsap.to(healthBar, {
                     width: battleSetup.playerMonster.stats.hp + '%'
                 })
-                //Detailed health info for player monster
-                if(target == battleSetup.playerMonster){
-                    let healthText = `${battleSetup.playerMonster.stats.hp}/${battleSetup.playerMonster.stats.maxHP}`;
-                    document.querySelector("#hpText").innerHTML = healthText
-                }
             break;
         }
+        //Only the player monster has detailed health info
+        if(target == battleSetup.playerMonster){
+            let healthText = "";
+            healthText = `${battleSetup.playerMonster.stats.hp}/${battleSetup.playerMonster.stats.maxHP}`;
+            document.querySelector("#hpText").innerHTML = healthText;
+        } 
     },
     
     startTurn: (selectedAttack) => {
         document.querySelector("#goBack").style.display = "none";
-        let ranAtk = Math.floor(Math.random() * (enemyMonster.attacks.length));
+        let ranAtk = Math.floor(Math.random() * (battleSetup.enemyMonster.attacks.length));
         let turnOrder = [];
     
         if(!player.otherAction) {
@@ -162,34 +153,31 @@ const battleFunctions = {
                     battleSetup.playerMonster.attacking = true;
                     battleSetup.queue.push(() => {
                         battleSetup.playerMonster.attack({
-                            attack: selectedAttack,
-                            renderedAttacks
+                            attack: selectedAttack
                         })
                     },
                     () => {
-                        battleFunctions.faintCheck(enemyMonster);
+                        battleFunctions.faintCheck(battleSetup.enemyMonster);
                     })
                 } else {
                     battleSetup.playerMonster.attacking = false;
                     battleSetup.queue.push(() => {
                         battleSetup.enemyMonster.attack({
-                            attack: battleSetup.enemyMonster.attacks[ranAtk],
-                            renderedAttacks
+                            attack: battleSetup.enemyMonster.attacks[ranAtk]
                         })
                     },
                     () => {
-                        battleFunctions.faintCheck(playerMonster);
+                        battleFunctions.faintCheck(battleSetup.playerMonster);
                     }) 
                 }
             })
         } else {
             battleSetup.playerMonster.attacking = false;
             battleSetup.queue.push(() => {
-                battleFunctions.faintCheck(playerMonster);
+                battleFunctions.faintCheck(battleSetup.playerMonster);
             }) 
             battleSetup.enemyMonster.attack({
-                attack: battleSetup.enemyMonster.attacks[ranAtk],
-                renderedAttacks
+                attack: battleSetup.enemyMonster.attacks[ranAtk]
             })
         }
         if(!player.otherAction){
@@ -203,7 +191,7 @@ const battleFunctions = {
             gsap.to('#overlappingDiv', {
                 opacity: 1,
                 onComplete: () => {
-                    window.cancelAnimationFrame(battleAnimationID);
+                    window.cancelAnimationFrame(battleFunctions.battleAnimationID);
                     animate();
                     document.querySelector('#userInterface').style.display = 'none'
                     gsap.to('#overlappingDiv', {
@@ -213,7 +201,7 @@ const battleFunctions = {
                     battleSetup.endQueue = [];
                     c.translate(canvasMove.x, canvasMove.y);
                     battleSetup.dialogBackground.style.display = "none"
-                    battleSetup.battleBackground.opacity = 0;   
+                    battleBackground.opacity = 0;   
                     battle.initiated = false;
                     audio.Map.play();
                 }
@@ -255,17 +243,17 @@ const battleFunctions = {
                 battleFunctions.levelUp();
             });
             battleSetup.playerMonster.stats.level++;
-            dialogue.displayDialogue(`${playerMonster.name} leveled up to level ${playerMonster.stats.level}.`);
+            dialogue.displayDialogue(`${battleSetup.playerMonster.name} leveled up to level ${battleSetup.playerMonster.stats.level}.`);
         } else {
-            battleSetup.endQueue.splice(1, 0, () => {
+            // battleSetup.endQueue.splice(1, 0, () => {
                 let currentEXP = battleSetup.playerMonster.stats.currentEXP / 
                     battleSetup.playerMonster.stats.toNextLevelEXP;
                 currentEXP *= 100;
-                gsap.to(battleSetup.playerEXP, {
+                gsap.to(document.querySelector(".playerEXPBar"), {
                     width: currentEXP + '%'
                 })
-            })
-            dialogue.displayDialogue(`${playerMonster.name} gained ${exp} EXP.`); 
+            // })
+            dialogue.displayDialogue(`${battleSetup.playerMonster.name} gained ${exp} EXP.`); 
         }
     },
 }

@@ -1,8 +1,6 @@
 const battleSetup = {
-    battleBackgroundImage: new Image(),
-    battleBackgroundImageSrc: "/pokemon-game/img/gameWorld/battleBackground.png",
+    
     dialogBackground: document.querySelector("#dialogBackground"),
-    playerEXP: document.querySelector(".playerEXPBar"),
     enemyMonster: "",
     playerMonster: "",
     tempFriendship: 0,
@@ -13,16 +11,7 @@ const battleSetup = {
     playerBattleActions: ["Fight", "Use Item", "Befriend", "Flee"],
     battleAnimationID: 0,
     
-    
     initBattle: () => {
-        const battleBackground = new Sprite({
-            position: {
-                x: 0,
-                y: 0
-            },
-            image: battleSetup.battleBackgroundImage,
-            opacity: 1
-        })
         battleSetup.dialogBackground.style.display = "flex";
         player.inBattle = true;
         c.translate(-canvasMove.x, -canvasMove.y);
@@ -33,15 +22,16 @@ const battleSetup = {
         let health = player.team.roster[0].stats.hp / player.team.roster[0].stats.maxHP;
         let healthText = `${player.team.roster[0].stats.hp}/${player.team.roster[0].stats.maxHP}`;
         health *= 100;
-        roundedHealth = Math.ceil(health);
-        healthPercentage = roundedHealth + "%";
+        let roundedHealth = Math.ceil(health);
+        let healthPercentage = roundedHealth + "%";
+        document.querySelector('.playerHealthBar').style.width = healthPercentage;
+        document.querySelector('#hpText').innerHTML = healthText;
     
         let exp = player.team.roster[0].stats.currentEXP / player.team.roster[0].stats.toNextLevelEXP;
         exp *= 100;
-        expPercentage = exp + "%"
-        battleSetup.playerEXP.style.width = expPercentage;
-        document.querySelector('.playerHealthBar').style.width = healthPercentage;
-        document.querySelector('#hpText').innerHTML = healthText;
+        let expPercentage = exp + "%"
+        document.querySelector("#playerEXPBarBattle").style.width = expPercentage;
+        
         document.querySelector('#playerName').innerHTML = player.team.roster[0].name;
         document.querySelector('#attacksBox').replaceChildren();
     
@@ -64,11 +54,11 @@ const battleSetup = {
             y: 325
         }
         battleSetup.playerMonster.opacity = 1;
-        battleSetup.renderedMonsters = [enemyMonster, playerMonster];
+        battleSetup.renderedMonsters = [battleSetup.enemyMonster, battleSetup.playerMonster];
         
         battleSetup.tempFriendship = battleSetup.enemyMonster.stats.friend;
     
-        battleOptions();
+        battleMenu.battleOptions();
     }
     
 }

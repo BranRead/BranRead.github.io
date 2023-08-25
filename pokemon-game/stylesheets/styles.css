@@ -301,6 +301,7 @@ button:hover {
 #hpText {
     font-size: 10px;
     margin-top: 0;
+    padding-top: 4px;
     width: 100%;
     text-align: center;
     border-width: 2px;
@@ -329,6 +330,8 @@ button:hover {
     height: 5px; 
     background-color: #ccc; 
     margin-top: 10px;
+    outline: 2px solid black;
+    border-radius: 3px;
 }
 
 .playerHealthBar, #enemyHealthBar, .playerEXPBar {

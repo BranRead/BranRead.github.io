@@ -54,7 +54,7 @@ class Person extends Sprite{
 
     quit(){
         //Dialogue
-        closeMenu();
+        menu.close();
         dialogBackground.style.display = "flex";
         dialogueBox.style.display = "block";
         dialogueBox.innerHTML = "Are you sure you'd like to quit? Unsaved changes will be lost.";
@@ -63,8 +63,7 @@ class Person extends Sprite{
         yesBtn.className = "yesBtn";
         yesBtn.innerHTML = "Yes";
         yesBtn.addEventListener("click", () => {
-           //This path may not work on github
-        window.location.href = "/projects.html";
+            window.location.href = "/projects.html";
         })
 
         const noBtn = document.createElement("button");

@@ -15,12 +15,19 @@ fixed animation for exp DONE
 Make better UI for monster team DONE
 Make the fullscreen version of the UI DONE
 need to dynamically populate it and change exp DONE
+Refactor/reorganize code DONE!
+
+Change index.js name and eliminate global variables
+
 Still need to hook up release button and swap monster order 
 I'll do that after some more work on other things
 
 **Make better UI for item** In progress
+Gotta redo use item and work that into the UI
 
-Refactor/reorganize code
+Make hp text happen after hp bar decreases
+
+
 
 Settings
 Make building enterable **This might as well come later so I can make the map better at the same time. 
@@ -140,7 +147,7 @@ Make building enterable **This might as well come later so I can make the map be
 
             <div class="expBackground" style="position: relative;">
                 <div class="exp"></div>
-                <div class="playerEXPBar"></div>
+                <div id="playerEXPBarBattle" class="playerEXPBar"></div>
             </div>
         </div>
 
@@ -175,15 +182,19 @@ Make building enterable **This might as well come later so I can make the map be
 <script src="/pokemon-game/scripts/battleFunctions.js"></script>
 <script src="/pokemon-game/data/attacks.js"></script>
 <script src="/pokemon-game/data/monsters.js"></script>
-<script src="/pokemon-game/scripts/classes.js"></script> 
+<script src="/pokemon-game/scripts/sprite.js"></script> 
+<script src="/pokemon-game/scripts/monster.js"></script> 
+<script src="/pokemon-game/scripts/boundary.js"></script> 
 <script src="/pokemon-game/data/items.js"></script>  
 <script src="/pokemon-game/scripts/inventory.js"></script>  
 <script src="/pokemon-game/scripts/inventoryMenu.js"></script>  
+<script src="/pokemon-game/scripts/settings.js"></script>  
+<script src="/pokemon-game/scripts/save.js"></script>  
 <script src="/pokemon-game/scripts/team.js"></script>  
 <script src="/pokemon-game/scripts/mainMenu.js"></script>  
 <script src="/pokemon-game/scripts/person.js"></script>
 <script src="/pokemon-game/scripts/battleMenu.js"></script>
 <script src="/pokemon-game/scripts/battleSetup.js"></script> 
-<script src="/pokemon-game/scripts/index.js"></script>
+<script src="/pokemon-game/scripts/game.js"></script>
 
 

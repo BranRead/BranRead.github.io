@@ -11,6 +11,8 @@ class Inventory {
         document.querySelector("#fullInventoryView").style.display = "block";
     }
 
+
+    //Gotta refactor this when i redo the code
     use(monsterIndex, itemIndex){
         
         switch(player.inventory.items[itemIndex].useCategory){
