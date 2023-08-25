@@ -13,26 +13,26 @@ const battleSetup = {
     
     initBattle: () => {
         battleSetup.dialogBackground.style.display = "flex";
-        player.inBattle = true;
-        c.translate(-canvasMove.x, -canvasMove.y);
+        game.player.inBattle = true;
+        game.ctx.translate(-game.canvasMove.x, -game.canvasMove.y);
         document.querySelector('#userInterface').style.display = 'block';
         document.querySelector('#dialogueBox').style.display = 'none';
         document.querySelector('#enemyHealthBar').style.width = '100%';
         
-        let health = player.team.roster[0].stats.hp / player.team.roster[0].stats.maxHP;
-        let healthText = `${player.team.roster[0].stats.hp}/${player.team.roster[0].stats.maxHP}`;
+        let health = game.player.team.roster[0].stats.hp / game.player.team.roster[0].stats.maxHP;
+        let healthText = `${game.player.team.roster[0].stats.hp}/${game.player.team.roster[0].stats.maxHP}`;
         health *= 100;
         let roundedHealth = Math.ceil(health);
         let healthPercentage = roundedHealth + "%";
         document.querySelector('.playerHealthBar').style.width = healthPercentage;
         document.querySelector('#hpText').innerHTML = healthText;
     
-        let exp = player.team.roster[0].stats.currentEXP / player.team.roster[0].stats.toNextLevelEXP;
+        let exp = game.player.team.roster[0].stats.currentEXP / game.player.team.roster[0].stats.toNextLevelEXP;
         exp *= 100;
         let expPercentage = exp + "%"
         document.querySelector("#playerEXPBarBattle").style.width = expPercentage;
         
-        document.querySelector('#playerName').innerHTML = player.team.roster[0].name;
+        document.querySelector('#playerName').innerHTML = game.player.team.roster[0].name;
         document.querySelector('#attacksBox').replaceChildren();
     
         const encounters = [monsters.Draggle, monsters.Axy, monsters.Bambo, monsters.Boscis, monsters.UnoUne, monsters.Cranio, monsters.Spookli];
@@ -48,7 +48,7 @@ const battleSetup = {
     
         battleSetup.enemyMonster.isEnemy = true;
         document.querySelector('#enemyName').innerHTML = battleSetup.enemyMonster.name;
-        battleSetup.playerMonster = player.team.roster[0];
+        battleSetup.playerMonster = game.player.team.roster[0];
         battleSetup.playerMonster.position = {
             x: 280,
             y: 325
