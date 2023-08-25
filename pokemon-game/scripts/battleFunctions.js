@@ -2,10 +2,10 @@
 const battleFunctions = {
     animateBattle: () => {
         battleSetup.battleAnimationId = window.requestAnimationFrame(battleFunctions.animateBattle)
-        battleBackground.draw();
+        game.battleBackground.draw();
         
         battleSetup.renderedMonsters.forEach((sprite) => {
-            sprite.drawMonster(c);
+            sprite.drawMonster(game.ctx);
         });
     
         battleSetup.renderedAttacks.forEach((sprite) => {
@@ -131,7 +131,7 @@ const battleFunctions = {
         let ranAtk = Math.floor(Math.random() * (battleSetup.enemyMonster.attacks.length));
         let turnOrder = [];
     
-        if(!player.otherAction) {
+        if(!game.player.otherAction) {
             if(battleSetup.enemyMonster.stats.spd > battleSetup.playerMonster.stats.spd){
                 turnOrder.push(battleSetup.enemyMonster);
                 turnOrder.push(battleSetup.playerMonster);
@@ -180,7 +180,7 @@ const battleFunctions = {
                 attack: battleSetup.enemyMonster.attacks[ranAtk]
             })
         }
-        if(!player.otherAction){
+        if(!game.player.otherAction){
             battleSetup.queue[0]()
             battleSetup.queue.shift()
         }    
@@ -192,22 +192,21 @@ const battleFunctions = {
                 opacity: 1,
                 onComplete: () => {
                     window.cancelAnimationFrame(battleFunctions.battleAnimationID);
-                    animate();
+                    game.animate();
                     document.querySelector('#userInterface').style.display = 'none'
                     gsap.to('#overlappingDiv', {
                         opacity: 0,
                     })
                     battleSetup.queue = [];
                     battleSetup.endQueue = [];
-                    c.translate(canvasMove.x, canvasMove.y);
+                    game.ctx.translate(game.canvasMove.x, game.canvasMove.y);
                     battleSetup.dialogBackground.style.display = "none"
-                    battleBackground.opacity = 0;   
-                    battle.initiated = false;
+                    game.battleBackground.opacity = 0;   
+                    game.battle.initiated = false;
                     audio.Map.play();
                 }
             })
         })
-    
         dialogue.displayDialogue(message);
     },
     
@@ -215,12 +214,15 @@ const battleFunctions = {
         if(target.stats.hp <= 0){
             if(target == battleSetup.playerMonster){
                 battleSetup.endQueue.push(() => {target.faint()})
-                dialogue.displayDialogue(`${target.name} took ${target.damage} points of damage,
-                they have no more HP left.`);    
+                dialogue.displayDialogue(`${target.name} took ${target.damage} points 
+                of damage, they have no more HP left.`);    
             } else if(target == battleSetup.enemyMonster){
-                battleSetup.endQueue.push(() => {battleFunctions.expYield()}, () => {target.faint()})
-                dialogue.displayDialogue(`${target.name} took ${target.damage} points of damage,
-                they have no more HP left.`);           
+                battleSetup.endQueue.push(
+                    () => {battleFunctions.expYield()},
+                    () => {target.faint()}
+                    )
+                dialogue.displayDialogue(`${target.name} took ${target.damage} points 
+                of damage, they have no more HP left.`);           
             }
         } else {
             dialogue.displayDialogue(`${target.name} took ${target.damage} points of damage!`)

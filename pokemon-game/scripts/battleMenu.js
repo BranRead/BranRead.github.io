@@ -37,7 +37,7 @@ const battleMenu = {
     
     fight: () => {
         dialogue.clearDialog();
-        player.otherAction = false;
+        game.player.otherAction = false;
         document.querySelector("#goBack").style.display = "block";
         //Adds attack buttons in
         battleSetup.playerMonster.attacks.forEach(attack => {
@@ -51,7 +51,7 @@ const battleMenu = {
         button.addEventListener('click', (e) => {
             const selectedAttack = attacks[(e.currentTarget.innerHTML).replace(/\s/g, '')];
             battleSetup.playerMonster.attacking = true; 
-            player.otherAction = false;
+            game.player.otherAction = false;
             battleFunctions.startTurn(selectedAttack);
         })
         button.addEventListener('mouseenter', (e) => {
@@ -64,23 +64,23 @@ const battleMenu = {
     
     befriend: ()=> {
         dialogue.displayDialogue(`${battleSetup.enemyMonster.name} started to trust you a bit more!`);
-        battleSetup.enemyMonster.stats.tempFriend += player.monsterFriend;
+        battleSetup.enemyMonster.stats.tempFriend += game.player.monsterFriend;
         if((battleSetup.enemyMonster.stats.tempFriend) < 50) {
             battleSetup.queue.push(() => {
-                player.otherAction = true;
+                game.player.otherAction = true;
                 battleFunctions.startTurn();
             })
         } else {
             battleSetup.queue.push(() => {
-                player.team.roster.push(battleSetup.enemyMonster);
-                player.team.roster[player.team.roster.length - 1].isEnemy = false;
-                player.team.roster[player.team.roster.length - 1].position =  {
+                game.player.team.roster.push(battleSetup.enemyMonster);
+                game.player.team.roster[game.player.team.roster.length - 1].isEnemy = false;
+                game.player.team.roster[game.player.team.roster.length - 1].position =  {
                     x: 280,
                     y: 325
                 };
-                player.team.roster[player.team.roster.length - 1].backImage = true;
-                player.team.roster[player.team.roster.length - 1].frontImage = false;
-                player.team.roster[player.team.roster.length - 1].stats.friend =
+                game.player.team.roster[game.player.team.roster.length - 1].backImage = true;
+                game.player.team.roster[game.player.team.roster.length - 1].frontImage = false;
+                game.player.team.roster[game.player.team.roster.length - 1].stats.friend =
                 battleSetup.enemyMonster.stats.tempFriend;
                 battleFunctions.endBattle(`${battleSetup.enemyMonster.name} has decided to join your party!`);
             })
@@ -94,7 +94,7 @@ const battleMenu = {
         if(fleeCheck > fleeChance) {
             battleFunctions.endBattle(`${battleSetup.playerMonster.name} fled`);
         } else {
-            player.otherAction = true;
+            game.player.otherAction = true;
             battleSetup.queue.push(() => {
                 battleFunctions.startTurn();
             });
