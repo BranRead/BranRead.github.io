@@ -48,7 +48,15 @@ const battleFunctions = {
                         renderedAttacks.splice(0, 1);
                         //Animates the health bar of target
                         gsap.to(healthBar, {
-                            width: target.stats.hp + '%'
+                            width: target.stats.hp + '%',
+                            onComplete: () => {
+                                //Only the player monster has detailed health info
+                                if(target == battleSetup.playerMonster){
+                                    let healthText = "";
+                                    healthText = `${battleSetup.playerMonster.stats.hp}/${battleSetup.playerMonster.stats.maxHP}`;
+                                    document.querySelector("#hpText").innerHTML = healthText;
+                                } 
+                            }
                         });
                         //Animates target to move and
                         gsap.to(target.position, {
@@ -89,7 +97,15 @@ const battleFunctions = {
                             audio.tackleHit.play()
                             //Healthbar animation of target
                             gsap.to(healthBar, {
-                                width: target.stats.hp + '%'
+                                width: target.stats.hp + '%',
+                                onComplete: () => {
+                                    //Only the player monster has detailed health info
+                                    if(target == battleSetup.playerMonster){
+                                        let healthText = "";
+                                        healthText = `${battleSetup.playerMonster.stats.hp}/${battleSetup.playerMonster.stats.maxHP}`;
+                                        document.querySelector("#hpText").innerHTML = healthText;
+                                    } 
+                                }
                             })
                             //Target move and 
                             gsap.to(target.position, {
@@ -114,16 +130,18 @@ const battleFunctions = {
                 //Default attack animation
                 //Healthbar animation
                 gsap.to(healthBar, {
-                    width: battleSetup.playerMonster.stats.hp + '%'
+                    width: battleSetup.playerMonster.stats.hp + '%',
+                    onComplete: () => {
+                        //Only the player monster has detailed health info
+                        if(target == battleSetup.playerMonster){
+                            let healthText = "";
+                            healthText = `${battleSetup.playerMonster.stats.hp}/${battleSetup.playerMonster.stats.maxHP}`;
+                            document.querySelector("#hpText").innerHTML = healthText;
+                        } 
+                    }
                 })
             break;
         }
-        //Only the player monster has detailed health info
-        if(target == battleSetup.playerMonster){
-            let healthText = "";
-            healthText = `${battleSetup.playerMonster.stats.hp}/${battleSetup.playerMonster.stats.maxHP}`;
-            document.querySelector("#hpText").innerHTML = healthText;
-        } 
     },
     
     startTurn: (selectedAttack) => {
@@ -198,7 +216,7 @@ const battleFunctions = {
                         opacity: 0,
                     })
                     battleSetup.queue = [];
-                    battleSetup.endQueue = [];
+                    // battleSetup.endQueue = [];
                     game.ctx.translate(game.canvasMove.x, game.canvasMove.y);
                     battleSetup.dialogBackground.style.display = "none"
                     game.battleBackground.opacity = 0;   

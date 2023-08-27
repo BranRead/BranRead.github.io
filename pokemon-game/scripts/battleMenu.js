@@ -20,6 +20,7 @@ const battleMenu = {
                         break;
                     case "Use Item":
                         menu.open();
+                        game.player.inventory.openInventory();
                         break;
                     case "Befriend":
                         battleMenu.befriend();
@@ -91,7 +92,7 @@ const battleMenu = {
         let fleeCheck = Math.floor(Math.random() * (100) + 1);
         fleeCheck -= (battleSetup.enemyMonster.stats.spd) / 4;
         fleeCheck += (battleSetup.playerMonster.stats.spd) / 4;
-        if(fleeCheck > fleeChance) {
+        if(fleeCheck > game.fleeChance) {
             battleFunctions.endBattle(`${battleSetup.playerMonster.name} fled`);
         } else {
             game.player.otherAction = true;

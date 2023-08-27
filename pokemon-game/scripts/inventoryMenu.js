@@ -1,6 +1,6 @@
 const inventoryMenu = {
     display: (type) => {
-        player.inventory.items.forEach((item, index) => {
+        game.player.inventory.items.forEach((item, index) => {
             if(item.useCategory == type){
                 const inventoryItem = document.createElement('div');
                 inventoryItem.className = "inventoryItem"
@@ -19,6 +19,24 @@ const inventoryMenu = {
                 const inventoryQuantityText = document.createElement('p');
                 inventoryQuantityText.className = "inventoryQuantityText"
                 inventoryQuantity.append(inventoryQuantityText);
+
+                const inventoryBtns = document.createElement('div');
+                inventoryBtns.className = "inventoryBtns";
+                
+                const useBtn = document.createElement('button');
+                useBtn.innerHTML = "Use";
+                useBtn.className = "useBtn";
+                useBtn.addEventListener('click', (e) => {
+                    game.player.inventory.selection(e.currentTarget)
+                });
+
+                const trashBtn = document.createElement('button');
+                trashBtn.innerHTML = "Drop";
+                trashBtn.className = "trashBtn";
+                trashBtn.addEventListener('click', game.player.inventory.trash);
+                
+                inventoryBtns.append(useBtn);
+                inventoryBtns.append(trashBtn);
     
                 inventoryItem.dataset.value = index;
                 inventoryNameText.innerHTML = item.name
@@ -27,6 +45,7 @@ const inventoryMenu = {
                 inventoryItem.append(inventoryImg);
                 inventoryItem.append(inventoryName);
                 inventoryItem.append(inventoryQuantity);
+                inventoryItem.append(inventoryBtns);
                 
                 inventoryItem.addEventListener("click", () => {
                     document.querySelector("#itemTitleText").innerHTML = item.name;

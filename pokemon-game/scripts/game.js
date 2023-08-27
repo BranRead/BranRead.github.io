@@ -4,11 +4,12 @@ const game = {
     ctx: "",
     ctxTeam: "",
     backBtn: document.getElementById("back-btn-menu"),
+    itemUsed: "false",
     statsSave: [],
     //Between 0-100. Higher numbers are harder.
     fleeChance: 50,
     clicked: false,
-    
+    animateSprite: false,
     lastKey: "",
     encounterRate: 0.01,
     keys: {
@@ -133,9 +134,6 @@ const game = {
                 )
             })
         });
-
-        
-       
         
         const playerPosition = {};
         const team = new Team([], 4);
@@ -269,7 +267,7 @@ const game = {
                 const yesBtn = document.createElement("button");
                 const noBtn = document.createElement("button");
 
-                dialogBackground.style.display = "flex";
+                
                 dialogue.displayDialogue("Would you like to heal your monsters?");
 
 
@@ -363,10 +361,10 @@ const game = {
                         settings.open();
                         break;
                     case "Save":
-                        game.player.save();
+                        game.save();
                         break;
                     case "Quit":
-                        game.player.quit();
+                        game.quit();
                         break;
                     default:
                         console.log("Error clicking menu");
@@ -380,17 +378,7 @@ const game = {
             battleMenu.battleOptions();
         })
 
-        document.querySelector('#dialogueBox').addEventListener('click', (e) => {
-            if(battleSetup.endQueue.length > 0){
-                battleSetup.endQueue[0]()
-                battleSetup.endQueue.shift()
-            } else if (battleSetup.queue.length > 0){
-                battleSetup.queue[0]()
-                battleSetup.queue.shift()
-            } else {
-                e.currentTarget.style.display = 'none'
-            }
-        })
+        dialogue.dialogueBox.addEventListener("click", dialogue.progressTurn);
 
         window.addEventListener('click', () => {
             if(!game.clicked) {
@@ -624,6 +612,55 @@ const game = {
             }
         }
     }, //end of animate function
+
+    save: () => {
+        game.player.team.roster.forEach(monster => {
+            let statsObject = {
+                name: monster.name,
+                isEnemy: monster.isEnemy,
+                stats: monster.stats,
+                attacks: monster.attacks
+            }
+
+            game.statsSave.push(statsObject);
+        })
+        const saveState = {
+            canvasPosition: game.canvasMove,
+            playerPosition: game.player.position,
+            team: {
+                stats: game.statsSave,
+                size: game.player.team.maxSize
+            },
+            inventory: game.player.inventory
+        }
+        localStorage.setItem("monsterGame", JSON.stringify(saveState));
+        console.log("Saved");
+    },
+
+    quit: () => {
+        //Dialogue
+        menu.close();
+        dialogBackground.style.display = "flex";
+        dialogueBox.style.display = "block";
+        dialogueBox.innerHTML = "Are you sure you'd like to quit? Unsaved changes will be lost.";
+        
+        const yesBtn = document.createElement("button");
+        yesBtn.className = "yesBtn";
+        yesBtn.innerHTML = "Yes";
+        yesBtn.addEventListener("click", () => {
+            window.location.href = "/projects.html";
+        })
+
+        const noBtn = document.createElement("button");
+        noBtn.className = "noBtn";
+        noBtn.innerHTML = "No";
+        noBtn.addEventListener("click", () => {
+            dialogBackground.style.display = "none";
+        })
+        
+        dialogueBox.append(yesBtn);
+        dialogueBox.append(noBtn);
+    }
 }
 game.init();
 game.animate();

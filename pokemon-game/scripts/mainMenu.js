@@ -1,16 +1,16 @@
 const menu = {
     open: () => {
-        if(!player.menuDisplayed) {
+        if(!game.player.menuDisplayed) {
             if (document.querySelector(".menu-item").style.display == "none"){
                 document.querySelectorAll(".menu-item").forEach(item => {
                     item.style.display = "block";
                 })
                 document.querySelector("#menu-title").innerHTML = "Menu";
             }
-            if(backBtn.style.display == "block"){
-                backBtn.style.display = "none";
+            if(game.backBtn.style.display == "block"){
+                game.backBtn.style.display = "none";
             }
-            player.menuDisplayed = true;
+            game.player.menuDisplayed = true;
             document.getElementById("overlappingDiv").style.display = "block";
             document.getElementById("overlappingDiv").style.opacity = ".8";
             document.getElementById("menu").style.display = "flex";
@@ -29,24 +29,19 @@ const menu = {
         toRemove.forEach(item => {
         item.remove();
         })
-        player.team.roster[0].position = {
+        game.player.team.roster[0].position = {
             x: 280,
             y: 325
         }
-        player.team.roster[0].frontImage = false;
-        player.team.roster[0].backImage = true;
+        game.player.team.roster[0].frontImage = false;
+        game.player.team.roster[0].backImage = true;
         document.querySelector('#fullMonsterView').style.display = "none";
         document.querySelector("#fullInventoryView").style.display = "none";
-        player.menuDisplayed = false;
-        player.teamWindow = false;
-        player.inventoryWindow = false;
+        dialogue.hide();
+        game.usingItem = false;
+        game.animateSprite = false;
+        game.player.menuDisplayed = false;
+        game.player.teamWindow = false;
+        game.player.inventoryWindow = false;
     },
 }
-
-
-
-
-
-
-
-

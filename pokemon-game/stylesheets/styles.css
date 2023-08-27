@@ -267,10 +267,22 @@ button:hover {
 }
 
 .inventoryQuantity {
-   margin-right: 40px;
+   margin-right: 20px;
 }
 
+.inventoryBtns {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
 
+.useBtn, .trashBtn {
+    font-size: 8px;
+    margin-right: 1rem;
+    width: 40px !important;
+    height: 12px;
+    padding: 1px;
+}
 
 #userInterface {
     display: none;
@@ -361,6 +373,7 @@ button:hover {
     right: 0;
     border-top: 4px black solid;
     display: none;
+    z-index: 10;
 }
 
 #dialogueBox {
@@ -452,3 +465,10 @@ button:hover {
     bottom: 30px;
     width: 100px;
 }
+
+.cancelBtn {
+    position: absolute;
+    left: 450px;
+    bottom: 30px;
+    width: 100px;
+} 

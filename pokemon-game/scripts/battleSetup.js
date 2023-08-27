@@ -1,5 +1,4 @@
 const battleSetup = {
-    
     dialogBackground: document.querySelector("#dialogBackground"),
     enemyMonster: "",
     playerMonster: "",
@@ -13,6 +12,8 @@ const battleSetup = {
     
     initBattle: () => {
         battleSetup.dialogBackground.style.display = "flex";
+        document.querySelector("#attacksBox").style.display = "grid";
+        document.querySelector("#attackTypeBox").style.display = "flex";
         game.player.inBattle = true;
         game.ctx.translate(-game.canvasMove.x, -game.canvasMove.y);
         document.querySelector('#userInterface').style.display = 'block';
