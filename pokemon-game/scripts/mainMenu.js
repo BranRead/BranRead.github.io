@@ -37,7 +37,14 @@ const menu = {
         game.player.team.roster[0].backImage = true;
         document.querySelector('#fullMonsterView').style.display = "none";
         document.querySelector("#fullInventoryView").style.display = "none";
-        dialogue.hide();
+        if(game.player.inventoryWindow){
+            const toRemove = document.querySelectorAll('.inventoryItem');
+            toRemove.forEach(item => {
+                item.remove();
+            })
+            dialogue.hide();
+        }
+        
         game.usingItem = false;
         game.animateSprite = false;
         game.player.menuDisplayed = false;

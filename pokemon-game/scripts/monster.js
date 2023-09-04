@@ -164,10 +164,9 @@ class Monster extends Sprite {
                 battleSetup.playerMonster.stats.hp -= trueDamage;
             }
             
-
             //Gotta look into this, not sure why it's here
             battleSetup.playerMonster.damage = trueDamage;
-            healthBar = '.playerHealthBar'
+            healthBar = '.playerHealthBarBattle'
             rotation = 4
 
             battleFunctions.animateAttack(attack, battleSetup.enemyMonster, battleSetup.playerMonster, battleSetup.renderedAttacks, healthBar, rotation);

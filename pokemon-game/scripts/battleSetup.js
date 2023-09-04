@@ -16,6 +16,7 @@ const battleSetup = {
         document.querySelector("#attackTypeBox").style.display = "flex";
         game.player.inBattle = true;
         game.ctx.translate(-game.canvasMove.x, -game.canvasMove.y);
+        
         document.querySelector('#userInterface').style.display = 'block';
         document.querySelector('#dialogueBox').style.display = 'none';
         document.querySelector('#enemyHealthBar').style.width = '100%';

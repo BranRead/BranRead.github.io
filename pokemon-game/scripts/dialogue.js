@@ -3,6 +3,7 @@
 const dialogue = {
     //Set to whatever the dialogue container is
     dialogueBox: document.querySelector("#dialogueBox"),
+    dialogueBackground: document.querySelector("#dialogBackground"),
 
     displayDialogue: (message) => {
         dialogBackground.style.display = "flex";

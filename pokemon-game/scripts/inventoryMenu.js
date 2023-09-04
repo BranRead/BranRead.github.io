@@ -48,6 +48,7 @@ const inventoryMenu = {
                 inventoryItem.append(inventoryBtns);
                 
                 inventoryItem.addEventListener("click", () => {
+                    game.player.inventoryWindow = true;
                     document.querySelector("#itemTitleText").innerHTML = item.name;
                     document.querySelector("#itemDescriptionText").innerHTML = item.description;
                 })

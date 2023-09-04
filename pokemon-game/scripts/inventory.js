@@ -37,10 +37,9 @@ class Inventory {
 
     use(item, itemIndex, monsterIndex){
         let monster = game.player.team.roster[monsterIndex];
+        game.player.otherAction = true;
         switch(item.useCategory){
             case 'restore':
-                console.log(`Healing ${monster.name}!`);
-                dialogue.displayDialogue(`${monster.name} healed for ${item.strength} points of damage!`);
                 let healedFor;
                 if(item.strength > (monster.stats.maxHP - 
                     monster.stats.hp)){
@@ -54,17 +53,40 @@ class Inventory {
                 let health = monster.stats.hp / monster.stats.maxHP;
                 health *= 100;
 
-                gsap.to(".playerHealthBar", {
-                    width: health + "%",
-                    onComplete: () => {
-                        let healthText = `HP: ${monster.stats.hp}/${monster.stats.maxHP}`
-                        document.querySelector(".monsterHpText").innerHTML = healthText;
-                        battleSetup.endQueue.push(() => {
-                            document.querySelector("#dialogBackground").style.display = "none";
-                        })
-                        
-                    }
-                })
+                if(!game.battle.initiated){
+                    console.log(`Healing ${monster.name}!`);
+                    dialogue.displayDialogue(`${monster.name} healed for ${healedFor} points of damage!`);
+                    gsap.to(".playerHealthBar", {
+                        width: health + "%",
+                        onComplete: () => {
+                            let healthText = `HP: ${monster.stats.hp}/${monster.stats.maxHP}`
+                            document.querySelector(".monsterHpText").innerHTML = healthText;
+                            battleSetup.endQueue.push(() => {
+                                menu.close();
+                                menu.open();
+                                game.player.inventory.openInventory();
+                                inventoryMenu.display(item.useCategory);
+                            })
+                        }
+                    })
+                } else if (game.battle.initiated){
+                    menu.close();
+                    gsap.to(".playerHealthBarBattle", {
+                        width: health + "%",
+                        onComplete: () => {
+                            let healthText = `${monster.stats.hp}/${monster.stats.maxHP}`
+                            document.querySelector("#hpText").innerHTML = healthText;
+                            dialogue.displayDialogue(`${monster.name} healed for ${healedFor} points of damage!`);
+                            battleSetup.queue.push(() => {
+                                dialogue.dialogueBackground.style.display = "block";
+                                document.querySelector("#attacksBox").style.display = "grid";
+                                document.querySelector("#attackTypeBox").style.display = "flex";
+                                battleFunctions.startTurn();
+                            })
+                        }
+                    })
+                }
+                
                 // if(player.inBattle) {
                 //     let healthBar = '#playerHealthBar';
                 //     gsap.to(healthBar, {

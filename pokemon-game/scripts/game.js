@@ -60,9 +60,7 @@ const game = {
     playerRightImage: new Image(),
     player: "",
     healer: "",
-
-
-  
+    
     init: () => {
         game.ctx = game.cvs.getContext('2d');
         game.ctxTeam = game.cvsTeam.getContext('2d');

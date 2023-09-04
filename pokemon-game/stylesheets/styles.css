@@ -346,7 +346,7 @@ button:hover {
     border-radius: 3px;
 }
 
-.playerHealthBar, #enemyHealthBar, .playerEXPBar {
+.playerHealthBar, .playerHealthBarBattle, #enemyHealthBar, .playerEXPBar {
     height: 5px; 
     position: absolute; 
     top: 0; 
@@ -354,7 +354,7 @@ button:hover {
     right: 0;
 }
 
-.playerHealthBar, #enemyHealthBar {
+.playerHealthBar, .playerHealthBarBattle, #enemyHealthBar {
     background-color: green;
     border-radius: 3px;
 }
