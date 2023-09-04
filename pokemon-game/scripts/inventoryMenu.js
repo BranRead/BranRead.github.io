@@ -33,7 +33,9 @@ const inventoryMenu = {
                 const trashBtn = document.createElement('button');
                 trashBtn.innerHTML = "Drop";
                 trashBtn.className = "trashBtn";
-                trashBtn.addEventListener('click', game.player.inventory.trash);
+                trashBtn.addEventListener('click', (e) => {
+                    game.player.inventory.trash(e.currentTarget)
+                });
                 
                 inventoryBtns.append(useBtn);
                 inventoryBtns.append(trashBtn);
@@ -49,6 +51,8 @@ const inventoryMenu = {
                 
                 inventoryItem.addEventListener("click", () => {
                     game.player.inventoryWindow = true;
+                    document.querySelector("#itemTitle").style.display = "block";
+            document.querySelector("#itemDescription").style.display = "block";
                     document.querySelector("#itemTitleText").innerHTML = item.name;
                     document.querySelector("#itemDescriptionText").innerHTML = item.description;
                 })

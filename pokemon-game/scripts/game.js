@@ -381,7 +381,7 @@ const game = {
         window.addEventListener('click', () => {
             if(!game.clicked) {
             audio.Map.play()
-            clicked = true
+            game.clicked = true
             }
         })
 

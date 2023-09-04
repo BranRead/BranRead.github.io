@@ -42,6 +42,8 @@ const menu = {
             toRemove.forEach(item => {
                 item.remove();
             })
+            document.querySelector("#itemTitle").style.display = "none";
+            document.querySelector("#itemDescription").style.display = "none";
             dialogue.hide();
         }
         

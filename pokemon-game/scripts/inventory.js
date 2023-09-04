@@ -118,7 +118,7 @@ class Inventory {
                             break;
                     }
                     player.otherAction = true;
-                    queue.push(() => {
+                    battleSetup.queue.push(() => {
                         battleFunctions.startTurn();
                     })
                 } else {
@@ -133,7 +133,20 @@ class Inventory {
         }
     }
 
-    trash(){
-        console.log("Item trashed!");
+    trash(btn){
+        // console.log("Item trashed!");
+        const itemIndex = btn.parentElement.parentElement.dataset.value;
+        const useCategory = game.player.inventory.items[itemIndex].useCategory;
+        dialogue.displayDialogue(`${game.player.inventory.items[itemIndex].name} was dropped.`)
+        
+        battleSetup.queue.push(() => {
+            game.player.inventory.items.splice(itemIndex, 1);
+            menu.close();
+            menu.open();
+            game.player.inventory.openInventory();
+            inventoryMenu.display(useCategory);
+        })
+        
+        
     }
 }
