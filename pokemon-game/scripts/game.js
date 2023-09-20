@@ -12,6 +12,7 @@ const game = {
     animateSprite: false,
     lastKey: "",
     encounterRate: 0.01,
+    animationID: 0,
     keys: {
         w: {
             pressed: false
@@ -411,7 +412,7 @@ const game = {
     },
     
     animate: () => {
-        const animationID = window.requestAnimationFrame(game.animate);
+        game.animationID = window.requestAnimationFrame(game.animate);
         let moving = true;
     
         //Draws all objects needed at start
@@ -459,7 +460,7 @@ const game = {
                 Math.random() < game.encounterRate
                 )  {
                     //deactivate existing animation loop
-                    window.cancelAnimationFrame(animationID);
+                    window.cancelAnimationFrame(game.animationID);
                     audio.Map.stop()
                     audio.initBattle.play()
                     audio.battle.play()

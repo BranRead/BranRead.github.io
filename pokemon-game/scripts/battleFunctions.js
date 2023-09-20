@@ -216,10 +216,11 @@ const battleFunctions = {
                         opacity: 0,
                     })
                     battleSetup.queue = [];
-                    // battleSetup.endQueue = [];
+                    battleSetup.endQueue = [];
                     game.ctx.translate(game.canvasMove.x, game.canvasMove.y);
                     battleSetup.dialogBackground.style.display = "none"
-                    game.battleBackground.opacity = 0;   
+                    game.battleBackground.opacity = 0;
+                    audio.battle.stop();   
                     game.battle.initiated = false;
                     audio.Map.play();
                 }
@@ -265,14 +266,14 @@ const battleFunctions = {
             battleSetup.playerMonster.stats.level++;
             dialogue.displayDialogue(`${battleSetup.playerMonster.name} leveled up to level ${battleSetup.playerMonster.stats.level}.`);
         } else {
-            // battleSetup.endQueue.splice(1, 0, () => {
+            battleSetup.endQueue.splice(1, 0, () => {
                 let currentEXP = battleSetup.playerMonster.stats.currentEXP / 
                     battleSetup.playerMonster.stats.toNextLevelEXP;
                 currentEXP *= 100;
-                gsap.to(document.querySelector(".playerEXPBar"), {
+                gsap.to(document.querySelector("#playerEXPBarBattle"), {
                     width: currentEXP + '%'
                 })
-            // })
+            })
             dialogue.displayDialogue(`${battleSetup.playerMonster.name} gained ${exp} EXP.`); 
         }
     },

@@ -26,7 +26,7 @@ const battleSetup = {
         health *= 100;
         let roundedHealth = Math.ceil(health);
         let healthPercentage = roundedHealth + "%";
-        document.querySelector('.playerHealthBar').style.width = healthPercentage;
+        document.querySelector('.playerHealthBarBattle').style.width = healthPercentage;
         document.querySelector('#hpText').innerHTML = healthText;
     
         let exp = game.player.team.roster[0].stats.currentEXP / game.player.team.roster[0].stats.toNextLevelEXP;
