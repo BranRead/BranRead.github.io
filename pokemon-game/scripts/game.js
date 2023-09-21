@@ -298,36 +298,62 @@ const game = {
 
         window.addEventListener('keydown', (e) => {
             switch (e.key) {
+                //Lower case keys for movement
                 case 'w':
                     game.keys.w.pressed = true;
                     game.lastKey = "w"
                     break;
-
                 case 'a':
                     game.keys.a.pressed = true;
                     game.lastKey = "a"
                     break;
-
                 case 's':
                     game.keys.s.pressed = true;
                     game.lastKey = "s"
                     break;
-
                 case 'd':
                     game.keys.d.pressed = true;
                     game.lastKey = "d"
                     break;
+                //Lower case keys for actions
                 case 'i':
                     if(game.player.menuDisplayed) {
                         menu.close();
                     } else {
                         menu.open();
                     }
+                    break;
+                //Lower case keys for movement
+                case 'W':
+                    game.keys.w.pressed = true;
+                    game.lastKey = "w"
+                    break;
+                case 'A':
+                    game.keys.a.pressed = true;
+                    game.lastKey = "a"
+                    break;
+                case 'S':
+                    game.keys.s.pressed = true;
+                    game.lastKey = "s"
+                    break;
+                case 'D':
+                    game.keys.d.pressed = true;
+                    game.lastKey = "d"
+                    break;
+                //Lower case keys for actions
+                case 'I':
+                    if(game.player.menuDisplayed) {
+                        menu.close();
+                    } else {
+                        menu.open();
+                    }
+                    break;
             }
         });
 
         window.addEventListener('keyup', (e) => {
             switch (e.key) {
+                //Lower and then upper case
                 case 'w':
                     game.keys.w.pressed = false;
                     break;
@@ -341,6 +367,22 @@ const game = {
                     break;
 
                 case 'd':
+                    game.keys.d.pressed = false;
+                    break;
+
+                case 'W':
+                    game.keys.w.pressed = false;
+                    break;
+
+                case 'A':
+                    game.keys.a.pressed = false;
+                    break;
+
+                case 'S':
+                    game.keys.s.pressed = false;
+                    break;
+
+                case 'D':
                     game.keys.d.pressed = false;
                     break;
             }
