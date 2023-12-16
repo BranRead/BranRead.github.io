@@ -22,9 +22,17 @@ const battleFunctions = {
                 const fireballImage = new Image();
                 fireballImage.src="/pokemon-game/img/attacks/fireball.png";
                 const fireball = new Sprite({
-                    position: {
+                    spritePosition: {
+                        x: 0,
+                        y: 0
+                    },
+                    gamePosition: {
                         x: user.position.x,
                         y: user.position.y
+                    },
+                    dimensions: {
+                        width: 64.5,
+                        height: 64
                     },
                     image: fireballImage,
                     frames: {
@@ -38,7 +46,7 @@ const battleFunctions = {
                 renderedAttacks.splice(0, 0, fireball);
             
                 //Animates the fireball to go to target
-                gsap.to(fireball.position, {
+                gsap.to(fireball.gamePosition, {
                     x: target.position.x,
                     y: target.position.y,
                     onComplete: () => {

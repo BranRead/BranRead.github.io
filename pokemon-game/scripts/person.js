@@ -3,7 +3,9 @@ class Person extends Sprite{
             name,
             team,
             inventory,
-            position, 
+            spritePosition,
+            gamePosition, 
+            dimensions,
             image, 
             frames = { max: 1, hold: 10 }, 
             sprites, 
@@ -12,7 +14,9 @@ class Person extends Sprite{
             monsterFriend,
         }) {
             super({
-                position, 
+                spritePosition,
+                gamePosition, 
+                dimensions, 
                 image, 
                 frames, 
                 sprites, 
