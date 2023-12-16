@@ -252,7 +252,6 @@ button:hover {
 }
 
 .inventoryImg {
-    background-image: url("/pokemon-game/img/inventory/restoration.png");
     width: 50px;
     height: 50px;
     background-size: cover;

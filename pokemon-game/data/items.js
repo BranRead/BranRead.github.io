@@ -1,7 +1,10 @@
+const potionImage = new Image();
+potionImage.src = '/pokemon-game/img/inventory/restoration.png';
+
 const items = {
     HealthPotion: {
         name: "Health Potion", 
-        sprite: null, 
+        sprite: potionImage, 
         quantity: 3, 
         useCategory: "restore", 
         description: "A health potion which heals 25 health.",
@@ -28,9 +31,9 @@ const items = {
 
     AtkBoost: {
         name: "Atk Boost",
-        sprite: null,
+        sprite: potionImage,
         quantity: 1,
-        useCategory: "restore",
+        useCategory: "statBoost",
         description: "An item which temporarily boosts the attack of a monster by 10 points.",
         boost: {
             stat: "atk",
@@ -40,10 +43,10 @@ const items = {
     
     DefBoost: {
         name: "Def Boost",
-        sprite: null,
+        sprite: potionImage,
         quantity: 1,
-        useCategory: "stat boost",
-        description: "A health potion which heals 25 health.",
+        useCategory: "statBoost",
+        description: "An item which temporarily boosts the defense of a monster by 10 points.",
         boost: {
             stat: "def",
             amount: 10

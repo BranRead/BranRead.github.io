@@ -61,6 +61,7 @@ const game = {
     playerRightImage: new Image(),
     player: "",
     healer: "",
+    itemsInWorld: {},
     
     init: () => {
         game.ctx = game.cvs.getContext('2d');
@@ -222,6 +223,8 @@ const game = {
                 down: game.playerDownImage,
             },
         })
+
+        game.itemsInWorld.healingPotion = items.HealthPotion;
 
         game.cvs.addEventListener('click', () => {
             if(game.rectangularCollision({

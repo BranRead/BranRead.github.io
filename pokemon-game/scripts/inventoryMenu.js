@@ -7,6 +7,7 @@ const inventoryMenu = {
     
                 const inventoryImg = document.createElement('img');
                 inventoryImg.className = "inventoryImg"
+                inventoryImg.src = item.sprite.src;
     
                 const inventoryName = document.createElement('div');
                 inventoryName.className = "inventoryName"
