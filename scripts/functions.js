@@ -13,7 +13,7 @@ const dialogOptions = new Map([
 function copyEmail() {
     let copiedEmail = "branrtread@gmail.com";
     navigator.clipboard.writeText(copiedEmail);
-    alert("Copied!");
+    alert("Email copied to clipboard!");
 }
 
 function dialog() {
