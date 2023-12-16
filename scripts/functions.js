@@ -4,9 +4,9 @@ const readMore = document.getElementById("advanceText");
 
 const dialogOptions = new Map([
     ["intro", "Having loved computers and technology my entire life, I switched careers and went back to school for programming. At my core I truly care for others, place a high value on my work and always strive to do better. I bring my passion and dedication to everything I do."],
-    ["languages", "I have worked with Java, JavaScript, Node.JS, C, SQL, HTML, CSS and Bootstrap."],
-    ["currently", "I'm also currently learning C# along with Unity and PHP. While my main goal is to "
-    + "get into game development, I'm also open to creating websites for people or buisnesses that want one made."],
+    ["languages", "I have worked with Java, JavaScript, PHP, Node.JS, C, C++, SQL, HTML, CSS and Bootstrap."],
+    ["currently", "In my own time I'm working on learning Godot and Android Studio. While my main goal is to "
+    + "get into game development, I'm open to creating websites for people or buisnesses that want one made."],
     ["conclusion", "Please check out my projects! I'm available for both game development as well as creating and building websites."]
 ])
 
