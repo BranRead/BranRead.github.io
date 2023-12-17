@@ -1,5 +1,6 @@
 const battleMenu = {
     battleOptions: () => {
+        
         const attackBtn = document.querySelectorAll('.attackOptions');
         const commandBtn = document.querySelectorAll('.battleCommands');
         attackBtn.forEach(button => {
@@ -37,7 +38,7 @@ const battleMenu = {
     },
     
     fight: () => {
-        dialogue.clearDialog();
+        dialog.clearDialog();
         game.player.otherAction = false;
         document.querySelector("#goBack").style.display = "block";
         //Adds attack buttons in
@@ -61,10 +62,11 @@ const battleMenu = {
             document.querySelector('#attackType').style.color = selectedAttack.color;
         })
         });
+        battleSetup.attackType.style.display = "flex";
     },
     
     befriend: ()=> {
-        dialogue.displayDialogue(`${battleSetup.enemyMonster.name} started to trust you a bit more!`);
+        dialog.displayDialog(`${battleSetup.enemyMonster.name} started to trust you a bit more!`);
         battleSetup.enemyMonster.stats.tempFriend += game.player.monsterFriend;
         if((battleSetup.enemyMonster.stats.tempFriend) < 50) {
             battleSetup.queue.push(() => {
@@ -99,7 +101,7 @@ const battleMenu = {
             battleSetup.queue.push(() => {
                 battleFunctions.startTurn();
             });
-            dialogue.displayDialogue(`${battleSetup.playerMonster.name} couldn't get away...`);
+            dialog.displayDialog(`${battleSetup.playerMonster.name} couldn't get away...`);
         };
     },
 }

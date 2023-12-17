@@ -1,19 +1,27 @@
-//Always need to show textbox with text to start animation
+//Always need to show textbox with text to progress turns
 //innerHTML replaces butttons or anything else within the dialog box
-const dialogue = {
-    //Set to whatever the dialogue container is
-    dialogueBox: document.querySelector("#dialogueBox"),
-    dialogueBackground: document.querySelector("#dialogBackground"),
+const dialog = {
+    //Set to whatever the dialog container is
+    dialogBox: document.querySelector("#dialogBox"),
+    dialogBackground: document.querySelector("#dialogBackground"),
 
-    displayDialogue: (message) => {
+    displayDialog: (message) => {
+        document.getElementById("attacksBox").style.display = "none";
         dialogBackground.style.display = "flex";
-        dialogue.dialogueBox.style.display = "block";
-        dialogue.dialogueBox.innerHTML = message
+        dialog.dialogBox.style.display = "block";
+        dialog.dialogBox.innerHTML = message
+    },
+
+    displayDialogOverWorld: (message) => {
+        document.getElementById("attackTypeBox").style.display = "none";
+        dialogBackground.style.display = "flex";
+        dialog.dialogBox.style.display = "block";
+        dialog.dialogBox.innerHTML = message
     },
 
     hide: () => {
         dialogBackground.style.display = "none";
-        dialogue.dialogueBox.style.display = "none";
+        dialog.dialogBox.style.display = "none";
 
     },
 
@@ -33,7 +41,7 @@ const dialogue = {
             battleSetup.queue[0]()
             battleSetup.queue.shift()
         } else {
-            dialogue.dialogueBox.style.display = 'none';
+            dialog.dialogBox.style.display = 'none';
         }
     },
     

@@ -234,25 +234,25 @@ const battleFunctions = {
                 }
             })
         })
-        dialogue.displayDialogue(message);
+        dialog.displayDialog(message);
     },
     
     faintCheck: (target) => {
         if(target.stats.hp <= 0){
             if(target == battleSetup.playerMonster){
                 battleSetup.endQueue.push(() => {target.faint()})
-                dialogue.displayDialogue(`${target.name} took ${target.damage} points 
+                dialog.displayDialog(`${target.name} took ${target.damage} points 
                 of damage, they have no more HP left.`);    
             } else if(target == battleSetup.enemyMonster){
                 battleSetup.endQueue.push(
                     () => {battleFunctions.expYield()},
                     () => {target.faint()}
                     )
-                dialogue.displayDialogue(`${target.name} took ${target.damage} points 
+                dialog.displayDialog(`${target.name} took ${target.damage} points 
                 of damage, they have no more HP left.`);           
             }
         } else {
-            dialogue.displayDialogue(`${target.name} took ${target.damage} points of damage!`)
+            dialog.displayDialog(`${target.name} took ${target.damage} points of damage!`)
             if(battleSetup.queue.length == 1){
                 battleMenu.battleOptions();
             }
@@ -272,7 +272,7 @@ const battleFunctions = {
                 battleFunctions.levelUp();
             });
             battleSetup.playerMonster.stats.level++;
-            dialogue.displayDialogue(`${battleSetup.playerMonster.name} leveled up to level ${battleSetup.playerMonster.stats.level}.`);
+            dialog.displayDialog(`${battleSetup.playerMonster.name} leveled up to level ${battleSetup.playerMonster.stats.level}.`);
         } else {
             battleSetup.endQueue.splice(1, 0, () => {
                 let currentEXP = battleSetup.playerMonster.stats.currentEXP / 
@@ -282,7 +282,7 @@ const battleFunctions = {
                     width: currentEXP + '%'
                 })
             })
-            dialogue.displayDialogue(`${battleSetup.playerMonster.name} gained ${exp} EXP.`); 
+            dialog.displayDialog(`${battleSetup.playerMonster.name} gained ${exp} EXP.`); 
         }
     },
 }

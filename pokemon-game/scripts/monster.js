@@ -131,7 +131,7 @@ class Monster extends Sprite {
     }
 
     attack({attack}) {
-        dialogue.clearDialog();
+        dialog.clearDialog();
         let hit = true;
         if(hit && this == battleSetup.playerMonster){
             let ranNum = (Math.random() * (1 - 0.75 + 1) + 0.75);
@@ -148,7 +148,7 @@ class Monster extends Sprite {
             rotation = 1
 
             battleFunctions.animateAttack(attack, battleSetup.playerMonster, battleSetup.enemyMonster, battleSetup.renderedAttacks, healthBar, rotation);
-            dialogue.displayDialogue(`${battleSetup.playerMonster.name} used ${attack.name}!`); 
+            dialog.displayDialog(`${battleSetup.playerMonster.name} used ${attack.name}!`); 
         } else if (hit && this == battleSetup.enemyMonster) {
             let ranNum = (Math.random() * (1 - 0.75 + 1) + 0.75);
             let trueDamage = Math.floor((((battleSetup.playerMonster.stats.atk +
@@ -170,7 +170,7 @@ class Monster extends Sprite {
             rotation = 4
 
             battleFunctions.animateAttack(attack, battleSetup.enemyMonster, battleSetup.playerMonster, battleSetup.renderedAttacks, healthBar, rotation);
-            dialogue.displayDialogue(`${battleSetup.enemyMonster.name} used ${attack.name}!`  ); 
+            dialog.displayDialog(`${battleSetup.enemyMonster.name} used ${attack.name}!`  ); 
         } 
     }  
 }

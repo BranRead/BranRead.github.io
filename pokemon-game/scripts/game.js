@@ -62,7 +62,9 @@ const game = {
     player: "",
     healer: "",
     itemSpritesheet: new Image(),
+    healingPotion: "",
     itemsInWorld: {},
+    
     
     init: () => {
         game.ctx = game.cvs.getContext('2d');
@@ -329,34 +331,77 @@ const game = {
                 //Heals monsters
                 const yesBtn = document.createElement("button");
                 const noBtn = document.createElement("button");
+                const dialogAdvance = document.createElement("button");
+                        
 
                 
-                dialogue.displayDialogue("Would you like to heal your monsters?");
+                dialog.displayDialogOverWorld("Would you like to heal your monsters?");
 
 
                 yesBtn.className = "yesBtn";
                 yesBtn.innerHTML = "Yes";
                 noBtn.className = "noBtn";
                 noBtn.innerHTML = "No";
+                dialogAdvance.className = "yesBtn";
+                dialogAdvance.innerHTML = "Advance";
             
                 yesBtn.addEventListener("click", () => {
                     game.player.team.roster.forEach((monster) => {
                         monster.stats.hp = monster.stats.maxHP;
-                        battleSetup.queue.push(() => {
-                            dialogue.displayDialogue("Your monsters are healed!");
-                        
-                        }, () => {
-                            dialogBackground.style.display = "none";
-                        })
                     })
+                    
+                    
+                    dialog.displayDialogOverWorld("Your monsters are healed!");
+                    dialog.dialogBox.append(dialogAdvance);
+                    dialogAdvance.addEventListener("click", dialog.hide)
                 })
             
                 noBtn.addEventListener("click", () => {
                     dialogBackground.style.display = "none";
                 })
 
-                dialogue.dialogueBox.append(yesBtn);
-                dialogue.dialogueBox.append(noBtn);
+                dialog.dialogBox.append(yesBtn);
+                dialog.dialogBox.append(noBtn);
+            }
+        })
+
+        game.cvs.addEventListener('click', () => {
+            if(game.rectangularCollision({
+                rectangle1: game.player, 
+                rectangle2: {...game.healingPotion, gamePosition: {
+                    x: game.healingPotion.gamePosition.x + 3,
+                    y: game.healingPotion.gamePosition.y
+                }}
+            }) || game.rectangularCollision({
+                rectangle1: game.player, 
+                rectangle2: {...game.healingPotion, gamePosition: {
+                    x: game.healingPotion.gamePosition.x - 3,
+                    y: game.healingPotion.gamePosition.y
+                }}
+            }) || game.rectangularCollision({
+                rectangle1: game.player, 
+                rectangle2: {...game.healingPotion, gamePosition: {
+                    x: game.healingPotion.gamePosition.x,
+                    y: game.healingPotion.gamePosition.y + 3
+                }}
+            }) || game.rectangularCollision({
+                rectangle1: game.player, 
+                rectangle2: {...game.healingPotion, gamePosition: {
+                    x: game.healingPotion.gamePosition.x,
+                    y: game.healingPotion.gamePosition.y - 3
+                }}
+            })
+            ){
+                const dialogAdvance = document.createElement("button");
+                dialogAdvance.className = "yesBtn";
+                dialogAdvance.innerHTML = "Advance";
+
+                
+                dialog.displayDialogOverWorld("You found a healing potion!");
+                dialog.dialogBox.append(dialogAdvance);
+                dialogAdvance.addEventListener("click", dialog.hide)
+            
+            
             }
         })
 
@@ -483,7 +528,7 @@ const game = {
             battleMenu.battleOptions();
         })
 
-        dialogue.dialogueBox.addEventListener("click", dialogue.progressTurn);
+        
 
         window.addEventListener('click', () => {
             if(!game.clicked) {
@@ -508,6 +553,12 @@ const game = {
 
     },
     
+
+    /**
+     * Checks for collision between two rectangles
+     * @param {two different rectangle objects}  
+     * @returns boolean
+     */
     rectangularCollision: ({rectangle1, rectangle2}) => {
         return (
             rectangle1.gamePosition.x + rectangle1.dimensions.width >= rectangle2.gamePosition.x && 
@@ -621,6 +672,12 @@ const game = {
                         x: game.healer.gamePosition.x,
                         y: game.healer.gamePosition.y + 3
                     }}
+                }) || game.rectangularCollision({
+                    rectangle1: game.player, 
+                    rectangle2: {...game.healingPotion, gamePosition: {
+                        x: game.healingPotion.gamePosition.x,
+                        y: game.healingPotion.gamePosition.y + 3
+                    }}
                 })
                 )  {
                     moving = false;
@@ -648,6 +705,12 @@ const game = {
                     rectangle2: {...game.healer, gamePosition: {
                         x: game.healer.gamePosition.x + 3,
                         y: game.healer.gamePosition.y
+                    }}
+                }) || game.rectangularCollision({
+                    rectangle1: game.player, 
+                    rectangle2: {...game.healingPotion, gamePosition: {
+                        x: game.healingPotion.gamePosition.x + 3,
+                        y: game.healingPotion.gamePosition.y
                     }}
                 })
                 )  {
@@ -677,6 +740,12 @@ const game = {
                         x: game.healer.gamePosition.x,
                         y: game.healer.gamePosition.y - 3
                     }}
+                }) || game.rectangularCollision({
+                    rectangle1: game.player, 
+                    rectangle2: {...game.healingPotion, gamePosition: {
+                        x: game.healingPotion.gamePosition.x,
+                        y: game.healingPotion.gamePosition.y - 3
+                    }}
                 })
                 )  {
                     moving = false;
@@ -704,6 +773,12 @@ const game = {
                     rectangle2: {...game.healer, gamePosition: {
                         x: game.healer.gamePosition.x - 3,
                         y: game.healer.gamePosition.y
+                    }}
+                }) || game.rectangularCollision({
+                    rectangle1: game.player, 
+                    rectangle2: {...game.healingPotion, gamePosition: {
+                        x: game.healingPotion.gamePosition.x - 3,
+                        y: game.healingPotion.gamePosition.y
                     }}
                 })
                 )  {
@@ -744,11 +819,11 @@ const game = {
     },
 
     quit: () => {
-        //Dialogue
+        //Dialog
         menu.close();
         dialogBackground.style.display = "flex";
-        dialogueBox.style.display = "block";
-        dialogueBox.innerHTML = "Are you sure you'd like to quit? Unsaved changes will be lost.";
+        dialogBox.style.display = "block";
+        dialogBox.innerHTML = "Are you sure you'd like to quit? Unsaved changes will be lost.";
         
         const yesBtn = document.createElement("button");
         yesBtn.className = "yesBtn";
@@ -764,8 +839,8 @@ const game = {
             dialogBackground.style.display = "none";
         })
         
-        dialogueBox.append(yesBtn);
-        dialogueBox.append(noBtn);
+        dialogBox.append(yesBtn);
+        dialogBox.append(noBtn);
     }
 }
 game.init();

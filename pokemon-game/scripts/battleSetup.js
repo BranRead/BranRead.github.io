@@ -1,5 +1,7 @@
 const battleSetup = {
     dialogBackground: document.querySelector("#dialogBackground"),
+    userChoices: document.querySelector("#attacksBox"),
+    attackType: document.querySelector("#attacksBox"),
     enemyMonster: "",
     playerMonster: "",
     tempFriendship: 0,
@@ -12,13 +14,14 @@ const battleSetup = {
     
     initBattle: () => {
         battleSetup.dialogBackground.style.display = "flex";
-        document.querySelector("#attacksBox").style.display = "grid";
-        document.querySelector("#attackTypeBox").style.display = "flex";
+        dialog.dialogBox.style.width = "100%";
+        battleSetup.userChoices.style.display = "grid";
         game.player.inBattle = true;
         game.ctx.translate(-game.canvasMove.x, -game.canvasMove.y);
+        dialog.dialogBox.addEventListener("click", dialog.progressTurn);
         
         document.querySelector('#userInterface').style.display = 'block';
-        document.querySelector('#dialogueBox').style.display = 'none';
+        document.querySelector('#dialogBox').style.display = 'none';
         document.querySelector('#enemyHealthBar').style.width = '100%';
         
         let health = game.player.team.roster[0].stats.hp / game.player.team.roster[0].stats.maxHP;
