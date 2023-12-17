@@ -2,32 +2,23 @@
 //innerHTML replaces butttons or anything else within the dialog box
 const dialog = {
     //Set to whatever the dialog container is
+    dialog: document.querySelector ("#dialog"),
+    dialogOutputBox: document.querySelector("#dialogOutputBox"),
     dialogBox: document.querySelector("#dialogBox"),
-    dialogBackground: document.querySelector("#dialogBackground"),
 
     displayDialog: (message) => {
-        document.getElementById("attacksBox").style.display = "none";
-        dialogBackground.style.display = "flex";
+        document.getElementById("combatBox").style.display = "none";
         dialog.dialogBox.style.display = "block";
-        dialog.dialogBox.innerHTML = message
-    },
-
-    displayDialogOverWorld: (message) => {
-        document.getElementById("attackTypeBox").style.display = "none";
-        dialogBackground.style.display = "flex";
-        dialog.dialogBox.style.display = "block";
-        dialog.dialogBox.innerHTML = message
+        dialog.dialog.innerHTML = message
     },
 
     hide: () => {
-        dialogBackground.style.display = "none";
         dialog.dialogBox.style.display = "none";
-
     },
 
     clearDialog: () => {
         //Clears dialog box
-        const buttonToRemove = document.querySelectorAll('.battleCommands');
+        const buttonToRemove = document.querySelectorAll('.dialogBtn');
         buttonToRemove.forEach(button => {
         button.remove();
         })

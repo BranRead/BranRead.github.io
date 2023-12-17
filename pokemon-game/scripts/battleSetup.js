@@ -1,7 +1,7 @@
 const battleSetup = {
     dialogBackground: document.querySelector("#dialogBackground"),
     userChoices: document.querySelector("#attacksBox"),
-    attackType: document.querySelector("#attacksBox"),
+    attackType: document.querySelector("#attackTypeBox"),
     enemyMonster: "",
     playerMonster: "",
     tempFriendship: 0,
@@ -16,6 +16,7 @@ const battleSetup = {
         battleSetup.dialogBackground.style.display = "flex";
         dialog.dialogBox.style.width = "100%";
         battleSetup.userChoices.style.display = "grid";
+        battleSetup.attackType.style.display = "flex";
         game.player.inBattle = true;
         game.ctx.translate(-game.canvasMove.x, -game.canvasMove.y);
         dialog.dialogBox.addEventListener("click", dialog.progressTurn);

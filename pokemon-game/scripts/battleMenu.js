@@ -22,6 +22,9 @@ const battleMenu = {
                     case "Use Item":
                         menu.open();
                         game.player.inventory.openInventory();
+                        // battleSetup.userChoices.style.display = "none";
+                        // battleSetup.attackType.style.display = "none";
+                        dialog.dialogBackground.style.display = "none";
                         break;
                     case "Befriend":
                         battleMenu.befriend();

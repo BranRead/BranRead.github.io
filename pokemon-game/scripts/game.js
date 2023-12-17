@@ -335,14 +335,14 @@ const game = {
                         
 
                 
-                dialog.displayDialogOverWorld("Would you like to heal your monsters?");
+                dialog.displayDialog("Would you like to heal your monsters?");
 
 
-                yesBtn.className = "yesBtn";
+                yesBtn.classList.add("yesBtn", "dialogBtn");
                 yesBtn.innerHTML = "Yes";
-                noBtn.className = "noBtn";
+                noBtn.classList.add("noBtn", "dialogBtn");
                 noBtn.innerHTML = "No";
-                dialogAdvance.className = "yesBtn";
+                dialogAdvance.classList.add("yesBtn", "dialogBtn");
                 dialogAdvance.innerHTML = "Advance";
             
                 yesBtn.addEventListener("click", () => {
@@ -350,8 +350,8 @@ const game = {
                         monster.stats.hp = monster.stats.maxHP;
                     })
                     
-                    
-                    dialog.displayDialogOverWorld("Your monsters are healed!");
+                    dialog.clearDialog();
+                    dialog.displayDialog("Your monsters are healed!");
                     dialog.dialogBox.append(dialogAdvance);
                     dialogAdvance.addEventListener("click", dialog.hide)
                 })
@@ -397,7 +397,7 @@ const game = {
                 dialogAdvance.innerHTML = "Advance";
 
                 
-                dialog.displayDialogOverWorld("You found a healing potion!");
+                dialog.displayDialog("You found a healing potion!");
                 dialog.dialogBox.append(dialogAdvance);
                 dialogAdvance.addEventListener("click", dialog.hide)
             
