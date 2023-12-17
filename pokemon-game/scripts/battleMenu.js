@@ -1,5 +1,8 @@
 const battleMenu = {
     battleOptions: () => {
+        if(battleSetup.combatBox.style.display === "none"){
+            battleSetup.combatBox.style.display = "flex"
+        }
         
         const attackBtn = document.querySelectorAll('.attackOptions');
         const commandBtn = document.querySelectorAll('.battleCommands');
@@ -9,7 +12,10 @@ const battleMenu = {
         commandBtn.forEach(button => {
             button.remove();
         })
-        battleSetup.playerBattleActions.forEach(option => {
+        const topRow = document.getElementById("topRow");
+        const bottomRow = document.getElementById("bottomRow");
+
+        battleSetup.playerBattleActions.forEach((option, index) => {
             const button = document.createElement("button");
             button.className = "battleCommands";
             button.innerHTML = option;
@@ -22,9 +28,7 @@ const battleMenu = {
                     case "Use Item":
                         menu.open();
                         game.player.inventory.openInventory();
-                        // battleSetup.userChoices.style.display = "none";
-                        // battleSetup.attackType.style.display = "none";
-                        dialog.dialogBackground.style.display = "none";
+                        battleSetup.combatBox.style.display = "none";
                         break;
                     case "Befriend":
                         battleMenu.befriend();
@@ -36,12 +40,24 @@ const battleMenu = {
                         console.log("Something went wrong!");
                 }
             })
-            document.querySelector('#attacksBox').append(button);
+            if(index < 2) {
+                topRow.append(button);
+            } else {
+                bottomRow.append(button);
+            }
+            
+        })
+    },
+
+    clearBattleOptions: () => {
+        const attackBtns = document.querySelectorAll('.battleCommands');
+        attackBtns.forEach(button => {
+            button.remove();
         })
     },
     
     fight: () => {
-        dialog.clearDialog();
+        battleMenu.clearBattleOptions();
         game.player.otherAction = false;
         document.querySelector("#goBack").style.display = "block";
         //Adds attack buttons in
@@ -49,7 +65,7 @@ const battleMenu = {
             const button = document.createElement('button');
             button.innerHTML = attack.name;
             button.className = 'attackOptions';
-            document.querySelector('#attacksBox').append(button);
+            battleSetup.userChoice.append(button);
         });
         //Our event listeners for buttons
         document.querySelectorAll('.attackOptions').forEach(button => {
@@ -61,8 +77,8 @@ const battleMenu = {
         })
         button.addEventListener('mouseenter', (e) => {
             const selectedAttack = attacks[(e.currentTarget.innerHTML).replace(/\s/g, '')];
-            document.querySelector('#attackType').innerHTML = selectedAttack.type;
-            document.querySelector('#attackType').style.color = selectedAttack.color;
+            battleSetup.attackType.innerHTML = selectedAttack.type;
+            battleSetup.attackType.style.color = selectedAttack.color;
         })
         });
         battleSetup.attackType.style.display = "flex";

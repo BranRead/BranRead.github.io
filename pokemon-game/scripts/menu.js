@@ -49,7 +49,7 @@ const menu = {
         if(game.battle.initiated){
             // battleSetup.userChoices.style.display = "grid";
             // battleSetup.attackType.style.display = "flex";
-            dialog.dialogBackground.style.display = "flex";
+            battleSetup.combatBox.style.display = "flex";
         }
         
         game.usingItem = false;

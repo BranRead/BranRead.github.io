@@ -1,6 +1,6 @@
 const battleSetup = {
-    dialogBackground: document.querySelector("#dialogBackground"),
-    userChoices: document.querySelector("#attacksBox"),
+    combatBox: document.querySelector("#combatBox"),
+    userChoice: document.querySelector("#userChoice"),
     attackType: document.querySelector("#attackTypeBox"),
     enemyMonster: "",
     playerMonster: "",
@@ -13,10 +13,9 @@ const battleSetup = {
     battleAnimationID: 0,
     
     initBattle: () => {
-        battleSetup.dialogBackground.style.display = "flex";
-        dialog.dialogBox.style.width = "100%";
-        battleSetup.userChoices.style.display = "grid";
-        battleSetup.attackType.style.display = "flex";
+        battleSetup.combatBox.style.display = "flex";
+        battleSetup.userChoice.style.display = "flex";
+        battleSetup.attackType.style.display = "none";
         game.player.inBattle = true;
         game.ctx.translate(-game.canvasMove.x, -game.canvasMove.y);
         dialog.dialogBox.addEventListener("click", dialog.progressTurn);
@@ -39,7 +38,7 @@ const battleSetup = {
         document.querySelector("#playerEXPBarBattle").style.width = expPercentage;
         
         document.querySelector('#playerName').innerHTML = game.player.team.roster[0].name;
-        document.querySelector('#attacksBox').replaceChildren();
+        // document.querySelector('#attacksBox').replaceChildren();
     
         const encounters = [monsters.Draggle, monsters.Axy, monsters.Bambo, monsters.Boscis, monsters.UnoUne, monsters.Cranio, monsters.Spookli];
     
