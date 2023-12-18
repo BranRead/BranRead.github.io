@@ -402,16 +402,28 @@ button:hover {
 #topRow {
     display: flex;
     flex-direction: row;
+    width: 100%;
+    height: 50%
 }
 
 #bottomRow {
     display: flex;
     flex-direction: row;
+    width: 100%;
+    height: 50%
+}
+
+.userChoiceBtn {
+    display: flex;
+    text-align: center;
+    width: 50%;
+    border: 1px solid black;
 }
 
 .battleCommands {
-    border: 1px solid black;
+    text-align: center;
 }
+
 
 .monsterInfo {
     display: flex;

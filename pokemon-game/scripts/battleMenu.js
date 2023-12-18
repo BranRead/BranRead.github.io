@@ -12,40 +12,34 @@ const battleMenu = {
         commandBtn.forEach(button => {
             button.remove();
         })
-        const topRow = document.getElementById("topRow");
-        const bottomRow = document.getElementById("bottomRow");
+    
+        const userChoiceBtns = document.querySelectorAll(".userChoiceBtn");
+        const userCombatOptions = [
+            () => {
+                battleMenu.fight();
+            }, 
+            () => {
+                menu.open();
+                game.player.inventory.openInventory();
+                battleSetup.combatBox.style.display = "none";
+            }, 
+            () => {
+                battleMenu.befriend();
+            }, 
+            () => {
+                battleMenu.flee();
+            } 
+        ]
 
         battleSetup.playerBattleActions.forEach((option, index) => {
-            const button = document.createElement("button");
-            button.className = "battleCommands";
-            button.innerHTML = option;
-            button.addEventListener('click', (e) => {
-                const selection = e.currentTarget.innerHTML;
-                switch (selection){
-                    case "Fight":
-                        battleMenu.fight();
-                        break;
-                    case "Use Item":
-                        menu.open();
-                        game.player.inventory.openInventory();
-                        battleSetup.combatBox.style.display = "none";
-                        break;
-                    case "Befriend":
-                        battleMenu.befriend();
-                        break;
-                    case "Flee":
-                        battleMenu.flee();
-                        break;
-                    default: 
-                        console.log("Something went wrong!");
-                }
+            const label = document.createElement("h3");
+            label.className = "battleCommands";
+            label.textContent = option;
+            userChoiceBtns[index].addEventListener('click', () => {
+               userCombatOptions[index];
             })
-            if(index < 2) {
-                topRow.append(button);
-            } else {
-                bottomRow.append(button);
-            }
             
+            userChoiceBtns[index].append(label);
         })
     },
 
