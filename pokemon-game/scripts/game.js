@@ -332,7 +332,7 @@ const game = {
                 const yesBtn = document.createElement("button");
                 const noBtn = document.createElement("button");
                 const dialogAdvance = document.createElement("button");
-                        
+                dialog.clearDialog();
 
                 
                 dialog.displayDialog("Would you like to heal your monsters?");
@@ -342,8 +342,8 @@ const game = {
                 yesBtn.innerHTML = "Yes";
                 noBtn.classList.add("noBtn", "dialogBtn");
                 noBtn.innerHTML = "No";
-                dialogAdvance.classList.add("yesBtn", "dialogBtn");
-                dialogAdvance.innerHTML = "Advance";
+                dialogAdvance.classList.add("nextBtn", "dialogBtn");
+                dialogAdvance.innerHTML = "▼";
             
                 yesBtn.addEventListener("click", () => {
                     game.player.team.roster.forEach((monster) => {
@@ -357,7 +357,7 @@ const game = {
                 })
             
                 noBtn.addEventListener("click", () => {
-                    dialogBackground.style.display = "none";
+                    dialog.dialogBox.style.display = "none";
                 })
 
                 dialog.dialogBox.append(yesBtn);
@@ -392,11 +392,12 @@ const game = {
                 }}
             })
             ){
-                const dialogAdvance = document.createElement("button");
-                dialogAdvance.className = "yesBtn";
-                dialogAdvance.innerHTML = "Advance";
 
-                
+                const dialogAdvance = document.createElement("button");
+                dialogAdvance.classList.add("nextBtn", "dialogBtn");
+                dialogAdvance.innerHTML = "▼";
+
+                dialog.clearDialog();
                 dialog.displayDialog("You found a healing potion!");
                 dialog.dialogBox.append(dialogAdvance);
                 dialogAdvance.addEventListener("click", dialog.hide)
@@ -528,8 +529,6 @@ const game = {
             battleMenu.battleOptions();
         })
 
-        
-
         window.addEventListener('click', () => {
             if(!game.clicked) {
             audio.Map.play()
@@ -552,7 +551,6 @@ const game = {
         });
 
     },
-    
 
     /**
      * Checks for collision between two rectangles
@@ -655,143 +653,145 @@ const game = {
     
         //Movement for player, checking for collisions with either walls or NPC's
         //Maybe set NPC's as an array and a seperate function to be added here?
-        if(game.keys.w.pressed && game.lastKey === 'w' && !game.player.menuDisplayed) {
-            game.player.animate = true;
-            game.player.image = game.player.sprites.up;
-            for(let i = 0; i < game.boundaries.length; i++) {
-                const boundary = game.boundaries[i];
-                if (game.rectangularCollision({
-                    rectangle1: game.player, 
-                    rectangle2: {...boundary, gamePosition: {
-                        x: boundary.gamePosition.x,
-                        y: boundary.gamePosition.y + 3
-                    }}
-                }) || game.rectangularCollision({
-                    rectangle1: game.player, 
-                    rectangle2: {...game.healer, gamePosition: {
-                        x: game.healer.gamePosition.x,
-                        y: game.healer.gamePosition.y + 3
-                    }}
-                }) || game.rectangularCollision({
-                    rectangle1: game.player, 
-                    rectangle2: {...game.healingPotion, gamePosition: {
-                        x: game.healingPotion.gamePosition.x,
-                        y: game.healingPotion.gamePosition.y + 3
-                    }}
-                })
-                )  {
-                    moving = false;
-                    break;
-                    };
-            };
-            if(moving) {
-                game.ctx.translate(0, 3);
-                game.canvasMove.y += 3;
-                game.player.gamePosition.y -= 3;
+        if(dialog.dialogBox.style.display != "block" && !game.player.menuDisplayed){
+            if(game.keys.w.pressed && game.lastKey === 'w') {
+                game.player.animate = true;
+                game.player.image = game.player.sprites.up;
+                for(let i = 0; i < game.boundaries.length; i++) {
+                    const boundary = game.boundaries[i];
+                    if (game.rectangularCollision({
+                        rectangle1: game.player, 
+                        rectangle2: {...boundary, gamePosition: {
+                            x: boundary.gamePosition.x,
+                            y: boundary.gamePosition.y + 3
+                        }}
+                    }) || game.rectangularCollision({
+                        rectangle1: game.player, 
+                        rectangle2: {...game.healer, gamePosition: {
+                            x: game.healer.gamePosition.x,
+                            y: game.healer.gamePosition.y + 3
+                        }}
+                    }) || game.rectangularCollision({
+                        rectangle1: game.player, 
+                        rectangle2: {...game.healingPotion, gamePosition: {
+                            x: game.healingPotion.gamePosition.x,
+                            y: game.healingPotion.gamePosition.y + 3
+                        }}
+                    })
+                    )  {
+                        moving = false;
+                        break;
+                        };
+                };
+                if(moving) {
+                    game.ctx.translate(0, 3);
+                    game.canvasMove.y += 3;
+                    game.player.gamePosition.y -= 3;
+                }
+            } else if(game.keys.a.pressed && game.lastKey === 'a') {
+                game.player.animate = true;
+                game.player.image = game.player.sprites.left;
+                for(let i = 0; i < game.boundaries.length; i++) {
+                    const boundary = game.boundaries[i];
+                    if (game.rectangularCollision({
+                        rectangle1: game.player, 
+                        rectangle2: {...boundary, gamePosition: {
+                            x: boundary.gamePosition.x + 3,
+                            y: boundary.gamePosition.y  
+                        }}
+                    }) || game.rectangularCollision({
+                        rectangle1: game.player, 
+                        rectangle2: {...game.healer, gamePosition: {
+                            x: game.healer.gamePosition.x + 3,
+                            y: game.healer.gamePosition.y
+                        }}
+                    }) || game.rectangularCollision({
+                        rectangle1: game.player, 
+                        rectangle2: {...game.healingPotion, gamePosition: {
+                            x: game.healingPotion.gamePosition.x + 3,
+                            y: game.healingPotion.gamePosition.y
+                        }}
+                    })
+                    )  {
+                        moving = false;
+                        break;
+                        };
+                };
+                if(moving) {
+                    game.ctx.translate(3, 0);
+                    game.canvasMove.x += 3;
+                    game.player.gamePosition.x -= 3;
+                }
+            } else if(game.keys.s.pressed && game.lastKey === 's') {
+                game.player.animate = true;
+                game.player.image = game.player.sprites.down;
+                for(let i = 0; i < game.boundaries.length; i++) {
+                    const boundary = game.boundaries[i];
+                    if (game.rectangularCollision({
+                        rectangle1: game.player, 
+                        rectangle2: {...boundary, gamePosition: {
+                            x: boundary.gamePosition.x,
+                            y: boundary.gamePosition.y - 3
+                        }}
+                    }) || game.rectangularCollision({
+                        rectangle1: game.player, 
+                        rectangle2: {...game.healer, gamePosition: {
+                            x: game.healer.gamePosition.x,
+                            y: game.healer.gamePosition.y - 3
+                        }}
+                    }) || game.rectangularCollision({
+                        rectangle1: game.player, 
+                        rectangle2: {...game.healingPotion, gamePosition: {
+                            x: game.healingPotion.gamePosition.x,
+                            y: game.healingPotion.gamePosition.y - 3
+                        }}
+                    })
+                    )  {
+                        moving = false;
+                        break;
+                        };
+                }
+                if(moving) {
+                    game.ctx.translate(0, -3);
+                    game.canvasMove.y -= 3;
+                    game.player.gamePosition.y += 3;
+                }
+            } else if(game.keys.d.pressed && game.lastKey === 'd') {
+                game.player.animate = true;
+                game.player.image = game.player.sprites.right;
+                for(let i = 0; i < game.boundaries.length; i++) {
+                    const boundary = game.boundaries[i];
+                    if (game.rectangularCollision({
+                        rectangle1: game.player, 
+                        rectangle2: {...boundary, gamePosition: {
+                            x: boundary.gamePosition.x - 3,
+                            y: boundary.gamePosition.y
+                        }}
+                    })  || game.rectangularCollision({
+                        rectangle1: game.player, 
+                        rectangle2: {...game.healer, gamePosition: {
+                            x: game.healer.gamePosition.x - 3,
+                            y: game.healer.gamePosition.y
+                        }}
+                    }) || game.rectangularCollision({
+                        rectangle1: game.player, 
+                        rectangle2: {...game.healingPotion, gamePosition: {
+                            x: game.healingPotion.gamePosition.x - 3,
+                            y: game.healingPotion.gamePosition.y
+                        }}
+                    })
+                    )  {
+                        moving = false;
+                        break;
+                        };
+                }
+                if(moving) {
+                    game.ctx.translate(-3, 0);
+                    game.canvasMove.x -= 3;
+                    game.player.gamePosition.x += 3;
+                }
             }
-        } else if(game.keys.a.pressed && game.lastKey === 'a' && !game.player.menuDisplayed) {
-            game.player.animate = true;
-            game.player.image = game.player.sprites.left;
-            for(let i = 0; i < game.boundaries.length; i++) {
-                const boundary = game.boundaries[i];
-                if (game.rectangularCollision({
-                    rectangle1: game.player, 
-                    rectangle2: {...boundary, gamePosition: {
-                        x: boundary.gamePosition.x + 3,
-                        y: boundary.gamePosition.y  
-                    }}
-                }) || game.rectangularCollision({
-                    rectangle1: game.player, 
-                    rectangle2: {...game.healer, gamePosition: {
-                        x: game.healer.gamePosition.x + 3,
-                        y: game.healer.gamePosition.y
-                    }}
-                }) || game.rectangularCollision({
-                    rectangle1: game.player, 
-                    rectangle2: {...game.healingPotion, gamePosition: {
-                        x: game.healingPotion.gamePosition.x + 3,
-                        y: game.healingPotion.gamePosition.y
-                    }}
-                })
-                )  {
-                    moving = false;
-                    break;
-                    };
-            };
-            if(moving) {
-                game.ctx.translate(3, 0);
-                game.canvasMove.x += 3;
-                game.player.gamePosition.x -= 3;
-            }
-        } else if(game.keys.s.pressed && game.lastKey === 's' && !game.player.menuDisplayed) {
-            game.player.animate = true;
-            game.player.image = game.player.sprites.down;
-            for(let i = 0; i < game.boundaries.length; i++) {
-                const boundary = game.boundaries[i];
-                if (game.rectangularCollision({
-                    rectangle1: game.player, 
-                    rectangle2: {...boundary, gamePosition: {
-                        x: boundary.gamePosition.x,
-                        y: boundary.gamePosition.y - 3
-                    }}
-                }) || game.rectangularCollision({
-                    rectangle1: game.player, 
-                    rectangle2: {...game.healer, gamePosition: {
-                        x: game.healer.gamePosition.x,
-                        y: game.healer.gamePosition.y - 3
-                    }}
-                }) || game.rectangularCollision({
-                    rectangle1: game.player, 
-                    rectangle2: {...game.healingPotion, gamePosition: {
-                        x: game.healingPotion.gamePosition.x,
-                        y: game.healingPotion.gamePosition.y - 3
-                    }}
-                })
-                )  {
-                    moving = false;
-                    break;
-                    };
-            }
-            if(moving) {
-                game.ctx.translate(0, -3);
-                game.canvasMove.y -= 3;
-                game.player.gamePosition.y += 3;
-            }
-        } else if(game.keys.d.pressed && game.lastKey === 'd' && !game.player.menuDisplayed) {
-            game.player.animate = true;
-            game.player.image = game.player.sprites.right;
-            for(let i = 0; i < game.boundaries.length; i++) {
-                const boundary = game.boundaries[i];
-                if (game.rectangularCollision({
-                    rectangle1: game.player, 
-                    rectangle2: {...boundary, gamePosition: {
-                        x: boundary.gamePosition.x - 3,
-                        y: boundary.gamePosition.y
-                    }}
-                })  || game.rectangularCollision({
-                    rectangle1: game.player, 
-                    rectangle2: {...game.healer, gamePosition: {
-                        x: game.healer.gamePosition.x - 3,
-                        y: game.healer.gamePosition.y
-                    }}
-                }) || game.rectangularCollision({
-                    rectangle1: game.player, 
-                    rectangle2: {...game.healingPotion, gamePosition: {
-                        x: game.healingPotion.gamePosition.x - 3,
-                        y: game.healingPotion.gamePosition.y
-                    }}
-                })
-                )  {
-                    moving = false;
-                    break;
-                    };
-            }
-            if(moving) {
-                game.ctx.translate(-3, 0);
-                game.canvasMove.x -= 3;
-                game.player.gamePosition.x += 3;
-            }
-        }
+        } // End of moving if/else statement
     }, //end of animate function
 
     save: () => {
