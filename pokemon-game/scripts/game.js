@@ -37,8 +37,8 @@ const game = {
         y: 0
     },
     inventoryOptions: document.querySelectorAll(".inventoryOption"),
+    collidingObjects: [],
     collisionsMap: [],
-    boundaries: [],
     battleZonesMap: [],
     battleZones: [],
     battle: { 
@@ -131,7 +131,7 @@ const game = {
         game.collisionsMap.forEach((row, i) => {
             row.forEach((symbol, j) => {
                 if(symbol === 1025)
-                game.boundaries.push(
+                game.collidingObjects.push(
                     new Boundary({
                         gamePosition: {
                             x: j * Boundary.width + game.offset.x, 
@@ -268,6 +268,8 @@ const game = {
             }
         })
 
+        game.collidingObjects.push(game.healer);
+
         game.itemSpritesheet.src = "/pokemon-game/img/inventory/itemSpritesheet.png"
 
         game.itemsInWorld.push(
@@ -287,6 +289,28 @@ const game = {
                 }
             })
         )
+
+        game.itemsInWorld.push(
+            new Sprite({
+                image: game.itemSpritesheet,
+                spritePosition: {
+                    x: 352,
+                    y: 32
+                },
+                gamePosition: {
+                    x: 695,
+                    y: 350
+                },
+                dimensions: {
+                    width: 32,
+                    height: 32
+                }
+            })
+        )
+
+        game.itemsInWorld.forEach(item => {
+            game.collidingObjects.push(item);
+        })
 
         dialog.nextBtn.addEventListener('click', () => {
             dialog.progressTurn();
@@ -365,37 +389,41 @@ const game = {
         })
 
         // Event listener for items
-        // game.cvs.addEventListener('click', () => {
-        //     if(game.rectangularCollision({
-        //         rectangle1: game.player, 
-        //         rectangle2: {...game.healingPotion, gamePosition: {
-        //             x: game.healingPotion.gamePosition.x + 3,
-        //             y: game.healingPotion.gamePosition.y
-        //         }}
-        //     }) || game.rectangularCollision({
-        //         rectangle1: game.player, 
-        //         rectangle2: {...game.healingPotion, gamePosition: {
-        //             x: game.healingPotion.gamePosition.x - 3,
-        //             y: game.healingPotion.gamePosition.y
-        //         }}
-        //     }) || game.rectangularCollision({
-        //         rectangle1: game.player, 
-        //         rectangle2: {...game.healingPotion, gamePosition: {
-        //             x: game.healingPotion.gamePosition.x,
-        //             y: game.healingPotion.gamePosition.y + 3
-        //         }}
-        //     }) || game.rectangularCollision({
-        //         rectangle1: game.player, 
-        //         rectangle2: {...game.healingPotion, gamePosition: {
-        //             x: game.healingPotion.gamePosition.x,
-        //             y: game.healingPotion.gamePosition.y - 3
-        //         }}
-        //     })
-        //     ){
-        //         dialog.clearDialog();
-        //         dialog.displayDialog("You found a healing potion!");
-        //     }
-        // })
+        game.cvs.addEventListener('click', () => {
+            game.itemsInWorld.forEach(item => {
+                if(game.rectangularCollision({
+                    rectangle1: game.player, 
+                    rectangle2: {...item, gamePosition: {
+                        x: item.gamePosition.x + 3,
+                        y: item.gamePosition.y
+                    }}
+                }) || game.rectangularCollision({
+                    rectangle1: game.player, 
+                    rectangle2: {...item, gamePosition: {
+                        x: item.gamePosition.x - 3,
+                        y: item.gamePosition.y
+                    }}
+                }) || game.rectangularCollision({
+                    rectangle1: game.player, 
+                    rectangle2: {...item, gamePosition: {
+                        x: item.gamePosition.x,
+                        y: item.gamePosition.y + 3
+                    }}
+                }) || game.rectangularCollision({
+                    rectangle1: game.player, 
+                    rectangle2: {...item, gamePosition: {
+                        x: item.gamePosition.x,
+                        y: item.gamePosition.y - 3
+                    }}
+                })
+                ){
+                    dialog.clearDialog();
+                    dialog.displayDialog("You found an item!");
+                    game.itemsInWorld.splice(game.itemsInWorld.indexOf(item), 1);
+                    game.collidingObjects.splice(game.collidingObjects.indexOf(item), 1);
+                }
+            })
+        })
 
         window.addEventListener('keydown', (e) => {
             switch (e.key) {
@@ -558,7 +586,7 @@ const game = {
     
         //Draws all objects needed at start
         game.background.draw();
-        game.boundaries.forEach(boundary => {
+        game.collidingObjects.forEach(boundary => {
             boundary.draw()
         });
         game.battleZones.forEach(battleZone => {
@@ -646,31 +674,20 @@ const game = {
             if(game.keys.w.pressed && game.lastKey === 'w') {
                 game.player.animate = true;
                 game.player.image = game.player.sprites.up;
-                for(let i = 0; i < game.boundaries.length; i++) {
-                    const boundary = game.boundaries[i];
+                for(let i = 0; i < game.collidingObjects.length; i++) {
+                    const collidingObject = game.collidingObjects[i];
                     if (game.rectangularCollision({
                         rectangle1: game.player, 
-                        rectangle2: {...boundary, gamePosition: {
-                            x: boundary.gamePosition.x,
-                            y: boundary.gamePosition.y + 3
+                        rectangle2: {...collidingObject, gamePosition: {
+                            x: collidingObject.gamePosition.x,
+                            y: collidingObject.gamePosition.y + 3
                         }}
-                    }) || game.rectangularCollision({
-                        rectangle1: game.player, 
-                        rectangle2: {...game.healer, gamePosition: {
-                            x: game.healer.gamePosition.x,
-                            y: game.healer.gamePosition.y + 3
-                        }}
-                    }) || game.rectangularCollision({
-                        rectangle1: game.player, 
-                        rectangle2: {...game.healingPotion, gamePosition: {
-                            x: game.healingPotion.gamePosition.x,
-                            y: game.healingPotion.gamePosition.y + 3
-                        }}
-                    })
-                    )  {
-                        moving = false;
-                        break;
-                        };
+                    }))  {
+                        if(!debug.noClip){
+                            moving = false;
+                            break;
+                        }
+                    };
                 };
                 if(moving) {
                     game.ctx.translate(0, 3);
@@ -680,31 +697,20 @@ const game = {
             } else if(game.keys.a.pressed && game.lastKey === 'a') {
                 game.player.animate = true;
                 game.player.image = game.player.sprites.left;
-                for(let i = 0; i < game.boundaries.length; i++) {
-                    const boundary = game.boundaries[i];
+                for(let i = 0; i < game.collidingObjects.length; i++) {
+                    const collidingObject = game.collidingObjects[i];
                     if (game.rectangularCollision({
                         rectangle1: game.player, 
-                        rectangle2: {...boundary, gamePosition: {
-                            x: boundary.gamePosition.x + 3,
-                            y: boundary.gamePosition.y  
+                        rectangle2: {...collidingObject, gamePosition: {
+                            x: collidingObject.gamePosition.x + 3,
+                            y: collidingObject.gamePosition.y  
                         }}
-                    }) || game.rectangularCollision({
-                        rectangle1: game.player, 
-                        rectangle2: {...game.healer, gamePosition: {
-                            x: game.healer.gamePosition.x + 3,
-                            y: game.healer.gamePosition.y
-                        }}
-                    }) || game.rectangularCollision({
-                        rectangle1: game.player, 
-                        rectangle2: {...game.healingPotion, gamePosition: {
-                            x: game.healingPotion.gamePosition.x + 3,
-                            y: game.healingPotion.gamePosition.y
-                        }}
-                    })
-                    )  {
-                        moving = false;
-                        break;
-                        };
+                    }))  {
+                        if(!debug.noClip){
+                            moving = false;
+                            break;
+                        }
+                    };
                 };
                 if(moving) {
                     game.ctx.translate(3, 0);
@@ -714,31 +720,20 @@ const game = {
             } else if(game.keys.s.pressed && game.lastKey === 's') {
                 game.player.animate = true;
                 game.player.image = game.player.sprites.down;
-                for(let i = 0; i < game.boundaries.length; i++) {
-                    const boundary = game.boundaries[i];
+                for(let i = 0; i < game.collidingObjects.length; i++) {
+                    const collidingObject = game.collidingObjects[i];
                     if (game.rectangularCollision({
                         rectangle1: game.player, 
-                        rectangle2: {...boundary, gamePosition: {
-                            x: boundary.gamePosition.x,
-                            y: boundary.gamePosition.y - 3
+                        rectangle2: {...collidingObject, gamePosition: {
+                            x: collidingObject.gamePosition.x,
+                            y: collidingObject.gamePosition.y - 3
                         }}
-                    }) || game.rectangularCollision({
-                        rectangle1: game.player, 
-                        rectangle2: {...game.healer, gamePosition: {
-                            x: game.healer.gamePosition.x,
-                            y: game.healer.gamePosition.y - 3
-                        }}
-                    }) || game.rectangularCollision({
-                        rectangle1: game.player, 
-                        rectangle2: {...game.healingPotion, gamePosition: {
-                            x: game.healingPotion.gamePosition.x,
-                            y: game.healingPotion.gamePosition.y - 3
-                        }}
-                    })
-                    )  {
-                        moving = false;
-                        break;
-                        };
+                    }) )  {
+                        if(!debug.noClip){
+                            moving = false;
+                            break;
+                        }
+                    };
                 }
                 if(moving) {
                     game.ctx.translate(0, -3);
@@ -748,31 +743,20 @@ const game = {
             } else if(game.keys.d.pressed && game.lastKey === 'd') {
                 game.player.animate = true;
                 game.player.image = game.player.sprites.right;
-                for(let i = 0; i < game.boundaries.length; i++) {
-                    const boundary = game.boundaries[i];
+                for(let i = 0; i < game.collidingObjects.length; i++) {
+                    const collidingObject = game.collidingObjects[i];
                     if (game.rectangularCollision({
                         rectangle1: game.player, 
-                        rectangle2: {...boundary, gamePosition: {
-                            x: boundary.gamePosition.x - 3,
-                            y: boundary.gamePosition.y
+                        rectangle2: {...collidingObject, gamePosition: {
+                            x: collidingObject.gamePosition.x - 3,
+                            y: collidingObject.gamePosition.y
                         }}
-                    })  || game.rectangularCollision({
-                        rectangle1: game.player, 
-                        rectangle2: {...game.healer, gamePosition: {
-                            x: game.healer.gamePosition.x - 3,
-                            y: game.healer.gamePosition.y
-                        }}
-                    }) || game.rectangularCollision({
-                        rectangle1: game.player, 
-                        rectangle2: {...game.healingPotion, gamePosition: {
-                            x: game.healingPotion.gamePosition.x - 3,
-                            y: game.healingPotion.gamePosition.y
-                        }}
-                    })
-                    )  {
-                        moving = false;
-                        break;
-                        };
+                    })) {
+                        if(!debug.noClip){
+                            moving = false;
+                            break;
+                        }
+                    };
                 }
                 if(moving) {
                     game.ctx.translate(-3, 0);

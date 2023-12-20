@@ -1,4 +1,6 @@
 const debug = {
+    noClip: false,
+
     killEnemy: () => {
         battleSetup.enemyMonster.stats.hp = 10;
     },
@@ -46,5 +48,15 @@ const debug = {
             }
         })
     },
+
+    travel: () => {
+        debug.noClip = !debug.noClip;
+        if(debug.noClip){
+            console.log("No clip is turned on.")
+        } else {
+            console.log("No clip is turned off.")
+
+        }
+    }
 
 }
