@@ -8,6 +8,9 @@ class Inventory {
     }
 
     openInventory(){
+        if(dialog.dialogBox.style.display != "none"){
+            dialog.dialogBox.style.display = "none";
+        }
         document.querySelector("#fullInventoryView").style.display = "block";
     }
 

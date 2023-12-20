@@ -226,7 +226,7 @@ const battleFunctions = {
                     battleSetup.queue = [];
                     battleSetup.endQueue = [];
                     game.ctx.translate(game.canvasMove.x, game.canvasMove.y);
-                    battleSetup.dialogBackground.style.display = "none"
+                    dialog.dialogBox.style.display = "none";
                     game.battleBackground.opacity = 0;
                     audio.battle.stop();   
                     game.battle.initiated = false;

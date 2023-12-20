@@ -1,17 +1,34 @@
 const battleMenu = {
+    goBackBtn: document.querySelector("#goBack"),
+    typeDisplay: document.querySelector("#attackTypeBox"),
     battleOptions: () => {
         if(battleSetup.combatBox.style.display === "none"){
             battleSetup.combatBox.style.display = "flex"
         }
+
+        if(battleMenu.goBackBtn.style.display != "none"){
+            battleMenu.goBackBtn.style.display = "none";
+        }
+
+        if(battleMenu.typeDisplay.style.display != "none"){
+            battleMenu.typeDisplay.style.display = "none"
+        }
+
+        if(dialog.dialogBox.style.display != "none"){
+            dialog.dialogBox.style.display = "none";
+        }
         
-        const attackBtn = document.querySelectorAll('.attackOptions');
-        const commandBtn = document.querySelectorAll('.battleCommands');
-        attackBtn.forEach(button => {
-            button.remove();
-        })
-        commandBtn.forEach(button => {
-            button.remove();
-        })
+        // const attackBtns = document.querySelectorAll('.attackOptions');
+        // const commandBtns = document.querySelectorAll('.battleCommands');
+        // attackBtns.forEach(button => {
+        //     button.remove();
+        // })
+        // commandBtns.forEach(button => {
+        //     button.remove();
+        // })
+
+        battleMenu.clearButtons('.attackOptions');
+        battleMenu.clearButtons('.battleCommands');
     
         const userChoiceBtns = document.querySelectorAll(".userChoiceBtn");
         const userCombatOptions = [
@@ -32,34 +49,38 @@ const battleMenu = {
         ]
 
         battleSetup.playerBattleActions.forEach((option, index) => {
-            const label = document.createElement("h3");
-            label.className = "battleCommands";
-            label.textContent = option;
-            userChoiceBtns[index].addEventListener('click', () => {
-               userCombatOptions[index];
+            const button = document.createElement("button");
+            button.className = "battleCommands";
+            button.textContent = option;
+            button.addEventListener('click', () => {
+               userCombatOptions[index]();
             })
             
-            userChoiceBtns[index].append(label);
+            userChoiceBtns[index].append(button);
         })
     },
 
-    clearBattleOptions: () => {
-        const attackBtns = document.querySelectorAll('.battleCommands');
-        attackBtns.forEach(button => {
+    clearButtons: (cssSelector) => {
+        const buttons = document.querySelectorAll(cssSelector);
+        buttons.forEach(button => {
             button.remove();
         })
     },
     
     fight: () => {
-        battleMenu.clearBattleOptions();
+        battleMenu.clearButtons(".battleCommands");
         game.player.otherAction = false;
-        document.querySelector("#goBack").style.display = "block";
+        battleMenu.goBackBtn.style.display = "flex";
+        battleMenu.goBackBtn.addEventListener("click", () => {
+            battleMenu.battleOptions();
+        })
+        const attackBtns = document.querySelectorAll(".userChoiceBtn");
         //Adds attack buttons in
-        battleSetup.playerMonster.attacks.forEach(attack => {
+        battleSetup.playerMonster.attacks.forEach((attack, index) => {
             const button = document.createElement('button');
-            button.innerHTML = attack.name;
+            button.textContent = attack.name;
             button.className = 'attackOptions';
-            battleSetup.userChoice.append(button);
+            attackBtns[index].append(button);
         });
         //Our event listeners for buttons
         document.querySelectorAll('.attackOptions').forEach(button => {
@@ -71,11 +92,11 @@ const battleMenu = {
         })
         button.addEventListener('mouseenter', (e) => {
             const selectedAttack = attacks[(e.currentTarget.innerHTML).replace(/\s/g, '')];
-            battleSetup.attackType.innerHTML = selectedAttack.type;
-            battleSetup.attackType.style.color = selectedAttack.color;
+            battleSetup.attackTypeText.textContent = selectedAttack.type;
+            battleSetup.attackTypeText.style.color = selectedAttack.color;
         })
         });
-        battleSetup.attackType.style.display = "flex";
+        battleSetup.attackTypeBox.style.display = "flex";
     },
     
     befriend: ()=> {

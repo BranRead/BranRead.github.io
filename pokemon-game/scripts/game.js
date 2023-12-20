@@ -524,10 +524,7 @@ const game = {
             })
         })
 
-        document.querySelector("#goBack").addEventListener("click", () => {
-            document.querySelector("#goBack").style.display = "none";
-            battleMenu.battleOptions();
-        })
+        
 
         window.addEventListener('click', () => {
             if(!game.clicked) {
