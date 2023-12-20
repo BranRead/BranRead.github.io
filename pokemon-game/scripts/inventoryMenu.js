@@ -1,14 +1,24 @@
 const inventoryMenu = {
+
     display: (type) => {
         game.player.inventory.items.forEach((item, index) => {
             if(item.useCategory == type){
                 const inventoryItem = document.createElement('div');
                 inventoryItem.className = "inventoryItem"
     
-                const inventoryImg = document.createElement('img');
-                inventoryImg.className = "inventoryImg"
-                inventoryImg.src = item.sprite.src;
+
+                const inventoryImg = document.createElement('div');
+                inventoryImg.className = "inventoryImg";
+
+                const inventoryImgCvs = document.createElement('canvas');
+                inventoryImgCvs.width = "32";
+                inventoryImgCvs.height = "32";
+                const ctx = inventoryImgCvs.getContext("2d");
+                // inventoryImg.src = item.sprites.src;
+               
+                ctx.drawImage(item.image, item.spritePosition.x, item.spritePosition.y, 32, 32, 0, 0, 32, 32);
     
+                inventoryImg.append(inventoryImgCvs);
                 const inventoryName = document.createElement('div');
                 inventoryName.className = "inventoryName"
                 const inventoryNameText = document.createElement('p');

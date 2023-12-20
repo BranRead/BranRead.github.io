@@ -393,6 +393,7 @@ const game = {
                     dialog.displayDialog("You found " + item.name + "!");
                     game.itemsInWorld.splice(game.itemsInWorld.indexOf(item), 1);
                     game.collidingObjects.splice(game.collidingObjects.indexOf(item), 1);
+                    game.player.inventory.items.push(item);
                 }
             })
         })

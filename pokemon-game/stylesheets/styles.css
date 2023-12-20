@@ -14,12 +14,17 @@ h1 {
 }
 
 button, .userChoiceBtn, #backBtnAttack {
-    border: 0;
     padding-top: 1rem;
     padding-bottom: 1rem;
     cursor: pointer;
     font-size: 16px;
 }
+
+.inventoryItem {
+    cursor: pointer;
+}
+
+
 
 button:hover, .userChoiceBtn:hover, #backBtnAttack:hover {
     background-color: #ddd;
@@ -252,10 +257,8 @@ button:hover, .userChoiceBtn:hover, #backBtnAttack:hover {
 }
 
 .inventoryImg {
-    width: 50px;
-    height: 50px;
-    background-size: cover;
-    background-repeat: none;
+    width: 32px;
+    height: 32px;
     margin-left: 40px;
 }
 

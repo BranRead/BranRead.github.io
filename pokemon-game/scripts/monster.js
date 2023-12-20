@@ -55,15 +55,6 @@ class Monster extends Sprite {
 
     drawMonster(context) {
         context.save()
-        context.translate(
-            this.position.x + this.width / 2, 
-            this.position.y + this.height / 2
-        )
-        context.rotate(this.rotation)
-        context.translate(
-            -this.position.x - this.width / 2, 
-            -this.position.y - this.height / 2
-        )
         context.globalAlpha = this.opacity
         if(this.frontImage){
             context.drawImage(
