@@ -63,9 +63,7 @@ const game = {
     player: "",
     healer: "",
     itemSpritesheet: new Image(),
-    healingPotion: "",
-    itemsInWorld: {},
-    
+    itemsInWorld: [],
     
     init: () => {
         game.ctx = game.cvs.getContext('2d');
@@ -272,27 +270,27 @@ const game = {
 
         game.itemSpritesheet.src = "/pokemon-game/img/inventory/itemSpritesheet.png"
 
-        game.healingPotion = new Sprite({
-            image: game.itemSpritesheet,
-            spritePosition: {
-                x: 32,
-                y: 256
-            },
-            gamePosition: {
-                x: 650,
-                y: 11
-            },
-            dimensions: {
-                width: 32,
-                height: 32
-            }
-        })
+        game.itemsInWorld.push(
+            new Sprite({
+                image: game.itemSpritesheet,
+                spritePosition: {
+                    x: 32,
+                    y: 256
+                },
+                gamePosition: {
+                    x: 650,
+                    y: 11
+                },
+                dimensions: {
+                    width: 32,
+                    height: 32
+                }
+            })
+        )
 
         dialog.nextBtn.addEventListener('click', () => {
             dialog.progressTurn();
         })
-
-        // game.itemsInWorld.healingPotion = items.HealthPotion;
 
         game.cvs.addEventListener('click', () => {
             if(game.rectangularCollision({
@@ -366,37 +364,38 @@ const game = {
             }
         })
 
-        game.cvs.addEventListener('click', () => {
-            if(game.rectangularCollision({
-                rectangle1: game.player, 
-                rectangle2: {...game.healingPotion, gamePosition: {
-                    x: game.healingPotion.gamePosition.x + 3,
-                    y: game.healingPotion.gamePosition.y
-                }}
-            }) || game.rectangularCollision({
-                rectangle1: game.player, 
-                rectangle2: {...game.healingPotion, gamePosition: {
-                    x: game.healingPotion.gamePosition.x - 3,
-                    y: game.healingPotion.gamePosition.y
-                }}
-            }) || game.rectangularCollision({
-                rectangle1: game.player, 
-                rectangle2: {...game.healingPotion, gamePosition: {
-                    x: game.healingPotion.gamePosition.x,
-                    y: game.healingPotion.gamePosition.y + 3
-                }}
-            }) || game.rectangularCollision({
-                rectangle1: game.player, 
-                rectangle2: {...game.healingPotion, gamePosition: {
-                    x: game.healingPotion.gamePosition.x,
-                    y: game.healingPotion.gamePosition.y - 3
-                }}
-            })
-            ){
-                dialog.clearDialog();
-                dialog.displayDialog("You found a healing potion!");
-            }
-        })
+        // Event listener for items
+        // game.cvs.addEventListener('click', () => {
+        //     if(game.rectangularCollision({
+        //         rectangle1: game.player, 
+        //         rectangle2: {...game.healingPotion, gamePosition: {
+        //             x: game.healingPotion.gamePosition.x + 3,
+        //             y: game.healingPotion.gamePosition.y
+        //         }}
+        //     }) || game.rectangularCollision({
+        //         rectangle1: game.player, 
+        //         rectangle2: {...game.healingPotion, gamePosition: {
+        //             x: game.healingPotion.gamePosition.x - 3,
+        //             y: game.healingPotion.gamePosition.y
+        //         }}
+        //     }) || game.rectangularCollision({
+        //         rectangle1: game.player, 
+        //         rectangle2: {...game.healingPotion, gamePosition: {
+        //             x: game.healingPotion.gamePosition.x,
+        //             y: game.healingPotion.gamePosition.y + 3
+        //         }}
+        //     }) || game.rectangularCollision({
+        //         rectangle1: game.player, 
+        //         rectangle2: {...game.healingPotion, gamePosition: {
+        //             x: game.healingPotion.gamePosition.x,
+        //             y: game.healingPotion.gamePosition.y - 3
+        //         }}
+        //     })
+        //     ){
+        //         dialog.clearDialog();
+        //         dialog.displayDialog("You found a healing potion!");
+        //     }
+        // })
 
         window.addEventListener('keydown', (e) => {
             switch (e.key) {
@@ -569,7 +568,10 @@ const game = {
         game.healer.draw();
         game.rectDoor.draw();
         game.foreground.draw();
-        game.healingPotion.draw();
+        
+        game.itemsInWorld.forEach(item => {
+            item.draw();
+        });
     
         game.player.animate = false;
         if (game.battle.initiated) return
