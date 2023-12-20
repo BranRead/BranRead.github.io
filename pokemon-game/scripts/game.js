@@ -4,6 +4,7 @@ const game = {
     ctx: "",
     ctxTeam: "",
     backBtn: document.getElementById("back-btn-menu"),
+    
     itemUsed: "false",
     statsSave: [],
     //Between 0-100. Higher numbers are harder.
@@ -287,6 +288,10 @@ const game = {
             }
         })
 
+        dialog.nextBtn.addEventListener('click', () => {
+            dialog.progressTurn();
+        })
+
         // game.itemsInWorld.healingPotion = items.HealthPotion;
 
         game.cvs.addEventListener('click', () => {
@@ -297,8 +302,6 @@ const game = {
                 console.log("Entering house")
             }
         })
-
-      
 
         //event listener for healer
         game.cvs.addEventListener('click', () => {
@@ -331,7 +334,7 @@ const game = {
                 //Heals monsters
                 const yesBtn = document.createElement("button");
                 const noBtn = document.createElement("button");
-                const dialogAdvance = document.createElement("button");
+                dialog.nextBtn.style.display = "none";
                 dialog.clearDialog();
 
                 
@@ -342,8 +345,6 @@ const game = {
                 yesBtn.innerHTML = "Yes";
                 noBtn.classList.add("noBtn", "dialogBtn");
                 noBtn.innerHTML = "No";
-                dialogAdvance.classList.add("nextBtn", "dialogBtn");
-                dialogAdvance.innerHTML = "▼";
             
                 yesBtn.addEventListener("click", () => {
                     game.player.team.roster.forEach((monster) => {
@@ -352,8 +353,8 @@ const game = {
                     
                     dialog.clearDialog();
                     dialog.displayDialog("Your monsters are healed!");
-                    dialog.dialogBox.append(dialogAdvance);
-                    dialogAdvance.addEventListener("click", dialog.hide)
+                    dialog.nextBtn.style.display = "block";
+                    // dialogAdvance.addEventListener("click", dialog.hide)
                 })
             
                 noBtn.addEventListener("click", () => {
@@ -392,17 +393,8 @@ const game = {
                 }}
             })
             ){
-
-                const dialogAdvance = document.createElement("button");
-                dialogAdvance.classList.add("nextBtn", "dialogBtn");
-                dialogAdvance.innerHTML = "▼";
-
                 dialog.clearDialog();
                 dialog.displayDialog("You found a healing potion!");
-                dialog.dialogBox.append(dialogAdvance);
-                dialogAdvance.addEventListener("click", dialog.hide)
-            
-            
             }
         })
 
@@ -523,8 +515,6 @@ const game = {
                 }
             })
         })
-
-        
 
         window.addEventListener('click', () => {
             if(!game.clicked) {

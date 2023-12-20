@@ -1,6 +1,14 @@
 const battleMenu = {
     goBackBtn: document.querySelector("#goBack"),
     typeDisplay: document.querySelector("#attackTypeBox"),
+    
+    clearButtons: (cssSelector) => {
+        const buttons = document.querySelectorAll(cssSelector);
+        buttons.forEach(button => {
+            button.remove();
+        })
+    },
+    
     battleOptions: () => {
         if(battleSetup.combatBox.style.display === "none"){
             battleSetup.combatBox.style.display = "flex"
@@ -17,15 +25,6 @@ const battleMenu = {
         if(dialog.dialogBox.style.display != "none"){
             dialog.dialogBox.style.display = "none";
         }
-        
-        // const attackBtns = document.querySelectorAll('.attackOptions');
-        // const commandBtns = document.querySelectorAll('.battleCommands');
-        // attackBtns.forEach(button => {
-        //     button.remove();
-        // })
-        // commandBtns.forEach(button => {
-        //     button.remove();
-        // })
 
         battleMenu.clearButtons('.attackOptions');
         battleMenu.clearButtons('.battleCommands');
@@ -57,13 +56,6 @@ const battleMenu = {
             })
             
             userChoiceBtns[index].append(button);
-        })
-    },
-
-    clearButtons: (cssSelector) => {
-        const buttons = document.querySelectorAll(cssSelector);
-        buttons.forEach(button => {
-            button.remove();
         })
     },
     

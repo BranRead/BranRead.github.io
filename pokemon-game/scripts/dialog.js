@@ -2,6 +2,7 @@
 //innerHTML replaces butttons or anything else within the dialog box
 const dialog = {
     //Set to whatever the dialog container is
+    nextBtn: document.querySelector(".nextBtn"),
     dialog: document.querySelector ("#dialog"),
     dialogOutputBox: document.querySelector("#dialogOutputBox"),
     dialogBox: document.querySelector("#dialogBox"),
@@ -10,10 +11,6 @@ const dialog = {
         document.getElementById("combatBox").style.display = "none";
         dialog.dialogBox.style.display = "block";
         dialog.dialog.innerHTML = message
-    },
-
-    hide: () => {
-        dialog.dialogBox.style.display = "none";
     },
 
     clearDialog: () => {
