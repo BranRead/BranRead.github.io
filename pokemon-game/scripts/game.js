@@ -38,6 +38,7 @@ const game = {
     },
     inventoryOptions: document.querySelectorAll(".inventoryOption"),
     collidingObjects: [],
+    boundaries: [],
     collisionsMap: [],
     battleZonesMap: [],
     battleZones: [],
@@ -62,7 +63,6 @@ const game = {
     playerRightImage: new Image(),
     player: "",
     healer: "",
-    itemSpritesheet: new Image(),
     itemsInWorld: [],
     
     init: () => {
@@ -128,10 +128,10 @@ const game = {
         };
 
         //Collsion 
-        game.collisionsMap.forEach((row, i) => {
+        game.boundaries.forEach((row, i) => {
             row.forEach((symbol, j) => {
                 if(symbol === 1025)
-                game.collidingObjects.push(
+                game.boundaries.push(
                     new Boundary({
                         gamePosition: {
                             x: j * Boundary.width + game.offset.x, 
@@ -141,6 +141,10 @@ const game = {
                 )
             })
         });
+
+        game.boundaries.forEach(boundary => {
+            game.collidingObjects.push(boundary);
+        })
 
         for (let i = 0; i < battleZonesData.length; i += 70) {
             game.battleZonesMap.push(battleZonesData.slice(i, i + 70));
@@ -166,9 +170,9 @@ const game = {
         const inventory =  new Inventory([], 10);
     //Save Game management, load unless save doesn't exist
         // if(localStorage.getItem("monsterGame") === null){
-            inventory.items.push(items.HealthPotion);
-            inventory.items.push(items.AtkBoost);
-            inventory.items.push(items.DefBoost);
+            // inventory.items.push(items.HealthPotion);
+            // inventory.items.push(items.AtkBoost);
+            // inventory.items.push(items.DefBoost);
 
             playerPosition.x = (game.cvs.width / 2) - (192 / 8);
             playerPosition.y = (game.cvs.height / 2) - (68 / 2);
@@ -268,45 +272,13 @@ const game = {
             }
         })
 
+        game.itemsInWorld = [
+            new Item (itemsGhasblr.AtkBoost),
+            new Item (itemsGhasblr.DefBoost),
+            new Item (itemsGhasblr.HealthPotion)
+        ];
+
         game.collidingObjects.push(game.healer);
-
-        game.itemSpritesheet.src = "/pokemon-game/img/inventory/itemSpritesheet.png"
-
-        game.itemsInWorld.push(
-            new Sprite({
-                image: game.itemSpritesheet,
-                spritePosition: {
-                    x: 32,
-                    y: 256
-                },
-                gamePosition: {
-                    x: 650,
-                    y: 11
-                },
-                dimensions: {
-                    width: 32,
-                    height: 32
-                }
-            })
-        )
-
-        game.itemsInWorld.push(
-            new Sprite({
-                image: game.itemSpritesheet,
-                spritePosition: {
-                    x: 352,
-                    y: 32
-                },
-                gamePosition: {
-                    x: 695,
-                    y: 350
-                },
-                dimensions: {
-                    width: 32,
-                    height: 32
-                }
-            })
-        )
 
         game.itemsInWorld.forEach(item => {
             game.collidingObjects.push(item);
@@ -418,7 +390,7 @@ const game = {
                 })
                 ){
                     dialog.clearDialog();
-                    dialog.displayDialog("You found an item!");
+                    dialog.displayDialog("You found " + item.name + "!");
                     game.itemsInWorld.splice(game.itemsInWorld.indexOf(item), 1);
                     game.collidingObjects.splice(game.collidingObjects.indexOf(item), 1);
                 }
@@ -586,7 +558,7 @@ const game = {
     
         //Draws all objects needed at start
         game.background.draw();
-        game.collidingObjects.forEach(boundary => {
+        game.boundaries.forEach(boundary => {
             boundary.draw()
         });
         game.battleZones.forEach(battleZone => {
