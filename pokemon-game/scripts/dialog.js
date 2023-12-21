@@ -8,7 +8,7 @@ const dialog = {
     dialogBox: document.querySelector("#dialogBox"),
 
     displayDialog: (message) => {
-        document.getElementById("combatBox").style.display = "none";
+        battleSetup.combatBox.style.display = "none";
         dialog.dialogBox.style.display = "block";
         dialog.dialog.innerHTML = message
     },

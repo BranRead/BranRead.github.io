@@ -44,7 +44,7 @@ const menu = {
             })
             document.querySelector("#itemTitle").style.display = "none";
             document.querySelector("#itemDescription").style.display = "none";
-            dialog.hide();
+            dialog.dialogBox.style.display = "none";
         }
         if(game.battle.initiated){
             // battleSetup.userChoices.style.display = "grid";

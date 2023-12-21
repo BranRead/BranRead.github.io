@@ -19,7 +19,6 @@ const battleSetup = {
         battleSetup.attackTypeBox.style.display = "none";
         game.player.inBattle = true;
         game.ctx.translate(-game.canvasMove.x, -game.canvasMove.y);
-        dialog.dialogBox.addEventListener("click", dialog.progressTurn);
         
         document.querySelector('#userInterface').style.display = 'block';
         document.querySelector('#dialogBox').style.display = 'none';

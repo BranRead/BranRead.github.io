@@ -128,7 +128,7 @@ const game = {
         };
 
         //Collsion 
-        game.boundaries.forEach((row, i) => {
+        game.collisionsMap.forEach((row, i) => {
             row.forEach((symbol, j) => {
                 if(symbol === 1025)
                 game.boundaries.push(
@@ -348,11 +348,11 @@ const game = {
                     dialog.clearDialog();
                     dialog.displayDialog("Your monsters are healed!");
                     dialog.nextBtn.style.display = "block";
-                    // dialogAdvance.addEventListener("click", dialog.hide)
                 })
             
                 noBtn.addEventListener("click", () => {
                     dialog.dialogBox.style.display = "none";
+                    dialog.nextBtn.style.display = "block";
                 })
 
                 dialog.dialogBox.append(yesBtn);

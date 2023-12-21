@@ -16,23 +16,20 @@ class Inventory {
 
     selection(btn){
         const itemIndex = btn.parentElement.parentElement.dataset.value;
+        game.usingItem = true;
         const cancelBtn = document.createElement("button");
         cancelBtn.className = "cancelBtn";
-        cancelBtn.innerHTML = "Cancel";
+        cancelBtn.textContent = "Cancel";
         cancelBtn.addEventListener("click", () => {
             menu.close();
             menu.open();
             game.player.inventory.openInventory();
+            game.usingItem = flase;
         })
         switch(game.player.inventory.items[itemIndex].useCategory){
             case 'restore':
-                game.usingItem = true;
-                dialogue.dialogueBox.removeEventListener("click", dialogue.progressTurn);
-                document.querySelector("#attacksBox").style.display = "none";
-                document.querySelector("#attackTypeBox").style.display = "none";
-                
-                dialogue.displayDialogue("Who would you like to use it on?");
-                dialogue.dialogueBox.append(cancelBtn);
+                dialog.displayDialog("Who would you like to use it on?");
+                dialog.dialogBox.append(cancelBtn);
                 game.player.team.viewTeam(game.player.inventory.items[itemIndex], itemIndex);
                 break;
         }
@@ -40,6 +37,7 @@ class Inventory {
 
     use(item, itemIndex, monsterIndex){
         let monster = game.player.team.roster[monsterIndex];
+        console.log(item)
         game.player.otherAction = true;
         switch(item.useCategory){
             case 'restore':
@@ -58,7 +56,7 @@ class Inventory {
 
                 if(!game.battle.initiated){
                     console.log(`Healing ${monster.name}!`);
-                    dialogue.displayDialogue(`${monster.name} healed for ${healedFor} points of damage!`);
+                    dialog.displayDialog(`${monster.name} healed for ${healedFor} points of damage!`);
                     gsap.to(".playerHealthBar", {
                         width: health + "%",
                         onComplete: () => {
@@ -69,6 +67,8 @@ class Inventory {
                                 menu.open();
                                 game.player.inventory.openInventory();
                                 inventoryMenu.display(item.useCategory);
+                                game.usingItem = false;
+                                game.player.team.viewTeam();
                             })
                         }
                     })
@@ -79,11 +79,9 @@ class Inventory {
                         onComplete: () => {
                             let healthText = `${monster.stats.hp}/${monster.stats.maxHP}`
                             document.querySelector("#hpText").innerHTML = healthText;
-                            dialogue.displayDialogue(`${monster.name} healed for ${healedFor} points of damage!`);
+                            dialog.displayDialog(`${monster.name} healed for ${healedFor} points of damage!`);
                             battleSetup.queue.push(() => {
-                                dialogue.dialogueBackground.style.display = "block";
-                                document.querySelector("#attacksBox").style.display = "grid";
-                                document.querySelector("#attackTypeBox").style.display = "flex";
+                                dialog.dialogBox.style.display = "block";
                                 battleFunctions.startTurn();
                             })
                         }
@@ -113,11 +111,11 @@ class Inventory {
                     switch(item.boost.stat){
                         case "atk":
                             battleSetup.playerMonster.stats.tempAtk += item.boost.amount;
-                            dialogue.displayDialogue(`${battleSetup.playerMonster.name}'s attack rose!`); 
+                            dialog.displayDialog(`${battleSetup.playerMonster.name}'s attack rose!`); 
                             break;
                         case "def": 
                             battleSetup.playerMonster.stats.tempDef += item.boost.amount;
-                            dialogue.displayDialogue(`${battleSetup.playerMonster.name}'s defense rose!`);
+                            dialog.displayDialog(`${battleSetup.playerMonster.name}'s defense rose!`);
                             break;
                     }
                     player.otherAction = true;
@@ -125,7 +123,7 @@ class Inventory {
                         battleFunctions.startTurn();
                     })
                 } else {
-                    dialogue.displayDialogue("You can't use this outside of battle!");
+                    dialog.displayDialog("You can't use this outside of battle!");
                 }
                 break;
         }
@@ -140,7 +138,7 @@ class Inventory {
         // console.log("Item trashed!");
         const itemIndex = btn.parentElement.parentElement.dataset.value;
         const useCategory = game.player.inventory.items[itemIndex].useCategory;
-        dialogue.displayDialogue(`${game.player.inventory.items[itemIndex].name} was dropped.`)
+        dialog.displayDialog(`${game.player.inventory.items[itemIndex].name} was dropped.`)
         
         battleSetup.queue.push(() => {
             game.player.inventory.items.splice(itemIndex, 1);

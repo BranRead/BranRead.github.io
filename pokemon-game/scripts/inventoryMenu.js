@@ -6,7 +6,6 @@ const inventoryMenu = {
                 const inventoryItem = document.createElement('div');
                 inventoryItem.className = "inventoryItem"
     
-
                 const inventoryImg = document.createElement('div');
                 inventoryImg.className = "inventoryImg";
 

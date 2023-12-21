@@ -139,7 +139,7 @@ class Monster extends Sprite {
             rotation = 1
 
             battleFunctions.animateAttack(attack, battleSetup.playerMonster, battleSetup.enemyMonster, battleSetup.renderedAttacks, healthBar, rotation);
-            dialog.displayDialog(`${battleSetup.playerMonster.name} used ${attack.name}!`); 
+            dialog.displayDialog(`${battleSetup.playerMonster.name} used ${attack.name}!`);
         } else if (hit && this == battleSetup.enemyMonster) {
             let ranNum = (Math.random() * (1 - 0.75 + 1) + 0.75);
             let trueDamage = Math.floor((((battleSetup.playerMonster.stats.atk +
@@ -147,20 +147,26 @@ class Monster extends Sprite {
                  (battleSetup.enemyMonster.stats.def + battleSetup.enemyMonster.stats.tempDef)) * 
                  attack.damage) * ranNum)
             
-            let healthBar;
-            let rotation;
-            if (trueDamage > battleSetup.playerMonster.stats.hp) {
-                battleSetup.playerMonster.stats.hp = 0;
-            } else {
-                battleSetup.playerMonster.stats.hp -= trueDamage;
-            }
-            
-            //Gotta look into this, not sure why it's here
-            battleSetup.playerMonster.damage = trueDamage;
-            healthBar = '.playerHealthBarBattle'
-            rotation = 4
 
-            battleFunctions.animateAttack(attack, battleSetup.enemyMonster, battleSetup.playerMonster, battleSetup.renderedAttacks, healthBar, rotation);
+            
+                let healthBar;
+                let rotation;
+                if (trueDamage > battleSetup.playerMonster.stats.hp) {
+                    battleSetup.playerMonster.stats.hp = 0;
+                } else {
+                    battleSetup.playerMonster.stats.hp -= trueDamage;
+                }
+            
+                battleSetup.playerMonster.damage = trueDamage;
+                healthBar = '.playerHealthBarBattle'
+                rotation = 4
+    
+                battleFunctions.animateAttack(attack, battleSetup.enemyMonster, battleSetup.playerMonster, battleSetup.renderedAttacks, healthBar, rotation);
+           
+            
+                battleSetup.queue.push(() => {
+                    battleMenu.battleOptions();
+                })
             dialog.displayDialog(`${battleSetup.enemyMonster.name} used ${attack.name}!`  ); 
         } 
     }  

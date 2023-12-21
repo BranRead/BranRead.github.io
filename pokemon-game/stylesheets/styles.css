@@ -515,10 +515,11 @@ button:hover, .userChoiceBtn:hover, #backBtnAttack:hover {
 
 .cancelBtn {
     position: absolute;
-    left: 450px;
-    bottom: 30px;
-    width: 100px;
+    right: 80px;
+    bottom: 10px;
+    width: 120px;
     height: 50px;
+    border: 1px solid black;
 } 
 
 #goBack {

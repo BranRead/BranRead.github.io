@@ -57,6 +57,14 @@ const debug = {
             console.log("No clip is turned off.")
 
         }
+    },
+
+    addPotion: (num) => {
+
+        for(let i = 0; i < num; i++){
+            game.player.inventory.items.push(new Item (itemsGhasblr.HealthPotion));
+        }
+        console.log(num + " healing potion(s) added to inventory")
     }
 
 }
