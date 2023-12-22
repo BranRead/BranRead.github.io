@@ -1,3 +1,8 @@
+/*
+ * Buttons get 20% darker tint from original colour
+ * Border radius is 5px
+ */
+
 * {
     font-family: 'Press Start 2P', cursive;
 }
@@ -20,13 +25,41 @@ button, .userChoiceBtn, #backBtnAttack {
     font-size: 16px;
 }
 
-.inventoryItem {
+.inventoryOption {
+    display: flex;
+    width: 80px;
+    justify-content: center;
     cursor: pointer;
 }
 
+.inventoryOption:hover {
+    background-color: #73529e;
+    /* border: 1px solid black;*/
+    border-radius: 5px; 
+}
 
+.verticalLine {
+    width: 2px;
+    height: 32px;
+    background-color: black;
+}
 
-button:hover, .userChoiceBtn:hover, #backBtnAttack:hover {
+.inventoryItem {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    font-size: 16px;
+    justify-content: space-between;
+    margin: 0.5rem;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.inventoryItem:hover {
+    background-color: #8aaec3;
+}
+
+button:hover, .userChoiceBtn:hover, #backBtnAttack:hover, .useBtn:hover, .trashBtn:hover {
     background-color: #ddd;
 }
 
@@ -225,6 +258,7 @@ button:hover, .userChoiceBtn:hover, #backBtnAttack:hover {
     position: relative;
     height: 160px;
     background-color: #563e77;
+    color: #FFF;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -248,18 +282,12 @@ button:hover, .userChoiceBtn:hover, #backBtnAttack:hover {
     margin-left: 1rem;
 }
 
-.inventoryItem {
-    display: flex;
-    flex-direction: row;
-    font-size: 16px;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-}
-
 .inventoryImg {
     width: 32px;
     height: 32px;
-    margin-left: 40px;
+    
+    margin: auto;
+    margin-left: 1rem;
 }
 
 .inventoryName {
@@ -279,11 +307,13 @@ button:hover, .userChoiceBtn:hover, #backBtnAttack:hover {
 }
 
 .useBtn, .trashBtn {
+    background-color: #F8F8F8;
     font-size: 8px;
     margin-right: 1rem;
     width: 40px !important;
     height: 12px;
     padding: 1px;
+    border: 1px solid black;
 }
 
 #userInterface {

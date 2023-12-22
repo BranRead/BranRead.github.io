@@ -13,7 +13,6 @@ const inventoryMenu = {
                 inventoryImgCvs.width = "32";
                 inventoryImgCvs.height = "32";
                 const ctx = inventoryImgCvs.getContext("2d");
-                // inventoryImg.src = item.sprites.src;
                
                 ctx.drawImage(item.image, item.spritePosition.x, item.spritePosition.y, 32, 32, 0, 0, 32, 32);
     
@@ -33,14 +32,14 @@ const inventoryMenu = {
                 const inventoryBtns = document.createElement('div');
                 inventoryBtns.className = "inventoryBtns";
                 
-                const useBtn = document.createElement('button');
-                useBtn.innerHTML = "Use";
+                const useBtn = document.createElement('div');
+                useBtn.textContent = "Use";
                 useBtn.className = "useBtn";
                 useBtn.addEventListener('click', (e) => {
                     game.player.inventory.selection(e.currentTarget)
                 });
 
-                const trashBtn = document.createElement('button');
+                const trashBtn = document.createElement('div');
                 trashBtn.innerHTML = "Drop";
                 trashBtn.className = "trashBtn";
                 trashBtn.addEventListener('click', (e) => {

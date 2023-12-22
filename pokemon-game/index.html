@@ -31,11 +31,15 @@ Make building enterable **This might as well come later so I can make the map be
 
     <div id="fullInventoryView">
         <div id="inventoryHeader">
-            <div class="inventoryOption" data-value="restore"><img src="/pokemon-game/img/inventory/restoration.png" alt=""></div>
-            <div class="inventoryOption" data-value="statBoost"><img src="/pokemon-game/img/inventory/battleItems.png" alt=""></div>
-            <div class="inventoryOption" data-value="food"><img src="/pokemon-game/img/inventory/food.png" alt=""></div>
-            <div class="inventoryOption" data-value="valuables"><img src="/pokemon-game/img/inventory/valuables.png" alt=""></div>
-            <div class="inventoryOption" data-value="keyItems"><img src="/pokemon-game/img/inventory/keyItem.png" alt=""></div>
+            <div class="inventoryOption" data-value="restore"><canvas id="restore" class="inventoryIcons" width="32" height="32"></canvas></div>
+            <div class="verticalLine"></div>
+            <div class="inventoryOption" data-value="statBoost"><canvas id="statBoost" class="inventoryIcons" width="32" height="32"></canvas></div>
+            <div class="verticalLine"></div>
+            <div class="inventoryOption" data-value="food"><canvas id="food" class="inventoryIcons" width="32" height="32"></canvas></div>
+            <div class="verticalLine"></div>
+            <div class="inventoryOption" data-value="valuables"><canvas id="valuables" class="inventoryIcons" width="32" height="32"></canvas></div>
+            <div class="verticalLine"></div>
+            <div class="inventoryOption" data-value="keyItems"><canvas id="keyItems" class="inventoryIcons" width="32" height="32"></canvas></div>
         </div>
         <div id="inventoryBody"></div>
         <div id="inventoryFooter">

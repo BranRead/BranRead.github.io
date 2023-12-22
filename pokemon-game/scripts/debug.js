@@ -60,10 +60,11 @@ const debug = {
     },
 
     addPotion: (num) => {
-
-        for(let i = 0; i < num; i++){
-            game.player.inventory.items.push(new Item (itemsGhasblr.HealthPotion));
-        }
+        const healthPotionTest = new Item (itemsGhasblr.HealthPotion);
+        healthPotionTest.quantity = num;
+       
+        game.player.inventory.pickUp(healthPotionTest);
+        
         console.log(num + " healing potion(s) added to inventory")
     }
 

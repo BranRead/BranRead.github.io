@@ -8,9 +8,37 @@ class Inventory {
     }
 
     openInventory(){
+        const image = new Image();
+        image.src = "/pokemon-game/img/inventory/itemSpritesheet.png";
+
+        const cvsRestore = document.getElementById("restore");
+        const ctxRestore = cvsRestore.getContext("2d");
+        ctxRestore.drawImage(image, 32, 256, 32, 32, 0, 0, 32, 32);
+
+        const cvsStatBoost = document.getElementById("statBoost");
+        const ctxStatBoost = cvsStatBoost.getContext("2d");
+        ctxStatBoost.drawImage(image, 352, 32, 32, 32, 0, 0, 32, 32);
+
+
+        const cvsFood = document.getElementById("food");
+        const ctxFood = cvsFood.getContext("2d");
+        ctxFood.drawImage(image, 320, 384, 32, 32, 0, 0, 32, 32);
+
+
+        const cvsValuables = document.getElementById("valuables");
+        const ctxValuables = cvsValuables.getContext("2d");
+        ctxValuables.drawImage(image, 96, 352, 32, 32, 0, 0, 32, 32);
+
+
+        const cvsKeyItems = document.getElementById("keyItems");
+        const ctxKeyItems = cvsKeyItems.getContext("2d");
+        ctxKeyItems.drawImage(image, 448, 64, 32, 32, 0, 0, 32, 32);
+
+        
         if(dialog.dialogBox.style.display != "none"){
             dialog.dialogBox.style.display = "none";
         }
+
         document.querySelector("#fullInventoryView").style.display = "block";
     }
 
@@ -147,7 +175,19 @@ class Inventory {
             game.player.inventory.openInventory();
             inventoryMenu.display(useCategory);
         })
-        
-        
+    }
+
+    pickUp(item){
+        let isPresentInInventory = false;
+        game.player.inventory.items.forEach(playerItem => {
+            if(playerItem.name == item.name){
+                playerItem.quantity += item.quantity
+                isPresentInInventory = true;
+            }
+        })
+
+        if(!isPresentInInventory){
+            game.player.inventory.items.push(item);
+        }
     }
 }
