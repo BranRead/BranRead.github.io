@@ -1,15 +1,22 @@
 <!--Pokemon JavaScript Game Tutorial with HTML Canvas-->
 <!--https://www.youtube.com/watch?v=yP5DKzriqXA-->
 <!--
+Color Scheme so it doesn't get lost:
+#fcf5e5
+#729B79
+#040403
+#416788
+#00A1E4
+Slowly switching it over to the above
+
+Also switching innerHTML for textContent. textContent just replaces text 
+whereas innerHTML replaces all the html
+
 **Better Code**
-Make specific sprite rotating class. It's made just for the fireball. It's a waste to call that on all sprites
-Make array for physics objects, so the collision checker spot in movement doesn't get huge
 
 **Make better UI for item** In progress
-Gotta redo use item and work that into the UI
-Gotta fill this out and add other types of items
-key items could have their own methods for use, since theyre so custom
 
+key items could have their own methods for use, since theyre so custom
 
 Still need to hook up release button and swap monster order 
 I'll do that after some more work on other things
@@ -42,14 +49,16 @@ Make building enterable **This might as well come later so I can make the map be
             <div class="inventoryOption" data-value="keyItems"><canvas id="keyItems" class="inventoryIcons" width="32" height="32"></canvas></div>
         </div>
         <div id="inventoryBody"></div>
-        <div id="inventoryFooter">
-            <div id="itemDescriptionBox">
-                <div id="itemTitle">
-                    <p id="itemTitleText"></p>
-                </div>
-                <div id="itemDescription">
-                    <p id="itemDescriptionText"></p>
-                </div>
+       
+    </div>
+
+    <div id="inventoryFooter">
+        <div id="itemDescriptionBox">
+            <div id="itemTitle">
+                <p id="itemTitleText"></p>
+            </div>
+            <div id="itemDescription">
+                <p id="itemDescriptionText"></p>
             </div>
         </div>
     </div>

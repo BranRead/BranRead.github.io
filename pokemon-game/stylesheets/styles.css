@@ -45,7 +45,14 @@ button, .userChoiceBtn, #backBtnAttack {
 }
 
 .inventoryItem {
-    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.inventoryItemContainer {
+    background-color: #729B79;
+    /* cursor: pointer; */
     display: flex;
     flex-direction: row;
     font-size: 16px;
@@ -55,12 +62,12 @@ button, .userChoiceBtn, #backBtnAttack {
     border-radius: 5px;
 }
 
-.inventoryItem:hover {
-    background-color: #8aaec3;
-}
+/* .inventoryItemContainer:hover {
+    background-color: #5b7c61;
+} */
 
 button:hover, .userChoiceBtn:hover, #backBtnAttack:hover, .useBtn:hover, .trashBtn:hover {
-    background-color: #ddd;
+    background-color: #cac4b7;
 }
 
 #content {
@@ -107,7 +114,7 @@ button:hover, .userChoiceBtn:hover, #backBtnAttack:hover, .useBtn:hover, .trashB
     bottom: 0;
     left: 324px;
     padding: 5px;
-    background-color: #ADD9F4;
+    background-color: #416788;
     border: 2px solid black;
     font-size: 8px;
 }
@@ -124,7 +131,7 @@ button:hover, .userChoiceBtn:hover, #backBtnAttack:hover, .useBtn:hover, .trashB
 }
 
 #header, #inventoryHeader {
-    background-color: #9067C6;
+    background-color: #00A1E4;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -249,21 +256,24 @@ button:hover, .userChoiceBtn:hover, #backBtnAttack:hover, .useBtn:hover, .trashB
 
 #inventoryBody {
     position: relative;
-    height: 315px;
+    height: 82%;
     overflow-y: scroll;
     z-index: 4;
 }
 
 #inventoryFooter {
-    position: relative;
-    height: 160px;
-    background-color: #563e77;
-    color: #FFF;
-    width: 100%;
-    display: flex;
+    display: none;
+    position: absolute;
+    right: 7px;
+    left: 331px;
+    bottom: 7px;
+    top: 416px;
+    border-radius: 5px;
+    background-color: #FCF5E5;
+    color: #000;
     flex-direction: column;
     align-items: center;
-    border-top: 4px solid black;
+    border-top: 2px solid black;
     z-index: 4;
     font-size: 16px;
 } 
@@ -276,8 +286,7 @@ button:hover, .userChoiceBtn:hover, #backBtnAttack:hover, .useBtn:hover, .trashB
     text-align: center;
 }
 
-#itemDescription {
-    width: 100% !important;
+#itemDescription { 
     text-align: left;
     margin-left: 1rem;
 }
@@ -285,13 +294,12 @@ button:hover, .userChoiceBtn:hover, #backBtnAttack:hover, .useBtn:hover, .trashB
 .inventoryImg {
     width: 32px;
     height: 32px;
-    
     margin: auto;
     margin-left: 1rem;
 }
 
 .inventoryName {
-   margin-left: 150px;
+   margin-left: 5rem;
    width: 300px !important;
    text-align: left !important;
 }
@@ -306,14 +314,19 @@ button:hover, .userChoiceBtn:hover, #backBtnAttack:hover, .useBtn:hover, .trashB
     align-items: center;
 }
 
-.useBtn, .trashBtn {
-    background-color: #F8F8F8;
+.infoBtn, .useBtn, .trashBtn {
+    background-color: #FCF5E5;
+    text-align: center;
+    padding-top: 2rem;
+    cursor: pointer;
     font-size: 8px;
-    margin-right: 1rem;
-    width: 40px !important;
+    margin-left: .25rem;
+    margin-right: .25rem;
+    width: 45px !important;
     height: 12px;
     padding: 1px;
     border: 1px solid black;
+    border-radius: 5px;
 }
 
 #userInterface {
