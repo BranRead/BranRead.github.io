@@ -1,6 +1,6 @@
 class Boundary {
-    static width = 48
-    static height = 48
+    static width = 64
+    static height = 64
 
     constructor({gamePosition}) {
         this.gamePosition = gamePosition
@@ -11,7 +11,7 @@ class Boundary {
     }
 
     draw() {
-        game.ctx.fillStyle = 'rgba(255, 0, 0, 0.0)'
+        game.ctx.fillStyle = 'rgba(255, 0, 0, 1)'
         game.ctx.fillRect(this.gamePosition.x, this.gamePosition.y, this.dimensions.width, this.dimensions.height)
     }
 };

@@ -29,8 +29,8 @@ const game = {
         }
     },
     offset: {
-        x: -832,
-        y: -230
+        x: -1952,
+        y: -818
     },
     canvasMove: {
         x: 0,
@@ -106,7 +106,7 @@ const game = {
             image: game.foregroundImage 
         });
         
-        game.backgroundImage.src = '/pokemon-game/img/gameWorld/newRidgeTown.png';
+        game.backgroundImage.src = '/pokemon-game/img/gameWorld/ghasblr.png';
         game.background = new Sprite({ 
             spritePosition: {
                 x: 0,
@@ -117,20 +117,20 @@ const game = {
                 y: game.offset.y
             },
             dimensions: {
-                width: 3360,
-                height: 1920
+                width: 3840,
+                height: 2560
             },
             image: game.backgroundImage,
         });
 
-        for (let i = 0; i < collisions.length; i += 70) {
+        for (let i = 0; i < collisions.length; i += 60) {
             game.collisionsMap.push(collisions.slice(i, i + 70));
         };
 
         //Collsion 
         game.collisionsMap.forEach((row, i) => {
             row.forEach((symbol, j) => {
-                if(symbol === 1025)
+                if(symbol === 46)
                 game.boundaries.push(
                     new Boundary({
                         gamePosition: {
@@ -146,14 +146,14 @@ const game = {
             game.collidingObjects.push(boundary);
         })
 
-        for (let i = 0; i < battleZonesData.length; i += 70) {
-            game.battleZonesMap.push(battleZonesData.slice(i, i + 70));
+        for (let i = 0; i < battleZonesData.length; i += 60) {
+            game.battleZonesMap.push(battleZonesData.slice(i, i + 60));
         };
 
         //Encounter Spaces
         game.battleZonesMap.forEach((row, i) => {
             row.forEach((symbol, j) => {
-                if(symbol === 1025)
+                if(symbol === 46)
                 game.battleZones.push(
                     new Boundary({
                         gamePosition: {
@@ -546,10 +546,10 @@ const game = {
      */
     rectangularCollision: ({rectangle1, rectangle2}) => {
         return (
-            rectangle1.gamePosition.x + rectangle1.dimensions.width >= rectangle2.gamePosition.x && 
-            rectangle1.gamePosition.x <= rectangle2.gamePosition.x + rectangle2.dimensions.width && 
-            rectangle1.gamePosition.y + rectangle1.dimensions.height >= rectangle2.gamePosition.y && 
-            rectangle1.gamePosition.y <= rectangle2.gamePosition.y + rectangle2.dimensions.height
+            rectangle1.gamePosition.x + rectangle1.dimensions.width >= rectangle2.gamePosition.x + 6 && 
+            rectangle1.gamePosition.x <= rectangle2.gamePosition.x + rectangle2.dimensions.width -6 && 
+            rectangle1.gamePosition.y + rectangle1.dimensions.height >= rectangle2.gamePosition.y + 6 && 
+            rectangle1.gamePosition.y <= rectangle2.gamePosition.y + rectangle2.dimensions.height - 6
         )
     },
     
@@ -566,8 +566,8 @@ const game = {
             battleZone.draw()
         });
         game.player.draw();
-        game.healer.draw();
-        game.rectDoor.draw();
+        // game.healer.draw();
+        // game.rectDoor.draw();
         game.foreground.draw();
         
         game.itemsInWorld.forEach(item => {
