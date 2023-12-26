@@ -11,7 +11,7 @@ class Boundary {
     }
 
     draw() {
-        game.ctx.fillStyle = 'rgba(255, 0, 0, 1)'
+        game.ctx.fillStyle = 'rgba(255, 0, 0, 0.5)'
         game.ctx.fillRect(this.gamePosition.x, this.gamePosition.y, this.dimensions.width, this.dimensions.height)
     }
 };
