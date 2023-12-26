@@ -10,9 +10,9 @@ class Boundary {
         }
     }
 
-    draw() {
-        game.ctx.fillStyle = 'rgba(255, 0, 0, 0.5)'
-        game.ctx.fillRect(this.gamePosition.x, this.gamePosition.y, this.dimensions.width, this.dimensions.height)
+    draw(ctx) {
+        ctx.fillStyle = 'rgba(255, 0, 0, 0.5)'
+        ctx.fillRect(this.gamePosition.x, this.gamePosition.y, this.dimensions.width, this.dimensions.height)
     }
 };
 

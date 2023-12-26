@@ -2,10 +2,10 @@
 const battleFunctions = {
     animateBattle: () => {
         battleSetup.battleAnimationId = window.requestAnimationFrame(battleFunctions.animateBattle)
-        game.battleBackground.draw();
+        ghasblrIsland.battleBackground.draw();
         
         battleSetup.renderedMonsters.forEach((sprite) => {
-            sprite.drawMonster(game.ctx);
+            sprite.drawMonster(ghasblrIsland.ctx);
         });
     
         battleSetup.renderedAttacks.forEach((sprite) => {
@@ -157,7 +157,7 @@ const battleFunctions = {
         let ranAtk = Math.floor(Math.random() * (battleSetup.enemyMonster.attacks.length));
         let turnOrder = [];
     
-        if(!game.player.otherAction) {
+        if(!gameLogic.player.otherAction) {
             if(battleSetup.enemyMonster.stats.spd > battleSetup.playerMonster.stats.spd){
                 turnOrder.push(battleSetup.enemyMonster);
                 turnOrder.push(battleSetup.playerMonster);
@@ -206,7 +206,7 @@ const battleFunctions = {
                 attack: battleSetup.enemyMonster.attacks[ranAtk]
             })
         }
-        if(!game.player.otherAction){
+        if(!gameLogic.player.otherAction){
             battleSetup.queue[0]()
             battleSetup.queue.shift()
         }    
@@ -218,18 +218,18 @@ const battleFunctions = {
                 opacity: 1,
                 onComplete: () => {
                     window.cancelAnimationFrame(battleFunctions.battleAnimationID);
-                    game.animate();
+                    ghasblrIsland.animate();
                     document.querySelector('#userInterface').style.display = 'none'
                     gsap.to('#overlappingDiv', {
                         opacity: 0,
                     })
                     battleSetup.queue = [];
                     battleSetup.endQueue = [];
-                    game.ctx.translate(game.canvasMove.x, game.canvasMove.y);
+                    ghasblrIsland.ctx.translate(ghasblrIsland.canvasMove.x, ghasblrIsland.canvasMove.y);
                     dialog.dialogBox.style.display = "none";
-                    game.battleBackground.opacity = 0;
+                    ghasblrIsland.battleBackground.opacity = 0;
                     audio.battle.stop();   
-                    game.battle.initiated = false;
+                    gameLogic.isBattleInitiated = false;
                     audio.Map.play();
                 }
             })
@@ -260,7 +260,8 @@ const battleFunctions = {
     },
     
     levelUp: () => {
-    
+    // TODO: Add something here for leveling up
+    // Make sure it can handle multiple levels at once
     },
     
     expYield: () => {
