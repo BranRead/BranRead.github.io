@@ -17,27 +17,27 @@ const battleSetup = {
         battleSetup.combatBox.style.display = "flex";
         battleSetup.userChoice.style.display = "flex";
         battleSetup.attackTypeBox.style.display = "none";
-        game.player.inBattle = true;
-        game.ctx.translate(-game.canvasMove.x, -game.canvasMove.y);
+        gameLogic.isBattleInitiated = true;
+        gameLogic.gameMap.context.translate(-gameLogic.gameMap.canvasMove.x, -gameLogic.gameMap.canvasMove.y);
         
         document.querySelector('#userInterface').style.display = 'block';
         document.querySelector('#dialogBox').style.display = 'none';
         document.querySelector('#enemyHealthBar').style.width = '100%';
         
-        let health = game.player.team.roster[0].stats.hp / game.player.team.roster[0].stats.maxHP;
-        let healthText = `${game.player.team.roster[0].stats.hp}/${game.player.team.roster[0].stats.maxHP}`;
+        let health = gameLogic.player.team.roster[0].stats.hp / gameLogic.player.team.roster[0].stats.maxHP;
+        let healthText = `${gameLogic.player.team.roster[0].stats.hp}/${gameLogic.player.team.roster[0].stats.maxHP}`;
         health *= 100;
         let roundedHealth = Math.ceil(health);
         let healthPercentage = roundedHealth + "%";
         document.querySelector('.playerHealthBarBattle').style.width = healthPercentage;
         document.querySelector('#hpText').innerHTML = healthText;
     
-        let exp = game.player.team.roster[0].stats.currentEXP / game.player.team.roster[0].stats.toNextLevelEXP;
+        let exp = gameLogic.player.team.roster[0].stats.currentEXP / gameLogic.player.team.roster[0].stats.toNextLevelEXP;
         exp *= 100;
         let expPercentage = exp + "%"
         document.querySelector("#playerEXPBarBattle").style.width = expPercentage;
         
-        document.querySelector('#playerName').innerHTML = game.player.team.roster[0].name;
+        document.querySelector('#playerName').innerHTML = gameLogic.player.team.roster[0].name;
         // document.querySelector('#attacksBox').replaceChildren();
     
         const encounters = [monsters.Draggle, monsters.Axy, monsters.Bambo, monsters.Boscis, monsters.UnoUne, monsters.Cranio, monsters.Spookli];
@@ -53,7 +53,7 @@ const battleSetup = {
     
         battleSetup.enemyMonster.isEnemy = true;
         document.querySelector('#enemyName').innerHTML = battleSetup.enemyMonster.name;
-        battleSetup.playerMonster = game.player.team.roster[0];
+        battleSetup.playerMonster = gameLogic.player.team.roster[0];
         battleSetup.playerMonster.position = {
             x: 280,
             y: 325

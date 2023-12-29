@@ -2,14 +2,14 @@
 const battleFunctions = {
     animateBattle: () => {
         battleSetup.battleAnimationId = window.requestAnimationFrame(battleFunctions.animateBattle)
-        ghasblrIsland.battleBackground.draw();
+        gameLogic.gameMap.battleBackgroundSprite.draw(gameLogic.gameMap.context);
         
         battleSetup.renderedMonsters.forEach((sprite) => {
-            sprite.drawMonster(ghasblrIsland.ctx);
+            sprite.drawMonster(gameLogic.gameMap.context);
         });
     
         battleSetup.renderedAttacks.forEach((sprite) => {
-            sprite.draw();
+            sprite.draw(gameLogic.gameMap.context);
         });
     },
     
@@ -218,16 +218,16 @@ const battleFunctions = {
                 opacity: 1,
                 onComplete: () => {
                     window.cancelAnimationFrame(battleFunctions.battleAnimationID);
-                    ghasblrIsland.animate();
+                    gameLogic.animate();
                     document.querySelector('#userInterface').style.display = 'none'
                     gsap.to('#overlappingDiv', {
                         opacity: 0,
                     })
                     battleSetup.queue = [];
                     battleSetup.endQueue = [];
-                    ghasblrIsland.ctx.translate(ghasblrIsland.canvasMove.x, ghasblrIsland.canvasMove.y);
+                    gameLogic.gameMap.context.translate(gameLogic.gameMap.canvasMove.x, gameLogic.gameMap.canvasMove.y);
                     dialog.dialogBox.style.display = "none";
-                    ghasblrIsland.battleBackground.opacity = 0;
+                    gameLogic.gameMap.battleBackgroundSprite.opacity = 0;
                     audio.battle.stop();   
                     gameLogic.isBattleInitiated = false;
                     audio.Map.play();

@@ -1,4 +1,14 @@
 // Ghasblr
+
+const playerHouseDoor = new Door({
+    enterFunction: () => {
+        console.log("Entering house")
+    },
+    gamePosition: {
+        x: 480,
+        y: 85
+    }
+})
 const ghasblrBackground = new Image();
 ghasblrBackground.src = '/pokemon-game/img/gameWorld/ghasblrBackground.png';
 const ghasblrBackgroundSprite = new Sprite({ 
@@ -80,6 +90,7 @@ const gameMapsData = {
             x: -1952,
             y: -818
         },
+        doors: [playerHouseDoor],
         canvasMove: {
             x: 0,
             y: 0

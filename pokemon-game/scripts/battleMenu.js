@@ -37,7 +37,6 @@ const battleMenu = {
             () => {
                 menu.open();
                 gameLogic.player.inventory.openInventory();
-                battleSetup.combatBox.style.display = "none";
             }, 
             () => {
                 battleMenu.befriend();

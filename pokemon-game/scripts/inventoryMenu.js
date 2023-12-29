@@ -3,7 +3,7 @@ const inventoryMenu = {
     isDescriptionOpen: false,
 
     display: (type) => {
-        game.player.inventory.items.forEach((item, index) => {
+        gameLogic.player.inventory.items.forEach((item, index) => {
             if(item.useCategory == type){
                 const inventoryItem = document.createElement('div');
                 inventoryItem.className = "inventoryItem"
@@ -41,7 +41,7 @@ const inventoryMenu = {
                 infoBtn.textContent = "Info";
                 infoBtn.className = "infoBtn";
                 infoBtn.addEventListener("click", () => {
-                    game.player.inventoryWindow = true;
+                    gameLogic.player.inventoryWindow = true;
                     if(!inventoryMenu.isDescriptionOpen){
                         inventoryMenu.isDescriptionOpen = true;
                         document.getElementById("inventoryFooter").style.display = "flex";
@@ -57,14 +57,14 @@ const inventoryMenu = {
                 useBtn.textContent = "Use";
                 useBtn.className = "useBtn";
                 useBtn.addEventListener('click', (e) => {
-                    game.player.inventory.selection(e.currentTarget)
+                    gameLogic.player.inventory.selection(e.currentTarget)
                 });
 
                 const trashBtn = document.createElement('button');
                 trashBtn.textContent = "Drop";
                 trashBtn.className = "trashBtn";
                 trashBtn.addEventListener('click', (e) => {
-                    game.player.inventory.trash(e.currentTarget)
+                    gameLogic.player.inventory.trash(e.currentTarget)
                 });
                 
                 inventoryBtns.append(infoBtn);

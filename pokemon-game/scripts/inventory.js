@@ -40,33 +40,40 @@ class Inventory {
         }
 
         document.querySelector("#fullInventoryView").style.display = "block";
+
+        gameLogic.isInventoryWindowOpen = true;
     }
 
     selection(btn){
         const itemIndex = btn.parentElement.parentElement.dataset.value;
-        game.usingItem = true;
+        gameLogic.usingItem = true;
         const cancelBtn = document.createElement("button");
         cancelBtn.className = "cancelBtn";
         cancelBtn.textContent = "Cancel";
         cancelBtn.addEventListener("click", () => {
             menu.close();
             menu.open();
-            game.player.inventory.openInventory();
-            game.usingItem = flase;
+            gameLogic.player.inventory.openInventory();
+            gameLogic.usingItem = false;
         })
-        switch(game.player.inventory.items[itemIndex].useCategory){
+        switch(gameLogic.player.inventory.items[itemIndex].useCategory){
             case 'restore':
                 dialog.displayDialog("Who would you like to use it on?");
                 dialog.dialogBox.append(cancelBtn);
-                game.player.team.viewTeam(game.player.inventory.items[itemIndex], itemIndex);
+                gameLogic.player.team.viewTeam(gameLogic.player.inventory.items[itemIndex], itemIndex);
                 break;
         }
     }
 
     use(item, itemIndex, monsterIndex){
-        let monster = game.player.team.roster[monsterIndex];
+        gameLogic.player.inventory.items[itemIndex].quantity--;
+
+        if((gameLogic.player.inventory.items[itemIndex].quantity) < 1){
+            gameLogic.player.inventory.items.splice(itemIndex, 1);
+        }
+        let monster = gameLogic.player.team.roster[monsterIndex];
         console.log(item)
-        game.player.otherAction = true;
+        gameLogic.player.otherAction = true;
         switch(item.useCategory){
             case 'restore':
                 let healedFor;
@@ -82,7 +89,7 @@ class Inventory {
                 let health = monster.stats.hp / monster.stats.maxHP;
                 health *= 100;
 
-                if(!game.battle.initiated){
+                if(!gameLogic.battle.initiated){
                     console.log(`Healing ${monster.name}!`);
                     dialog.displayDialog(`${monster.name} healed for ${healedFor} points of damage!`);
                     gsap.to(".playerHealthBar", {
@@ -93,14 +100,14 @@ class Inventory {
                             battleSetup.endQueue.push(() => {
                                 menu.close();
                                 menu.open();
-                                game.player.inventory.openInventory();
+                                gameLogic.player.inventory.openInventory();
                                 inventoryMenu.display(item.useCategory);
-                                game.usingItem = false;
-                                game.player.team.viewTeam();
+                                gameLogic.usingItem = false;
+                                gameLogic.player.team.viewTeam();
                             })
                         }
                     })
-                } else if (game.battle.initiated){
+                } else if (gameLogic.battle.initiated){
                     menu.close();
                     gsap.to(".playerHealthBarBattle", {
                         width: health + "%",
@@ -128,14 +135,14 @@ class Inventory {
                 // }
                 break;
             case "flee":
-                if(game.player.inBattle) {
+                if(gameLogic.player.inBattle) {
                     battleFunctions.endBattle();
                 } else {
                     //Will add dialog to say "Can't use this here!"
                 }
                 break;
             case "tempStatBoost":
-                if(game.initBattle) {
+                if(gameLogic.isBattleInitiated) {
                     switch(item.boost.stat){
                         case "atk":
                             battleSetup.playerMonster.stats.tempAtk += item.boost.amount;
@@ -155,24 +162,23 @@ class Inventory {
                 }
                 break;
         }
-        game.player.inventory.items[itemIndex].quantity--;
-
-        if((game.player.inventory.items[itemIndex].quantity) < 1){
-            game.player.inventory.items.splice(itemIndex, 1);
-        }
+        
     }
 
     trash(btn){
         // console.log("Item trashed!");
         const itemIndex = btn.parentElement.parentElement.dataset.value;
-        const useCategory = game.player.inventory.items[itemIndex].useCategory;
-        dialog.displayDialog(`${game.player.inventory.items[itemIndex].name} was dropped.`)
+        const useCategory = gameLogic.player.inventory.items[itemIndex].useCategory;
+        dialog.displayDialog(`${gameLogic.player.inventory.items[itemIndex].name} was dropped.`)
         
         battleSetup.queue.push(() => {
-            game.player.inventory.items.splice(itemIndex, 1);
+            gameLogic.player.inventory.items[itemIndex].quantity--;
+            if((gameLogic.player.inventory.items[itemIndex].quantity) < 1){
+                gameLogic.player.inventory.items.splice(itemIndex, 1);
+            }
             menu.close();
             menu.open();
-            game.player.inventory.openInventory();
+            gameLogic.player.inventory.openInventory();
             inventoryMenu.display(useCategory);
         })
     }

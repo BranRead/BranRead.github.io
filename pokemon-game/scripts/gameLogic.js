@@ -32,14 +32,19 @@ const gameLogic = {
     maps: [],
     animationID: 0,
     gameMap: "",
+    usingItem: false,
+    menuDisplayed: false,
+    isInventoryWindowOpen: false,
+
+    // I think this is for the menu animated sprite
+    isTeamSpriteVisible: false, 
     
 
     //Potentially move elsewhere
     //Between 0-100. Higher numbers are harder.
     // battle
     fleeChance: 50,
-    cvsTeam: document.querySelector('#spriteWindow'),
-    ctxTeam: "",
+    
     backBtn: document.getElementById("back-btn-menu"),
     inventoryOptions: document.querySelectorAll(".inventoryOption"),
     isBattleInitiated: false,
@@ -144,13 +149,20 @@ const gameLogic = {
                     break;
                 //Lower case keys for actions
                 case 'i':
-                    if(gameLogic.player.menuDisplayed) {
+                    if(gameLogic.menuDisplayed) {
                         menu.close();
                     } else {
                         menu.open();
                     }
                     break;
-                //Lower case keys for movement
+                case 'Escape':
+                    if(gameLogic.menuDisplayed) {
+                        menu.close();
+                    } else {
+                        menu.open();
+                    }
+                    break;
+                //Upper case keys for movement
                 case 'W':
                     gameLogic.keys.w.pressed = true;
                     gameLogic.lastKey = "w"
@@ -167,9 +179,9 @@ const gameLogic = {
                     gameLogic.keys.d.pressed = true;
                     gameLogic.lastKey = "d"
                     break;
-                //Lower case keys for actions
+                //Upper case keys for actions
                 case 'I':
-                    if(gameLogic.player.menuDisplayed) {
+                    if(gameLogic.menuDisplayed) {
                         menu.close();
                     } else {
                         menu.open();
@@ -255,9 +267,7 @@ const gameLogic = {
             })
         });
 
-
-
-
+        
     },
    
     /**
@@ -348,7 +358,7 @@ const gameLogic = {
                                     battleFunctions.animateBattle();
                                     //The battle background is a sprite and set to full visibility here
                                     //Also that black div is set to invisible
-                                    gameMap.battleBackground.opacity = 1
+                                    gameLogic.gameMap.battleBackgroundSprite.opacity = 1
                                     gsap.to('#overlappingDiv', {
                                         opacity: 0,
                                         duration: 0.4,

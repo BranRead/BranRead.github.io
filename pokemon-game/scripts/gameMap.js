@@ -10,6 +10,7 @@ class GameMap {
             y: 0
         },
         peopleInWorld = [],
+        doors = [],
         encounterRate = 0.01,
         
         canvasMove = {
@@ -68,7 +69,7 @@ class GameMap {
                 )
             })
         });
-        
+        this.doors = doors; 
         this.encounterRate = encounterRate;
        
         this.canvasMove = canvasMove;
@@ -88,6 +89,23 @@ class GameMap {
         this.peopleInWorld.forEach(person => {
             this.collidingObjects.push(person);
         })
+
+      
+        this.canvas.addEventListener('click', () => {
+            this.doors.forEach(door => {
+                if(gameLogic.rectangularCollision({
+                    rectangle1: gameLogic.player,
+                    rectangle2:  {...door, gamePosition: {
+                        x: door.gamePosition.x,
+                        y: door.gamePosition.y + 3
+                    }}
+                })
+                    ){
+                    door.enterFunction();
+                }
+            })
+            
+        });
 
         this.canvas.addEventListener('click', () => {
             this.itemsInWorld.forEach(item => {

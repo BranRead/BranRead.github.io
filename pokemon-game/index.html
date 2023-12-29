@@ -40,37 +40,62 @@ Need to adjust foreground layer due to collisionBuffer
 </head>
 <div id="content">
 
-    <div id="fullInventoryView">
-        <div id="inventoryHeader">
-            <div class="inventoryOption" data-value="restore"><canvas id="restore" class="inventoryIcons" width="32" height="32"></canvas></div>
-            <div class="verticalLine"></div>
-            <div class="inventoryOption" data-value="statBoost"><canvas id="statBoost" class="inventoryIcons" width="32" height="32"></canvas></div>
-            <div class="verticalLine"></div>
-            <div class="inventoryOption" data-value="food"><canvas id="food" class="inventoryIcons" width="32" height="32"></canvas></div>
-            <div class="verticalLine"></div>
-            <div class="inventoryOption" data-value="valuables"><canvas id="valuables" class="inventoryIcons" width="32" height="32"></canvas></div>
-            <div class="verticalLine"></div>
-            <div class="inventoryOption" data-value="keyItems"><canvas id="keyItems" class="inventoryIcons" width="32" height="32"></canvas></div>
-        </div>
-        <div id="inventoryBody"></div>
-       
-    </div>
-
-    <div id="inventoryFooter">
-        <div id="itemDescriptionBox">
-            <div id="itemTitle">
-                <p id="itemTitleText"></p>
-            </div>
-            <div id="itemDescription">
-                <p id="itemDescriptionText"></p>
-            </div>
-        </div>
-    </div>
     
     <div id="overlappingDiv"></div>
     <div id="menu">
         <button id="back-btn-menu">Back</button>
         <div><h3 id="menu-title">Menu</h3></div>
+    </div>
+    
+    <canvas id="gameCamera"></canvas>
+
+    <div id="userInterface">
+        <!-- Represents health bar of enemy-->
+        <div id="hpBackgroundEnemy">
+            <h1 id="enemyName"></h1>
+            <div class="healthBackground">
+                <div class="health"></div>
+                <div id="enemyHealthBar"></div>
+            </div>
+        </div>
+        <!-- Represents health bar of player monster (Emby)-->
+        <div id="hpBackgroundPlayer">
+            <h1 id="playerName"></h1>
+            <div class="healthBackground" style="position: relative;">
+                <div class="health"></div>
+                <div class="playerHealthBarBattle"></div>
+            </div>
+            <div id="hpTextBackground"><p id="hpText">100/100</p></div>
+
+            <div class="expBackground" style="position: relative;">
+                <div class="exp"></div>
+                <div id="playerEXPBarBattle" class="playerEXPBar"></div>
+            </div>
+        </div>
+    </div> <!--#userInterface-->
+
+    <div id="dialogBox">
+        <div id="dialogOutputBox">
+            <p id="dialog"></p>
+        </div>
+        <button class="nextBtn">▼</button>
+    </div>
+
+    <div id="combatBox">
+        <div id="goBack"><div id="backBtnAttack">Back</div></div>
+        <div id="userChoice">
+            <div id="topRow">
+                <div class="userChoiceBtn"></div>
+                <div class="userChoiceBtn"></div>
+            </div>
+            <div id="bottomRow">
+                <div class="userChoiceBtn"></div>
+                <div class="userChoiceBtn"></div>
+            </div>
+        </div>
+        <div id="attackTypeBox">
+            <h1 id="attackType">Attack Type</h1>
+        </div>
     </div>
 
     <div id="menu-options">
@@ -125,57 +150,34 @@ Need to adjust foreground layer due to collisionBuffer
             <button id="release">Release</button>
         </div>
     </div>
+
+    <div id="fullInventoryView">
+        <div id="inventoryHeader">
+            <div class="inventoryOption" data-value="restore"><canvas id="restore" class="inventoryIcons" width="32" height="32"></canvas></div>
+            <div class="verticalLine"></div>
+            <div class="inventoryOption" data-value="statBoost"><canvas id="statBoost" class="inventoryIcons" width="32" height="32"></canvas></div>
+            <div class="verticalLine"></div>
+            <div class="inventoryOption" data-value="food"><canvas id="food" class="inventoryIcons" width="32" height="32"></canvas></div>
+            <div class="verticalLine"></div>
+            <div class="inventoryOption" data-value="valuables"><canvas id="valuables" class="inventoryIcons" width="32" height="32"></canvas></div>
+            <div class="verticalLine"></div>
+            <div class="inventoryOption" data-value="keyItems"><canvas id="keyItems" class="inventoryIcons" width="32" height="32"></canvas></div>
+        </div>
+        <div id="inventoryBody"></div>
+       
+    </div>
+
+    <div id="inventoryFooter">
+        <div id="itemDescriptionBox">
+            <div id="itemTitle">
+                <p id="itemTitleText"></p>
+            </div>
+            <div id="itemDescription">
+                <p id="itemDescriptionText"></p>
+            </div>
+        </div>
+    </div>
     
-    <canvas id="gameCamera"></canvas>
-
-    <div id="userInterface">
-        <!-- Represents health bar of enemy-->
-        <div id="hpBackgroundEnemy">
-            <h1 id="enemyName"></h1>
-            <div class="healthBackground">
-                <div class="health"></div>
-                <div id="enemyHealthBar"></div>
-            </div>
-        </div>
-        <!-- Represents health bar of player monster (Emby)-->
-        <div id="hpBackgroundPlayer">
-            <h1 id="playerName"></h1>
-            <div class="healthBackground" style="position: relative;">
-                <div class="health"></div>
-                <div class="playerHealthBarBattle"></div>
-            </div>
-            <div id="hpTextBackground"><p id="hpText">100/100</p></div>
-
-            <div class="expBackground" style="position: relative;">
-                <div class="exp"></div>
-                <div id="playerEXPBarBattle" class="playerEXPBar"></div>
-            </div>
-        </div>
-    </div> <!--#userInterface-->
-
-    <div id="dialogBox">
-        <div id="dialogOutputBox">
-            <p id="dialog"></p>
-        </div>
-        <button class="nextBtn">▼</button>
-    </div>
-
-    <div id="combatBox">
-        <div id="goBack"><div id="backBtnAttack">Back</div></div>
-        <div id="userChoice">
-            <div id="topRow">
-                <div class="userChoiceBtn"></div>
-                <div class="userChoiceBtn"></div>
-            </div>
-            <div id="bottomRow">
-                <div class="userChoiceBtn"></div>
-                <div class="userChoiceBtn"></div>
-            </div>
-        </div>
-        <div id="attackTypeBox">
-            <h1 id="attackType">Attack Type</h1>
-        </div>
-    </div>
     
 
 </div> <!--#content-->
@@ -197,6 +199,8 @@ Need to adjust foreground layer due to collisionBuffer
 <script src="/pokemon-game/scripts/sprite.js"></script> 
 <script src="/pokemon-game/data/itemsGhasblr.js"></script>
 <script src="/pokemon-game/scripts/item.js"></script> 
+<script src="/pokemon-game/scripts/boundary.js"></script>
+<script src="/pokemon-game/scripts/door.js"></script> 
 <script src="/pokemon-game/data/gameMapsData.js"></script>
 <script src="/pokemon-game/scripts/gameMap.js"></script> 
 <script src="/pokemon-game/scripts/dialog.js"></script>
@@ -204,7 +208,6 @@ Need to adjust foreground layer due to collisionBuffer
 <script src="/pokemon-game/data/attacks.js"></script>
 <script src="/pokemon-game/data/monsters.js"></script>
 <script src="/pokemon-game/scripts/monster.js"></script> 
-<script src="/pokemon-game/scripts/boundary.js"></script> 
 <script src="/pokemon-game/scripts/inventory.js"></script>  
 <script src="/pokemon-game/scripts/inventoryMenu.js"></script>  
 <script src="/pokemon-game/scripts/settings.js"></script>  
@@ -215,7 +218,6 @@ Need to adjust foreground layer due to collisionBuffer
 <script src="/pokemon-game/scripts/battleMenu.js"></script>
 <script src="/pokemon-game/scripts/battleSetup.js"></script> 
 <script src="/pokemon-game/scripts/playerHouse.js"></script>  
- 
 <!-- <script src="/pokemon-game/scripts/ghasblrIsland.js"></script>   -->
 <script src="/pokemon-game/scripts/gameLogic.js"></script>
 <script src="/pokemon-game/scripts/debug.js"></script>

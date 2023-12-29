@@ -7,14 +7,14 @@ class Team{
         this.maxSize = maxSize;
     }
     removeMonster(e){
-        console.log("Releasing " + game.player.team.roster[e.target.parentNode.parentNode.value])
-        game.player.team.roster.splice(e.target.parentNode.parentNode.value, 1);
+        console.log("Releasing " + gameLogic.player.team.roster[e.target.parentNode.parentNode.value])
+        gameLogic.player.team.roster.splice(e.target.parentNode.parentNode.value, 1);
         e.target.parentNode.parentNode.remove();
 
         let listHTML = document.querySelectorAll(".toRemove");
-        for(let i = 0; i < game.player.team.roster.length; i++){
+        for(let i = 0; i < gameLogic.player.team.roster.length; i++){
             for(let j = 0; j < listHTML.length; j++){
-                if(listHTML[j].childNodes[1].innerHTML == game.player.team.roster[i].name){
+                if(listHTML[j].childNodes[1].innerHTML == gameLogic.player.team.roster[i].name){
                     listHTML[j].style.order = i;
                     listHTML[j].value = i;
                 }
@@ -23,38 +23,38 @@ class Team{
     }
 
     switchMonster(e){
-        if(game.team.priorClick){
-            let firstMonster = game.player.team.roster[game.team.toSwitch.parentNode.parentNode.value];
-            let secondMonster = game.player.team.roster[e.target.parentNode.parentNode.value];
+        if(gameLogic.team.priorClick){
+            let firstMonster = gameLogic.player.team.roster[gameLogic.team.toSwitch.parentNode.parentNode.value];
+            let secondMonster = gameLogic.player.team.roster[e.target.parentNode.parentNode.value];
             player.team.roster[e.target.parentNode.parentNode.value] = firstMonster;
-            player.team.roster[game.team.toSwitch.parentNode.parentNode.value] = secondMonster;
+            player.team.roster[gameLogic.team.toSwitch.parentNode.parentNode.value] = secondMonster;
             
             let listHTML = document.querySelectorAll(".toRemove");
 
-            game.team.toSwitch.parentNode.parentNode.style.order = e.target.parentNode.parentNode.value;
-            e.target.parentNode.parentNode.style.order = game.team.toSwitch.parentNode.parentNode.value;
-            game.team.toSwitch = null;
-            game.team.priorClick = false;
+            gameLogic.team.toSwitch.parentNode.parentNode.style.order = e.target.parentNode.parentNode.value;
+            e.target.parentNode.parentNode.style.order = gameLogic.team.toSwitch.parentNode.parentNode.value;
+            gameLogic.team.toSwitch = null;
+            gameLogic.team.priorClick = false;
             
             for(let i = 0; i < player.team.roster.length; i++){
                 for(let j = 0; j < listHTML.length; j++){
-                    if(listHTML[j].childNodes[1].innerHTML == game.player.team.roster[i].name){
+                    if(listHTML[j].childNodes[1].innerHTML == gameLogic.player.team.roster[i].name){
                         listHTML[j].style.order = i;
                         listHTML[j].value = i;
                     }
                 }
             }
         } else {
-            game.team.priorClick = true;
-            game.team.toSwitch = e.target;
-            console.log("Current Target " + game.player.team.roster[e.target.value].name);
-            console.log("toSwitch " + game.player.team.roster[game.team.toSwitch.value].name);
+            gameLogic.team.priorClick = true;
+            gameLogic.team.toSwitch = e.target;
+            console.log("Current Target " + gameLogic.player.team.roster[e.target.value].name);
+            console.log("toSwitch " + gameLogic.player.team.roster[gameLogic.team.toSwitch.value].name);
         }
     }
     
     viewTeam(item, itemIndex){
         console.log(itemIndex); 
-        if(game.player.teamWindow){
+        if(gameLogic.player.teamWindow){
             const teamDisplay = document.querySelectorAll(".toRemove");
             if(teamDisplay != null){
                 teamDisplay.forEach(monster => {
@@ -66,11 +66,11 @@ class Team{
         document.querySelectorAll(".menu-item").forEach(item => {
             item.style.display = "none";
         })
-        game.backBtn.style.display = "block";
+        gameLogic.backBtn.style.display = "block";
         
         document.querySelector("#menu-title").textContent = "Team";
         
-        game.player.teamWindow = true;
+        gameLogic.player.teamWindow = true;
         
         this.roster.forEach((monster, index) => {
             const monsterBlock = document.createElement('div');
@@ -134,11 +134,11 @@ class Team{
             monsterBlock.append(statDisplay);
             document.querySelector('#menu-options').append(monsterBlock);
             monsterBlock.addEventListener('click', (e) => {
-                if(!game.usingItem){
-                    this.teamMenu(game.player.team.roster[[e.currentTarget.value]]);
+                if(!gameLogic.usingItem){
+                    this.teamMenu(gameLogic.player.team.roster[[e.currentTarget.value]]);
                 } else {
                     document.querySelector(".cancelBtn").remove();
-                    game.player.inventory.use(item, itemIndex, e.currentTarget.value);
+                    gameLogic.player.inventory.use(item, itemIndex, e.currentTarget.value);
                 }
             })
         })
@@ -147,7 +147,9 @@ class Team{
 
     //In depth menu
     teamMenu(monster){
-        game.animateSprite = true;
+        const contextTeam = canvasSetup.cvsTeam.getContext("2d");
+
+        gameLogic.isTeamSpriteVisible = true;
         let hpPercent;
         let expPercent;
 
@@ -188,9 +190,9 @@ class Team{
 
         function animateMenu(){
             const menuAnimate = window.requestAnimationFrame(animateMenu);
-            game.ctxTeam.clearRect(0, 0, 100, 100);
-            monster.drawMonster(game.ctxTeam);
-            if(!game.animateSprite){
+            contextTeam .clearRect(0, 0, 100, 100);
+            monster.drawMonster(contextTeam);
+            if(!gameLogic.isTeamSpriteVisible){
                 window.cancelAnimationFrame(menuAnimate)
             }
         }

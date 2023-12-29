@@ -38,7 +38,7 @@ const debug = {
                         battleFunctions.animateBattle();
                         //The battle background is a sprite and set to full visibility here
                         //Also that black div is set to invisible
-                        gameLogic.battleBackground.opacity = 1
+                        gameLogic.gameMap.battleBackgroundSprite.opacity = 1
                         gsap.to('#overlappingDiv', {
                             opacity: 0,
                             duration: 0.4,

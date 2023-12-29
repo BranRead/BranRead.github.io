@@ -418,7 +418,7 @@ button:hover, .userChoiceBtn:hover, #backBtnAttack:hover, .useBtn:hover, .trashB
     right: 0;
     border-top: 3px black solid;
     display: none;
-    z-index: 10;
+    z-index: 2;
 }
 
 #dialogueOutput {
