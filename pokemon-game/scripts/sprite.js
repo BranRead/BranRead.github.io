@@ -38,23 +38,23 @@ class Sprite {
         
     }
 
-    draw() {
+    draw(context) {
         // console.log(this.image.src)
-        game.ctx.save()
-        game.ctx.translate(
+        context.save()
+        context.translate(
             this.gamePosition.x + this.dimensions.width / 2, 
             this.gamePosition.y + this.dimensions.height / 2
         )
-        game.ctx.rotate(this.rotation)
-        game.ctx.translate(
+        context.rotate(this.rotation)
+        context.translate(
             -this.gamePosition.x - this.dimensions.width / 2, 
             -this.gamePosition.y - this.dimensions.height / 2
         )
-        game.ctx.globalAlpha = this.opacity
+        context.globalAlpha = this.opacity
         // Takes image, starting x position and starting y position to start drawing from, starting width and height for size from spritesheet
         // then takes destination position and dimensions
         // (image, sx, sy, swidth, sheigth, dx, dy, dwidth, dheight)
-        game.ctx.drawImage(
+        context.drawImage(
             this.image, 
             
             // sx
@@ -81,7 +81,7 @@ class Sprite {
             // dheight
             this.dimensions.height
         );
-        game.ctx.restore()
+        context.restore()
         
         if(!this.animate) return
 

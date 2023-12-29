@@ -36,7 +36,7 @@ const battleMenu = {
             }, 
             () => {
                 menu.open();
-                game.player.inventory.openInventory();
+                gameLogic.player.inventory.openInventory();
                 battleSetup.combatBox.style.display = "none";
             }, 
             () => {
@@ -61,7 +61,7 @@ const battleMenu = {
     
     fight: () => {
         battleMenu.clearButtons(".battleCommands");
-        game.player.otherAction = false;
+        gameLogic.player.otherAction = false;
         battleMenu.goBackBtn.style.display = "flex";
         battleMenu.goBackBtn.addEventListener("click", () => {
             battleMenu.battleOptions();
@@ -79,7 +79,7 @@ const battleMenu = {
         button.addEventListener('click', (e) => {
             const selectedAttack = attacks[(e.currentTarget.innerHTML).replace(/\s/g, '')];
             battleSetup.playerMonster.attacking = true; 
-            game.player.otherAction = false;
+            gameLogic.player.otherAction = false;
             battleFunctions.startTurn(selectedAttack);
         })
         button.addEventListener('mouseenter', (e) => {
@@ -93,23 +93,23 @@ const battleMenu = {
     
     befriend: ()=> {
         dialog.displayDialog(`${battleSetup.enemyMonster.name} started to trust you a bit more!`);
-        battleSetup.enemyMonster.stats.tempFriend += game.player.monsterFriend;
+        battleSetup.enemyMonster.stats.tempFriend += gameLogic.player.monsterFriend;
         if((battleSetup.enemyMonster.stats.tempFriend) < 50) {
             battleSetup.queue.push(() => {
-                game.player.otherAction = true;
+                gameLogic.player.otherAction = true;
                 battleFunctions.startTurn();
             })
         } else {
             battleSetup.queue.push(() => {
-                game.player.team.roster.push(battleSetup.enemyMonster);
-                game.player.team.roster[game.player.team.roster.length - 1].isEnemy = false;
-                game.player.team.roster[game.player.team.roster.length - 1].position =  {
+                gameLogic.player.team.roster.push(battleSetup.enemyMonster);
+                gameLogic.player.team.roster[gameLogic.player.team.roster.length - 1].isEnemy = false;
+                gameLogic.player.team.roster[gameLogic.player.team.roster.length - 1].position =  {
                     x: 280,
                     y: 325
                 };
-                game.player.team.roster[game.player.team.roster.length - 1].backImage = true;
-                game.player.team.roster[game.player.team.roster.length - 1].frontImage = false;
-                game.player.team.roster[game.player.team.roster.length - 1].stats.friend =
+                gameLogic.player.team.roster[gameLogic.player.team.roster.length - 1].backImage = true;
+                gameLogic.player.team.roster[gameLogic.player.team.roster.length - 1].frontImage = false;
+                gameLogic.player.team.roster[gameLogic.player.team.roster.length - 1].stats.friend =
                 battleSetup.enemyMonster.stats.tempFriend;
                 battleFunctions.endBattle(`${battleSetup.enemyMonster.name} has decided to join your party!`);
             })
@@ -120,10 +120,10 @@ const battleMenu = {
         let fleeCheck = Math.floor(Math.random() * (100) + 1);
         fleeCheck -= (battleSetup.enemyMonster.stats.spd) / 4;
         fleeCheck += (battleSetup.playerMonster.stats.spd) / 4;
-        if(fleeCheck > game.fleeChance) {
+        if(fleeCheck > gameLogic.fleeChance) {
             battleFunctions.endBattle(`${battleSetup.playerMonster.name} fled`);
         } else {
-            game.player.otherAction = true;
+            gameLogic.player.otherAction = true;
             battleSetup.queue.push(() => {
                 battleFunctions.startTurn();
             });

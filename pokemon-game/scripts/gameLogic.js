@@ -1,5 +1,6 @@
 const gameLogic = {
     // General game logic
+    
     itemUsed: "false",
     statsSave: [],
     clicked: false,
@@ -28,6 +29,10 @@ const gameLogic = {
     player: "",
     team: "",
     inventory: "",
+    maps: [],
+    animationID: 0,
+    gameMap: "",
+    
 
     //Potentially move elsewhere
     //Between 0-100. Higher numbers are harder.
@@ -41,8 +46,10 @@ const gameLogic = {
 
 
     init: () => {
-        game.team = new Team([], 4);
-        game.inventory =  new Inventory([], 10);
+        gameLogic.maps.push(new GameMap(gameMapsData.Ghasblr));
+        
+        gameLogic.team = new Team([], 4);
+        gameLogic.inventory =  new Inventory([], 10);
 
          //Save Game management, load unless save doesn't exist
         // if(localStorage.getItem("monsterGame") === null){
@@ -50,10 +57,10 @@ const gameLogic = {
             // inventory.items.push(items.AtkBoost);
             // inventory.items.push(items.DefBoost);
             
-            team.roster.push(new Monster(monsters.Emby));
-            team.roster[0].frontImage = false;
-            team.roster[0].backImage = true;
-            team.roster[0].gamePosition = {
+            gameLogic.team.roster.push(new Monster(monsters.Emby));
+            gameLogic.team.roster[0].frontImage = false;
+            gameLogic.team.roster[0].backImage = true;
+            gameLogic.team.roster[0].gamePosition = {
                         x: 280,
                         y: 325
                     };
@@ -120,24 +127,24 @@ const gameLogic = {
             switch (e.key) {
                 //Lower case keys for movement
                 case 'w':
-                    game.keys.w.pressed = true;
-                    game.lastKey = "w"
+                    gameLogic.keys.w.pressed = true;
+                    gameLogic.lastKey = "w"
                     break;
                 case 'a':
-                    game.keys.a.pressed = true;
-                    game.lastKey = "a"
+                    gameLogic.keys.a.pressed = true;
+                    gameLogic.lastKey = "a"
                     break;
                 case 's':
-                    game.keys.s.pressed = true;
-                    game.lastKey = "s"
+                    gameLogic.keys.s.pressed = true;
+                    gameLogic.lastKey = "s"
                     break;
                 case 'd':
-                    game.keys.d.pressed = true;
-                    game.lastKey = "d"
+                    gameLogic.keys.d.pressed = true;
+                    gameLogic.lastKey = "d"
                     break;
                 //Lower case keys for actions
                 case 'i':
-                    if(game.player.menuDisplayed) {
+                    if(gameLogic.player.menuDisplayed) {
                         menu.close();
                     } else {
                         menu.open();
@@ -145,24 +152,24 @@ const gameLogic = {
                     break;
                 //Lower case keys for movement
                 case 'W':
-                    game.keys.w.pressed = true;
-                    game.lastKey = "w"
+                    gameLogic.keys.w.pressed = true;
+                    gameLogic.lastKey = "w"
                     break;
                 case 'A':
-                    game.keys.a.pressed = true;
-                    game.lastKey = "a"
+                    gameLogic.keys.a.pressed = true;
+                    gameLogic.lastKey = "a"
                     break;
                 case 'S':
-                    game.keys.s.pressed = true;
-                    game.lastKey = "s"
+                    gameLogic.keys.s.pressed = true;
+                    gameLogic.lastKey = "s"
                     break;
                 case 'D':
-                    game.keys.d.pressed = true;
-                    game.lastKey = "d"
+                    gameLogic.keys.d.pressed = true;
+                    gameLogic.lastKey = "d"
                     break;
                 //Lower case keys for actions
                 case 'I':
-                    if(game.player.menuDisplayed) {
+                    if(gameLogic.player.menuDisplayed) {
                         menu.close();
                     } else {
                         menu.open();
@@ -175,35 +182,35 @@ const gameLogic = {
             switch (e.key) {
                 //Lower and then upper case
                 case 'w':
-                    game.keys.w.pressed = false;
+                    gameLogic.keys.w.pressed = false;
                     break;
 
                 case 'a':
-                    game.keys.a.pressed = false;
+                    gameLogic.keys.a.pressed = false;
                     break;
 
                 case 's':
-                    game.keys.s.pressed = false;
+                    gameLogic.keys.s.pressed = false;
                     break;
 
                 case 'd':
-                    game.keys.d.pressed = false;
+                    gameLogic.keys.d.pressed = false;
                     break;
 
                 case 'W':
-                    game.keys.w.pressed = false;
+                    gameLogic.keys.w.pressed = false;
                     break;
 
                 case 'A':
-                    game.keys.a.pressed = false;
+                    gameLogic.keys.a.pressed = false;
                     break;
 
                 case 'S':
-                    game.keys.s.pressed = false;
+                    gameLogic.keys.s.pressed = false;
                     break;
 
                 case 'D':
-                    game.keys.d.pressed = false;
+                    gameLogic.keys.d.pressed = false;
                     break;
             }
         });
@@ -215,19 +222,19 @@ const gameLogic = {
                 let selection = item.innerHTML
                 switch (selection) {
                     case "Team":
-                        game.player.team.viewTeam();
+                        gameLogic.player.team.viewTeam();
                         break;
                     case "Inventory":
-                        game.player.inventory.openInventory();
+                        gameLogic.player.inventory.openInventory();
                         break;
                     case "Settings":
                         settings.open();
                         break;
                     case "Save":
-                        game.save();
+                        gameLogic.save();
                         break;
                     case "Quit":
-                        game.quit();
+                        gameLogic.quit();
                         break;
                     default:
                         console.log("Error clicking menu");
@@ -239,7 +246,7 @@ const gameLogic = {
             menu.close();
             menu.open();
         })
-        game.inventoryOptions.forEach((option) =>{
+        gameLogic.inventoryOptions.forEach((option) =>{
             option.addEventListener("click", (e) => {
                 document.querySelectorAll(".inventoryItem").forEach((item) => {
                     item.remove();
@@ -247,6 +254,9 @@ const gameLogic = {
                 inventoryMenu.display(e.currentTarget.dataset.value);
             })
         });
+
+
+
 
     },
    
@@ -265,6 +275,191 @@ const gameLogic = {
 
         
     },
+
+    animate: () => {
+        gameLogic.animationID = window.requestAnimationFrame(gameLogic.animate);
+        let moving = true;
+
+        // ghasblrBackgroundSprite.draw();
+
+        gameLogic.maps.forEach((map, index) => {
+            if(map.isActive){
+                gameLogic.gameMap = gameLogic.maps[index];
+                map.backgroundSprite.draw(map.context);
+                map.collidingObjects.forEach(boundary => {
+                    boundary.draw(map.context);
+                });
+                map.battleZones.forEach(battleZone => {
+                    battleZone.draw(map.context)
+                });
+                gameLogic.player.draw(map.context, map.playerPosition);
+                gameLogic.player.gamePosition = map.playerPosition;
+                // ghasblrIsland.rectDoor.draw();
+                map.foregroundSprite.draw(map.context);
+                map.itemsInWorld.forEach(item => {
+                    item.draw(map.context);
+                });
+            }
+        })
+        gameLogic.player.animate = false;
+        if (gameLogic.isBattleInitiated) return
+    
+        // Activate a battle
+        if(gameLogic.keys.w.pressed || gameLogic.keys.a.pressed || gameLogic.keys.s.pressed || gameLogic.keys.d.pressed) {
+            for(let i = 0; i < gameLogic.gameMap.battleZones.length; i++) {
+                const battleZone = gameLogic.gameMap.battleZones[i];
+                //gets overlapping area of player with encounter zone
+                const overlappingArea = 
+                        (Math.min(
+                            gameLogic.gameMap.playerPosition.x + gameLogic.player.dimensions.width, 
+                            battleZone.gamePosition.x + battleZone.dimensions.width
+                            ) - 
+                            Math.max(gameLogic.gameMap.playerPosition.x, battleZone.gamePosition.x)
+                        ) * 
+                        (Math.min(
+                            gameLogic.gameMap.playerPosition.y + gameLogic.player.dimensions.height, 
+                            battleZone.gamePosition.y + battleZone.dimensions.height
+                            ) - 
+                            Math.max(gameLogic.gameMap.playerPosition.y, battleZone.gamePosition.y)
+                        ) ;
+                if (gameLogic.rectangularCollision({rectangle1: gameLogic.player, rectangle2: battleZone}) && 
+                        overlappingArea > gameLogic.player.dimensions.width * gameLogic.player.dimensions.height / 2 &&
+                        //The actual encounter chance if on the encounter zone
+                        Math.random() < gameLogic.gameMap.encounterRate)  {
+                    //deactivate existing animation loop
+                    window.cancelAnimationFrame(this.animationID);
+                    audio.Map.stop()
+                    audio.initBattle.play()
+                    audio.battle.play()
+                    gameLogic.isBattleInitiated = true
+                    //Flashes the black div 
+                    gsap.to('#overlappingDiv', {
+                        opacity: 1,
+                        repeat: 3,
+                        yoyo: true,
+                        duration: 0.4,
+                        onComplete() {
+                            gsap.to('#overlappingDiv', {
+                                opacity: 1,
+                                duration: 0.4, 
+                                onComplete() {
+                                    //activate a new animation loop
+                                    battleSetup.initBattle();
+                                    battleFunctions.animateBattle();
+                                    //The battle background is a sprite and set to full visibility here
+                                    //Also that black div is set to invisible
+                                    gameMap.battleBackground.opacity = 1
+                                    gsap.to('#overlappingDiv', {
+                                        opacity: 0,
+                                        duration: 0.4,
+                                    })
+                                }
+                            })       
+                        }
+                    })
+                    break;
+                };
+            };
+        };
+    
+        //Movement for player, checking for collisions with either walls or NPC's
+        //Maybe set NPC's as an array and a seperate function to be added here?
+        if(dialog.dialogBox.style.display != "block" && !gameLogic.player.menuDisplayed){
+            if(gameLogic.keys.w.pressed && gameLogic.lastKey === 'w') {
+                gameLogic.player.animate = true;
+                gameLogic.player.image = gameLogic.player.sprites.up;
+                for(let i = 0; i < gameLogic.gameMap.collidingObjects.length; i++) {
+                    const collidingObject = gameLogic.gameMap.collidingObjects[i];
+                    if (gameLogic.rectangularCollision({
+                        rectangle1: gameLogic.player, 
+                        rectangle2: {...collidingObject, gamePosition: {
+                            x: collidingObject.gamePosition.x,
+                            y: collidingObject.gamePosition.y + 3
+                        }}
+                    }))  {
+                        if(!debug.noClip){
+                            moving = false;
+                            break;
+                        }
+                    };
+                };
+                if(moving) {
+                    gameLogic.gameMap.context.translate(0, 3);
+                    gameLogic.gameMap.canvasMove.y += 3;
+                    gameLogic.gameMap.playerPosition.y -= 3;
+                }
+            } else if(gameLogic.keys.a.pressed && gameLogic.lastKey === 'a') {
+                gameLogic.player.animate = true;
+                gameLogic.player.image = gameLogic.player.sprites.left;
+                for(let i = 0; i < gameLogic.gameMap.collidingObjects.length; i++) {
+                    const collidingObject = gameLogic.gameMap.collidingObjects[i];
+                    if (gameLogic.rectangularCollision({
+                        rectangle1: gameLogic.player, 
+                        rectangle2: {...collidingObject, gamePosition: {
+                            x: collidingObject.gamePosition.x + 3,
+                            y: collidingObject.gamePosition.y  
+                        }}
+                    }))  {
+                        if(!debug.noClip){
+                            moving = false;
+                            break;
+                        }
+                    };
+                };
+                if(moving) {
+                    gameLogic.gameMap.context.translate(3, 0);
+                    gameLogic.gameMap.canvasMove.x += 3;
+                    gameLogic.gameMap.playerPosition.x -= 3;
+                }
+            } else if(gameLogic.keys.s.pressed && gameLogic.lastKey === 's') {
+                gameLogic.player.animate = true;
+                gameLogic.player.image = gameLogic.player.sprites.down;
+                for(let i = 0; i < gameLogic.gameMap.collidingObjects.length; i++) {
+                    const collidingObject = gameLogic.gameMap.collidingObjects[i];
+                    if (gameLogic.rectangularCollision({
+                        rectangle1: gameLogic.player, 
+                        rectangle2: {...collidingObject, gamePosition: {
+                            x: collidingObject.gamePosition.x,
+                            y: collidingObject.gamePosition.y - 3
+                        }}
+                    }) )  {
+                        if(!debug.noClip){
+                            moving = false;
+                            break;
+                        }
+                    };
+                }
+                if(moving) {
+                    gameLogic.gameMap.context.translate(0, -3);
+                    gameLogic.gameMap.canvasMove.y -= 3;
+                    gameLogic.gameMap.playerPosition.y += 3;
+                }
+            } else if(gameLogic.keys.d.pressed && gameLogic.lastKey === 'd') {
+                gameLogic.player.animate = true;
+                gameLogic.player.image = gameLogic.player.sprites.right;
+                for(let i = 0; i < gameLogic.gameMap.collidingObjects.length; i++) {
+                    const collidingObject = gameLogic.gameMap.collidingObjects[i];
+                    if (gameLogic.rectangularCollision({
+                        rectangle1: gameLogic.player, 
+                        rectangle2: {...collidingObject, gamePosition: {
+                            x: collidingObject.gamePosition.x - 3,
+                            y: collidingObject.gamePosition.y
+                        }}
+                    })) {
+                        if(!debug.noClip){
+                            moving = false;
+                            break;
+                        }
+                    };
+                }
+                if(moving) {
+                    gameLogic.gameMap.context.translate(-3, 0);
+                    gameLogic.gameMap.canvasMove.x -= 3;
+                    gameLogic.gameMap.playerPosition.x += 3;
+                }
+            }
+        } // End of moving if/else statement
+    }, //end of animate function
     
     
     /*Save this for after everything else is done*/
@@ -317,5 +512,5 @@ const gameLogic = {
         dialogBox.append(noBtn);
     }
 }
-// game.init();
-// game.animate();
+gameLogic.init();
+gameLogic.animate();

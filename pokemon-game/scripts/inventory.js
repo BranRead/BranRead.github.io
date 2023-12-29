@@ -179,7 +179,7 @@ class Inventory {
 
     pickUp(item){
         let isPresentInInventory = false;
-        game.player.inventory.items.forEach(playerItem => {
+        gameLogic.player.inventory.items.forEach(playerItem => {
             if(playerItem.name == item.name){
                 playerItem.quantity += item.quantity
                 isPresentInInventory = true;
@@ -187,7 +187,7 @@ class Inventory {
         })
 
         if(!isPresentInInventory){
-            game.player.inventory.items.push(item);
+            gameLogic.player.inventory.items.push(item);
         }
     }
 }

@@ -34,7 +34,7 @@ const dialog = {
     },
     
     queueChecker: () => {
-    game.queue.forEach(item => {
+    gameLogic.queue.forEach(item => {
         console.log(item)
     })
     }

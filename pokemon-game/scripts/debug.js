@@ -10,18 +10,18 @@ const debug = {
     },
     
     healPlayer: () => {
-        game.player.team.roster.forEach((monster) => {
+        gameLogic.player.team.roster.forEach((monster) => {
             monster.stats.hp = monster.stats.maxHP;
         })
     },
 
     startBattle: () => {
         //deactivate existing animation loop
-        window.cancelAnimationFrame(game.animationID);
+        window.cancelAnimationFrame(gameLogic.animationID);
         audio.Map.stop()
         audio.initBattle.play()
         audio.battle.play()
-        game.battle.initiated = true
+        gameLogic.battle.initiated = true
         //Flashes the black div 
         gsap.to('#overlappingDiv', {
             opacity: 1,
@@ -38,7 +38,7 @@ const debug = {
                         battleFunctions.animateBattle();
                         //The battle background is a sprite and set to full visibility here
                         //Also that black div is set to invisible
-                        game.battleBackground.opacity = 1
+                        gameLogic.battleBackground.opacity = 1
                         gsap.to('#overlappingDiv', {
                             opacity: 0,
                             duration: 0.4,
@@ -63,7 +63,7 @@ const debug = {
         const healthPotionTest = new Item (itemsGhasblr.HealthPotion);
         healthPotionTest.quantity = num;
        
-        game.player.inventory.pickUp(healthPotionTest);
+        gameLogic.player.inventory.pickUp(healthPotionTest);
         
         console.log(num + " healing potion(s) added to inventory")
     }
