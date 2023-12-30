@@ -1,9 +1,11 @@
 class GameMap {
     constructor({
         isActive,
+        symbolForCollision,
+        widthInTiles = 60,
         canvas,
-        collisionsData,
-        battleZonesData,
+        collisionsData = [],
+        battleZonesData = [],
         collidingObjects = [],
         offset = {
             x: 0,
@@ -24,6 +26,8 @@ class GameMap {
         itemsInWorld
     }) {
         this.isActive = isActive;
+        this.symbolForCollision = symbolForCollision;
+        this.widthInTiles = widthInTiles;
         this.canvas = canvas;
         this.context = this.canvas.getContext('2d');
         this.collisionsData = collisionsData;
@@ -34,12 +38,12 @@ class GameMap {
         this.collidingObjects = collidingObjects;
         this.offset = offset;
         // Collisions
-        for (let i = 0; i < this.collisionsData.length; i += 60) {
-           this.collisionsMap.push(this.collisionsData.slice(i, i + 60));
+        for (let i = 0; i < this.collisionsData.length; i += this.widthInTiles) {
+           this.collisionsMap.push(this.collisionsData.slice(i, i + this.widthInTiles));
         };
         this.collisionsMap.forEach((row, i) => {
             row.forEach((symbol, j) => {
-                if(symbol === 46)
+                if(symbol == this.symbolForCollision)
                 this.collidingObjects.push(
                     new Boundary({
                         gamePosition: {
@@ -51,24 +55,27 @@ class GameMap {
             })
         });
 
+        if(this.battleZonesData.length != 0){
         // Encounter Spaces
-        for (let i = 0; i < this.battleZonesData.length; i += 60) {
-            this.battleZonesMap.push(this.battleZonesData.slice(i, i + 60));
-        };
-        //Encounter Spaces
-        this.battleZonesMap.forEach((row, i) => {
-            row.forEach((symbol, j) => {
-                if(symbol === 46)
-                this.battleZones.push(
-                    new Boundary({
-                        gamePosition: {
-                            x: j * Boundary.width + this.offset.x, 
-                            y: i * Boundary.height + this.offset.y,
-                        }
-                    })
-                )
-            })
-        });
+            for (let i = 0; i < this.battleZonesData.length; i += this.widthInTiles) {
+               this.battleZonesMap.push(this.battleZonesData.slice(i, i + this.widthInTiles));
+            };
+               //Encounter Spaces
+            this.battleZonesMap.forEach((row, i) => {
+                row.forEach((symbol, j) => {
+                    if(symbol == this.symbolForCollision)
+                    this.battleZones.push(
+                        new Boundary({
+                            gamePosition: {
+                                x: j * Boundary.width + this.offset.x, 
+                                y: i * Boundary.height + this.offset.y,
+                            }
+                        })
+                    )
+                })
+            });
+        }
+       
         this.doors = doors; 
         this.encounterRate = encounterRate;
        

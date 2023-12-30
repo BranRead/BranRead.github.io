@@ -2,10 +2,16 @@ class Sprite {
     constructor({
         
         // On spritesheet
-        spritePosition,
+        spritePosition = {
+            x: 0,
+            y: 0
+        },
         
         // Position on gamemap
-        gamePosition, 
+        gamePosition = {
+            x: 0,
+            y: 0
+        }, 
         
         // key value pair of width and height (width, height)
         dimensions,
