@@ -2,7 +2,7 @@ const gameLogic = {
     // General game logic
     
     itemUsed: "false",
-    playerSpeed: 3,
+    playerSpeed: 10,
     moving: true,
     statsSave: [],
     clicked: false,
@@ -55,6 +55,7 @@ const gameLogic = {
     init: () => {
         gameLogic.maps.push(new GameMap(gameMapsData.Ghasblr));
         gameLogic.maps.push(new GameMap(gameMapsData.PlayerHouse));
+        gameLogic.maps.push(new GameMap(gameMapsData.PlayerRoom));
         
         gameLogic.team = new Team([], 4);
         gameLogic.inventory =  new Inventory([], 10);
@@ -316,63 +317,66 @@ const gameLogic = {
         gameLogic.player.animate = false;
         if (gameLogic.isBattleInitiated) return
     
-        // Activate a battle
-        if(gameLogic.keys.w.pressed || gameLogic.keys.a.pressed || gameLogic.keys.s.pressed || gameLogic.keys.d.pressed) {
-            for(let i = 0; i < gameLogic.gameMap.battleZones.length; i++) {
-                const battleZone = gameLogic.gameMap.battleZones[i];
-                //gets overlapping area of player with encounter zone
-                const overlappingArea = 
-                        (Math.min(
-                            gameLogic.gameMap.playerPosition.x + gameLogic.player.dimensions.width, 
-                            battleZone.gamePosition.x + battleZone.dimensions.width
-                            ) - 
-                            Math.max(gameLogic.gameMap.playerPosition.x, battleZone.gamePosition.x)
-                        ) * 
-                        (Math.min(
-                            gameLogic.gameMap.playerPosition.y + gameLogic.player.dimensions.height, 
-                            battleZone.gamePosition.y + battleZone.dimensions.height
-                            ) - 
-                            Math.max(gameLogic.gameMap.playerPosition.y, battleZone.gamePosition.y)
-                        ) ;
-                if (gameLogic.rectangularCollision({rectangle1: gameLogic.player, rectangle2: battleZone}) && 
-                        overlappingArea > gameLogic.player.dimensions.width * gameLogic.player.dimensions.height / 2 &&
-                        //The actual encounter chance if on the encounter zone
-                        Math.random() < gameLogic.gameMap.encounterRate)  {
-                    //deactivate existing animation loop
-                    window.cancelAnimationFrame(this.animationID);
-                    audio.Map.stop()
-                    audio.initBattle.play()
-                    audio.battle.play()
-                    gameLogic.isBattleInitiated = true
-                    //Flashes the black div 
-                    gsap.to('#overlappingDiv', {
-                        opacity: 1,
-                        repeat: 3,
-                        yoyo: true,
-                        duration: 0.4,
-                        onComplete() {
-                            gsap.to('#overlappingDiv', {
-                                opacity: 1,
-                                duration: 0.4, 
-                                onComplete() {
-                                    //activate a new animation loop
-                                    battleSetup.initBattle();
-                                    battleFunctions.animateBattle();
-                                    //The battle background is a sprite and set to full visibility here
-                                    //Also that black div is set to invisible
-                                    gameLogic.gameMap.battleBackgroundSprite.opacity = 1
-                                    gsap.to('#overlappingDiv', {
-                                        opacity: 0,
-                                        duration: 0.4,
-                                    })
-                                }
-                            })       
-                        }
-                    })
-                    break;
+        if(gameLogic.gameMap.encounterRate > 0){
+            // Activate a battle
+            if(gameLogic.keys.w.pressed || gameLogic.keys.a.pressed || gameLogic.keys.s.pressed || gameLogic.keys.d.pressed) {
+                for(let i = 0; i < gameLogic.gameMap.battleZones.length; i++) {
+                    const battleZone = gameLogic.gameMap.battleZones[i];
+                    //gets overlapping area of player with encounter zone
+                    const overlappingArea = 
+                            (Math.min(
+                                gameLogic.gameMap.playerPosition.x + gameLogic.player.dimensions.width, 
+                                battleZone.gamePosition.x + battleZone.dimensions.width
+                                ) - 
+                                Math.max(gameLogic.gameMap.playerPosition.x, battleZone.gamePosition.x)
+                            ) * 
+                            (Math.min(
+                                gameLogic.gameMap.playerPosition.y + gameLogic.player.dimensions.height, 
+                                battleZone.gamePosition.y + battleZone.dimensions.height
+                                ) - 
+                                Math.max(gameLogic.gameMap.playerPosition.y, battleZone.gamePosition.y)
+                            ) ;
+                    if (gameLogic.rectangularCollision({rectangle1: gameLogic.player, rectangle2: battleZone}) && 
+                            overlappingArea > gameLogic.player.dimensions.width * gameLogic.player.dimensions.height / 2 &&
+                            //The actual encounter chance if on the encounter zone
+                            Math.random() < gameLogic.gameMap.encounterRate)  {
+                        //deactivate existing animation loop
+                        window.cancelAnimationFrame(this.animationID);
+                        audio.Map.stop()
+                        audio.initBattle.play()
+                        audio.battle.play()
+                        gameLogic.isBattleInitiated = true
+                        //Flashes the black div 
+                        gsap.to('#overlappingDiv', {
+                            opacity: 1,
+                            repeat: 3,
+                            yoyo: true,
+                            duration: 0.4,
+                            onComplete() {
+                                gsap.to('#overlappingDiv', {
+                                    opacity: 1,
+                                    duration: 0.4, 
+                                    onComplete() {
+                                        //activate a new animation loop
+                                        battleSetup.initBattle();
+                                        battleFunctions.animateBattle();
+                                        //The battle background is a sprite and set to full visibility here
+                                        //Also that black div is set to invisible
+                                        gameLogic.gameMap.battleBackgroundSprite.opacity = 1
+                                        gsap.to('#overlappingDiv', {
+                                            opacity: 0,
+                                            duration: 0.4,
+                                        })
+                                    }
+                                })       
+                            }
+                        })
+                        break;
+                    };
                 };
             };
-        };
+        }
+        
     
         //Movement for player, checking for collisions with either walls or NPC's
         //Maybe set NPC's as an array and a seperate function to be added here?

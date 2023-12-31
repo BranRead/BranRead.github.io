@@ -55,7 +55,7 @@ class GameMap {
             })
         });
 
-        if(this.battleZonesData.length != 0){
+        if(this.battleZonesData.length > 0){
         // Encounter Spaces
             for (let i = 0; i < this.battleZonesData.length; i += this.widthInTiles) {
                this.battleZonesMap.push(this.battleZonesData.slice(i, i + this.widthInTiles));
@@ -74,6 +74,8 @@ class GameMap {
                     )
                 })
             });
+        } else {
+            this.battleZones = [];
         }
        
         this.doors = doors; 

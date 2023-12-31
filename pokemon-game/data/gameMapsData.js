@@ -26,6 +26,61 @@ const playerHouseDoor = new Door({
     }
 })
 
+const playerHouseStairsUp = new Door({
+    enterFunction: () => {
+        // audio.Map.stop()
+        // Turns on black div for a moment
+        gsap.to('#overlappingDiv', {
+            opacity: 1,
+            repeat: 0,
+            yoyo: false,
+            duration: 1,
+            onComplete() {
+                canvasSetup.clearScreen(gameLogic.maps[1].context);
+                gameLogic.maps[2].context.restore();
+                gameLogic.maps[1].isActive = false;
+                gameLogic.maps[2].isActive = true;
+                gsap.to('#overlappingDiv', {
+                    opacity: 0,
+                    duration: 0.4,
+                })
+            }
+        })
+    },
+    gamePosition: {
+        x: 1442,
+        y: -444
+    }
+})
+
+
+const playerHouseStairsDown = new Door({
+    enterFunction: () => {
+        // audio.Map.stop()
+        // Turns on black div for a moment
+        gsap.to('#overlappingDiv', {
+            opacity: 1,
+            repeat: 0,
+            yoyo: false,
+            duration: 1,
+            onComplete() {
+                canvasSetup.clearScreen(gameLogic.maps[2].context);
+                gameLogic.maps[1].context.restore();
+                gameLogic.maps[2].isActive = false;
+                gameLogic.maps[1].isActive = true;
+                gsap.to('#overlappingDiv', {
+                    opacity: 0,
+                    duration: 0.4,
+                })
+            }
+        })
+    },
+    gamePosition: {
+        x: 930,
+        y: 258
+    }
+})
+
 const playerHouseDoorExit = new Door({
     enterFunction: () => {
         // audio.Map.stop()
@@ -52,6 +107,7 @@ const playerHouseDoorExit = new Door({
         y: 350
     }
 })
+
 const ghasblrBackground = new Image();
 ghasblrBackground.src = '/pokemon-game/img/gameWorld/ghasblrBackground.png';
 const ghasblrBackgroundSprite = new Sprite({ 
@@ -130,8 +186,34 @@ const playerHouseForegroundSprite = new Sprite({
 // Player room
 const playerRoomBackground = new Image();
 playerRoomBackground.src = '/pokemon-game/img/gameWorld/playerRoomBackground.png';
+
+const playerRoomBackgroundSprite = new Sprite({
+    gamePosition: {
+        x: -224,
+        y: -190
+    },
+    dimensions: {
+        width: 1280,
+        height: 1280
+    },
+    image: playerRoomBackground
+ })
+
 const playerRoomForeground = new Image();
 playerRoomForeground.src = '/pokemon-game/img/gameWorld/playerRoomForeground.png';
+
+const playerRoomForegroundSprite = new Sprite({
+    gamePosition: {
+        x: -224,
+        y: -190
+    },
+    dimensions: {
+        width: 1280,
+        height: 1280
+    },
+    image: playerRoomForeground
+ })
+
 
 const gameMapsData = {
     Ghasblr: {
@@ -164,7 +246,7 @@ const gameMapsData = {
         ],
     },
     PlayerHouse: {
-        isActive: true,
+        isActive: false,
         symbolForCollision: 860,
         widthInTiles: 20,
         canvas: canvasSetup.canvas,
@@ -174,7 +256,7 @@ const gameMapsData = {
             x: 288,
             y: -890
         },
-        doors: [playerHouseDoorExit],
+        doors: [playerHouseDoorExit, playerHouseStairsUp],
         canvasMove: {
             x: 0,
             y: 0
@@ -186,6 +268,33 @@ const gameMapsData = {
         },
         backgroundSprite: playerHouseBackgroundSprite,
         foregroundSprite: playerHouseForegroundSprite,
+        battleBackgroundSprite: null,
+        itemsInWorld: [],
+    },
+
+    PlayerRoom: {
+        isActive: true,
+        symbolForCollision: 1070,
+        widthInTiles: 20,
+        canvas: canvasSetup.canvas,
+        collisionsData: collisionsData.PlayerRoom,
+        encounterRate: 0,
+        offset: {
+            x: -224,
+            y: -190
+        },
+        doors: [playerHouseStairsDown],
+        canvasMove: {
+            x: 0,
+            y: 0
+        },
+        // Need to edit
+        playerPosition: {
+            x: (canvasSetup.canvas.width / 2) - (192 / 8),
+            y: (canvasSetup.canvas.height / 2) - (68 / 2)
+        },
+        backgroundSprite: playerRoomBackgroundSprite,
+        foregroundSprite: playerRoomForegroundSprite,
         battleBackgroundSprite: null,
         itemsInWorld: [],
     }
