@@ -1,6 +1,4 @@
 const gameLogic = {
-    // General game logic
-    
     itemUsed: "false",
     playerSpeed: 10,
     moving: true,
