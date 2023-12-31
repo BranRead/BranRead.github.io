@@ -1,4 +1,31 @@
-// Ghasblr
+const positions = {
+    GhasblrFromPlayerHouse: {
+        x: -1952,
+        y: -818 
+    },
+
+    PlayerHouseFromGhasblr: {
+        x: 288,
+        y: -918
+    },
+
+    PlayerHouseFromPlayerRoom: {
+        x: -620,
+        y: -190
+    },
+
+    PlayerRoomFromPlayerHouse: {
+        x: -610,
+        y: -190  
+    },
+
+    PlayerBed: {
+        x: -224,
+        y: -190  
+    },
+}
+
+
 
 const playerHouseDoor = new Door({
     enterFunction: () => {
@@ -37,7 +64,6 @@ const playerHouseStairsUp = new Door({
             duration: 1,
             onComplete() {
                 canvasSetup.clearScreen(gameLogic.maps[1].context);
-                gameLogic.maps[2].context.restore();
                 gameLogic.maps[1].isActive = false;
                 gameLogic.maps[2].isActive = true;
                 gsap.to('#overlappingDiv', {
@@ -49,7 +75,7 @@ const playerHouseStairsUp = new Door({
     },
     gamePosition: {
         x: 1442,
-        y: -444
+        y: -500
     }
 })
 
@@ -64,10 +90,31 @@ const playerHouseStairsDown = new Door({
             yoyo: false,
             duration: 1,
             onComplete() {
+                gameLogic.maps[1].backgroundSprite.gamePosition = positions.PlayerHouseFromPlayerRoom;
+                gameLogic.maps[1].foregroundSprite.gamePosition = positions.PlayerHouseFromPlayerRoom;
+                gameLogic.maps[1].offset = positions.PlayerHouseFromPlayerRoom;
+
+                gameLogic.maps[1].collidingObjects = [];
+
+                gameLogic.maps[1].collisionsMap.forEach((row, i) => {
+                    row.forEach((symbol, j) => {
+                        if(symbol == gameLogic.maps[1].symbolForCollision)
+                        gameLogic.maps[1].collidingObjects.push(
+                            new Boundary({
+                                gamePosition: {
+                                    x: j * Boundary.width + gameLogic.maps[1].offset.x, 
+                                    y: i * Boundary.height + gameLogic.maps[1].offset.y,
+                                }
+                            })
+                        )
+                    })
+                });
+                
+        
                 canvasSetup.clearScreen(gameLogic.maps[2].context);
-                gameLogic.maps[1].context.restore();
                 gameLogic.maps[2].isActive = false;
                 gameLogic.maps[1].isActive = true;
+                
                 gsap.to('#overlappingDiv', {
                     opacity: 0,
                     duration: 0.4,
@@ -76,7 +123,7 @@ const playerHouseStairsDown = new Door({
         })
     },
     gamePosition: {
-        x: 930,
+        x: 540,
         y: 258
     }
 })
@@ -92,7 +139,6 @@ const playerHouseDoorExit = new Door({
             duration: 1,
             onComplete() {
                 canvasSetup.clearScreen(gameLogic.maps[1].context);
-                gameLogic.maps[0].context.restore();
                 gameLogic.maps[1].isActive = false;
                 gameLogic.maps[0].isActive = true;
                 gsap.to('#overlappingDiv', {
@@ -104,17 +150,14 @@ const playerHouseDoorExit = new Door({
     },
     gamePosition: {
         x: 480,
-        y: 350
+        y: 320
     }
 })
 
 const ghasblrBackground = new Image();
 ghasblrBackground.src = '/pokemon-game/img/gameWorld/ghasblrBackground.png';
 const ghasblrBackgroundSprite = new Sprite({ 
-    gamePosition: {
-        x: -1952,
-        y: -818
-    },
+    gamePosition: positions.GhasblrFromPlayerHouse,
     dimensions: {
         width: 3840,
         height: 2560
@@ -125,10 +168,7 @@ const ghasblrBackgroundSprite = new Sprite({
 const ghasblrForeground = new Image();
 ghasblrForeground.src = '/pokemon-game/img/gameWorld/ghasblrForeground.png';
 const ghasblrForegroundSprite = new Sprite({ 
-    gamePosition: {
-        x: -1952,
-        y: -818
-    },
+    gamePosition: positions.GhasblrFromPlayerHouse,
     dimensions: {
         width: 3360,
         height: 1920
@@ -157,11 +197,7 @@ const playerHouseBackground = new Image();
 playerHouseBackground.src = '/pokemon-game/img/gameWorld/playerHouseBackground.png';
 
 const playerHouseBackgroundSprite = new Sprite({
-   gamePosition: {
-        // Also offset for whole house
-        x: 288,
-        y: -890
-   },
+   gamePosition: positions.PlayerHouseFromGhasblr,
    dimensions: {
         width: 1280,
         height: 1280
@@ -172,10 +208,7 @@ const playerHouseForeground = new Image();
 playerHouseForeground.src = '/pokemon-game/img/gameWorld/playerHouseForeground.png';
 
 const playerHouseForegroundSprite = new Sprite({
-    gamePosition: {
-        x: 288,
-        y: -890
-    },
+    gamePosition: positions.PlayerHouseFromGhasblr,
     dimensions: {
         width: 1280,
         height: 1280
@@ -188,10 +221,7 @@ const playerRoomBackground = new Image();
 playerRoomBackground.src = '/pokemon-game/img/gameWorld/playerRoomBackground.png';
 
 const playerRoomBackgroundSprite = new Sprite({
-    gamePosition: {
-        x: -224,
-        y: -190
-    },
+    gamePosition: positions.PlayerRoomFromPlayerHouse,
     dimensions: {
         width: 1280,
         height: 1280
@@ -203,10 +233,7 @@ const playerRoomForeground = new Image();
 playerRoomForeground.src = '/pokemon-game/img/gameWorld/playerRoomForeground.png';
 
 const playerRoomForegroundSprite = new Sprite({
-    gamePosition: {
-        x: -224,
-        y: -190
-    },
+    gamePosition: positions.PlayerRoomFromPlayerHouse,
     dimensions: {
         width: 1280,
         height: 1280
@@ -223,10 +250,7 @@ const gameMapsData = {
         collisionsData: collisionsData.Ghasblr,
         battleZonesData: battleZonesData.Ghasblr,
         encounterRate: 0.01,
-        offset: {
-            x: -1952,
-            y: -818
-        },
+        offset: positions.GhasblrFromPlayerHouse,
         doors: [playerHouseDoor],
         canvasMove: {
             x: 0,
@@ -252,10 +276,7 @@ const gameMapsData = {
         canvas: canvasSetup.canvas,
         collisionsData: collisionsData.PlayerHouse,
         encounterRate: 0,
-        offset: {
-            x: 288,
-            y: -890
-        },
+        offset: positions.PlayerHouseFromGhasblr,
         doors: [playerHouseDoorExit, playerHouseStairsUp],
         canvasMove: {
             x: 0,
@@ -279,10 +300,7 @@ const gameMapsData = {
         canvas: canvasSetup.canvas,
         collisionsData: collisionsData.PlayerRoom,
         encounterRate: 0,
-        offset: {
-            x: -224,
-            y: -190
-        },
+        offset: positions.PlayerRoomFromPlayerHouse,
         doors: [playerHouseStairsDown],
         canvasMove: {
             x: 0,
