@@ -1,24 +1,18 @@
 class GameMap {
     constructor({
         isActive,
-        symbolForCollision,
         widthInTiles = 60,
         canvas,
         collisionsData = [],
         battleZonesData = [],
+        doorsData = [],
         collidingObjects = [],
         offset = {
             x: 0,
             y: 0
         },
         peopleInWorld = [],
-        doors = [],
         encounterRate = 0.01,
-        
-        canvasMove = {
-            x: 0,
-            y: 0
-        },
         playerPosition,
         backgroundSprite,
         foregroundSprite,
@@ -26,13 +20,15 @@ class GameMap {
         itemsInWorld
     }) {
         this.isActive = isActive;
-        this.symbolForCollision = symbolForCollision;
         this.widthInTiles = widthInTiles;
         this.canvas = canvas;
         this.context = this.canvas.getContext('2d');
         this.collisionsData = collisionsData;
         this.collisionsMap = [];
         this.battleZonesData = battleZonesData;
+        this.doorsData = doorsData; 
+        this.doorsMap = [];
+        this.doors = [];
         this.battleZonesMap = [];
         this.battleZones = [];
         this.collidingObjects = collidingObjects;
@@ -43,17 +39,36 @@ class GameMap {
         };
         this.collisionsMap.forEach((row, i) => {
             row.forEach((symbol, j) => {
-                if(symbol == this.symbolForCollision)
-                this.collidingObjects.push(
-                    new Boundary({
-                        gamePosition: {
-                            x: j * Boundary.width + this.offset.x, 
-                            y: i * Boundary.height + this.offset.y,
-                        }
-                    })
-                )
+                if(symbol != 0) {
+                    this.collidingObjects.push(
+                        new Boundary({
+                            gamePosition: {
+                                x: j * Boundary.width + this.offset.x, 
+                                y: i * Boundary.height + this.offset.y,
+                            }
+                        })
+                    )
+                }
             })
         });
+
+        for(let i = 0; i < this.doorsData.length; i += this.widthInTiles) {
+            this.doorsMap.push(this.doorsData.slice(i, i + this.widthInTiles));
+        }
+        this.doorsMap.forEach((row, i) => {
+            row.forEach((symbol, j) => {
+                if(symbol != 0){
+                    this.doors.push(
+                        new Door({
+                            gamePosition: {
+                                x: j * Boundary.width + this.offset.x,
+                                y: i * Boundary.height + this.offset.y
+                            }
+                        })
+                    )
+                }
+            })
+        })
 
         if(this.battleZonesData.length > 0){
         // Encounter Spaces
@@ -63,25 +78,24 @@ class GameMap {
                //Encounter Spaces
             this.battleZonesMap.forEach((row, i) => {
                 row.forEach((symbol, j) => {
-                    if(symbol == this.symbolForCollision)
-                    this.battleZones.push(
-                        new Boundary({
-                            gamePosition: {
-                                x: j * Boundary.width + this.offset.x, 
-                                y: i * Boundary.height + this.offset.y,
-                            }
-                        })
-                    )
+                    if(symbol != 0){
+                        this.battleZones.push(
+                            new Boundary({
+                                gamePosition: {
+                                    x: j * Boundary.width + this.offset.x, 
+                                    y: i * Boundary.height + this.offset.y,
+                                }
+                            })
+                        )
+                    } 
                 })
             });
         } else {
             this.battleZones = [];
         }
        
-        this.doors = doors; 
+        
         this.encounterRate = encounterRate;
-       
-        this.canvasMove = canvasMove;
         this.playerPosition = playerPosition;
 
         this.backgroundSprite = backgroundSprite;
@@ -99,48 +113,31 @@ class GameMap {
             this.collidingObjects.push(person);
         })
 
-      
-        this.canvas.addEventListener('click', () => {
-            this.doors.forEach(door => {
-                if(gameLogic.rectangularCollision({
-                    rectangle1: gameLogic.player,
-                    rectangle2:  {...door, gamePosition: {
-                        x: door.gamePosition.x,
-                        y: door.gamePosition.y + 3
-                    }}
-                })
-                    ){
-                    door.enterFunction();
-                }
-            })
-            
-        });
-
-        this.canvas.addEventListener('click', () => {
+        canvasSetup.canvas.addEventListener('click', () => {
             this.itemsInWorld.forEach(item => {
                 if(gameLogic.rectangularCollision({
                     rectangle1: gameLogic.player, 
                     rectangle2: {...item, gamePosition: {
-                        x: item.gamePosition.x + 3,
+                        x: item.gamePosition.x + gameLogic.playerSpeed,
                         y: item.gamePosition.y
                     }}
                 }) || gameLogic.rectangularCollision({
                     rectangle1: gameLogic.player, 
                     rectangle2: {...item, gamePosition: {
-                        x: item.gamePosition.x - 3,
+                        x: item.gamePosition.x - gameLogic.playerSpeed,
                         y: item.gamePosition.y
                     }}
                 }) || gameLogic.rectangularCollision({
                     rectangle1: gameLogic.player, 
                     rectangle2: {...item, gamePosition: {
                         x: item.gamePosition.x,
-                        y: item.gamePosition.y + 3
+                        y: item.gamePosition.y + gameLogic.playerSpeed
                     }}
                 }) || gameLogic.rectangularCollision({
                     rectangle1: gameLogic.player, 
                     rectangle2: {...item, gamePosition: {
                         x: item.gamePosition.x,
-                        y: item.gamePosition.y - 3
+                        y: item.gamePosition.y - gameLogic.playerSpeed
                     }}
                 })
                 ){

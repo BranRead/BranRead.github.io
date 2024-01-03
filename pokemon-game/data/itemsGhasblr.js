@@ -8,13 +8,13 @@ const itemsGhasblr = {
             y: 256
         },
         gamePosition: {
-            x: 650,
-            y: 11
+            x: 517,
+            y: 217
         },
         image: itemSpritesheet,
         sprites: itemSpritesheet,
         name: "Health Potion",  
-        quantity: 1, 
+        quantity: 2, 
         useCategory: "restore", 
         description: "A health potion which heals 25 health.",
         strength: 25

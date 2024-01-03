@@ -69,3 +69,8 @@ const debug = {
     }
 
 }
+
+document.addEventListener("click", (e) => {
+    console.log(e.clientX);
+    console.log(e.clientY);
+})

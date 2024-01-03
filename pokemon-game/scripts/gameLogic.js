@@ -4,6 +4,10 @@ const gameLogic = {
     moving: true,
     statsSave: [],
     clicked: false,
+    canvasMove: {
+        x: 0,
+        y: 0
+    },
     keys: {
         w: {
             pressed: false
@@ -22,6 +26,7 @@ const gameLogic = {
     battle: { 
         initiated: false
     },
+   
     playerDownImage: new Image(),
     playerUpImage: new Image(),
     playerLeftImage: new Image(),
@@ -54,6 +59,294 @@ const gameLogic = {
         gameLogic.maps.push(new GameMap(gameMapsData.Ghasblr));
         gameLogic.maps.push(new GameMap(gameMapsData.PlayerHouse));
         gameLogic.maps.push(new GameMap(gameMapsData.PlayerRoom));
+
+        // Entrance to players house
+        gameLogic.maps[0].doors[1].enterFunction = () => {
+                window.cancelAnimationFrame(gameLogic.animationID);
+                // console.log("Before entering");
+                // console.log("Player position is: " + gameLogic.maps[0].playerPosition.x + " " + gameLogic.maps[0].playerPosition.y);
+                // console.log("Canavs move: " + gameLogic.canvasMove.x + " " + gameLogic.canvasMove.y);
+
+                audio.Map.stop()
+                // Turns on black div for a moment
+                gsap.to('#overlappingDiv', {
+                    opacity: 1,
+                    repeat: 0,
+                    yoyo: false,
+                    duration: 1,
+                    onComplete() {
+                        gameLogic.maps[1].backgroundSprite.gamePosition = positions.PlayerHouseFromGhasblr;
+                        gameLogic.maps[1].foregroundSprite.gamePosition = positions.PlayerHouseFromGhasblr;
+                        gameLogic.maps[1].offset = positions.PlayerHouseFromGhasblr;
+        
+                        gameLogic.maps[1].collidingObjects = [];
+        
+                        gameLogic.maps[1].collisionsMap.forEach((row, i) => {
+                            row.forEach((symbol, j) => {
+                                if(symbol != 0) {
+                                    gameLogic.maps[1].collidingObjects.push(
+                                        new Boundary({
+                                            gamePosition: {
+                                                x: j * Boundary.width + gameLogic.maps[1].offset.x, 
+                                                y: i * Boundary.height + gameLogic.maps[1].offset.y,
+                                            }
+                                        })
+                                    )
+                                }
+                            })
+                        });
+
+                        let doorIndex = 0;
+                        gameLogic.maps[1].doorsMap.forEach((row, i) => {
+                            row.forEach((symbol, j) => {
+                                if(symbol != 0){
+                                    gameLogic.maps[1].doors[doorIndex].gamePosition = {
+                                        x: j * Boundary.width + gameLogic.maps[1].offset.x, 
+                                        y: i * Boundary.height + gameLogic.maps[1].offset.y, 
+                                    }
+                                    doorIndex++;
+                                }
+                            })
+                        })
+                        positions.playerPosition.x -= gameLogic.canvasMove.x;
+                        positions.playerPosition.y -= gameLogic.canvasMove.y;
+                        gameLogic.canvasMove = {
+                            x: 0,
+                            y: 0
+                        }
+                        gameLogic.player.image = gameLogic.playerUpImage;
+                        canvasSetup.clearScreen(gameLogic.maps[0].context);
+                        gameLogic.maps[1].isActive = true;
+                        gameLogic.maps[1].playerPosition = positions.playerPosition;
+                        gameLogic.maps[0].isActive = false;
+                        gsap.to('#overlappingDiv', {
+                            opacity: 0,
+                            duration: 0.4,
+                        })
+                        // console.log("After entering");
+                        // console.log("Player position is: " + gameLogic.maps[1].playerPosition.x + " " + gameLogic.maps[1].playerPosition.y);
+                        // console.log("Canavs move: " + gameLogic.canvasMove.x + " " + gameLogic.canvasMove.y);
+                        gameLogic.animate();
+                    }
+                })
+            }
+            
+        
+        
+       
+            // Stairs up to players room
+            gameLogic.maps[1].doors[0].enterFunction = () => {
+                window.cancelAnimationFrame(gameLogic.animationID);
+                // console.log("Before entering");
+                // console.log("Player position is: " + gameLogic.maps[1].playerPosition.x + " " + gameLogic.maps[1].playerPosition.y);
+                // console.log("Canavs move: " + gameLogic.canvasMove.x + " " + gameLogic.canvasMove.y);
+                // Turns on black div for a moment
+                gsap.to('#overlappingDiv', {
+                    opacity: 1,
+                    repeat: 0,
+                    yoyo: false,
+                    duration: 1,
+                    onComplete() {
+                        gameLogic.maps[1].backgroundSprite.gamePosition = positions.PlayerRoomFromPlayerHouse;
+                        gameLogic.maps[1].foregroundSprite.gamePosition = positions.PlayerRoomFromPlayerHouse;
+                        gameLogic.maps[1].offset = positions.PlayerRoomFromPlayerHouse;
+        
+                        gameLogic.maps[1].collidingObjects = [];
+        
+                        gameLogic.maps[1].collisionsMap.forEach((row, i) => {
+                            row.forEach((symbol, j) => {
+                                if(symbol != 0) {
+                                    gameLogic.maps[1].collidingObjects.push(
+                                        new Boundary({
+                                            gamePosition: {
+                                                x: j * Boundary.width + gameLogic.maps[1].offset.x, 
+                                                y: i * Boundary.height + gameLogic.maps[1].offset.y,
+                                            }
+                                        })
+                                    )
+                                }
+                            })
+                        });
+
+                        let doorIndex = 0;
+                        gameLogic.maps[1].doorsMap.forEach((row, i) => {
+                            row.forEach((symbol, j) => {
+                                if(symbol != 0){
+                                    gameLogic.maps[1].doors[doorIndex].gamePosition = {
+                                        x: j * Boundary.width + gameLogic.maps[1].offset.x, 
+                                        y: i * Boundary.height + gameLogic.maps[1].offset.y, 
+                                    }
+                                    doorIndex++;
+                                }
+                            })
+                        })
+                        
+                        positions.playerPosition.x -= gameLogic.canvasMove.x;
+                        positions.playerPosition.y -= gameLogic.canvasMove.y;
+                        gameLogic.canvasMove = {
+                            x: 0,
+                            y: 0
+                        }
+                        gameLogic.player.image = gameLogic.playerLeftImage;
+                        canvasSetup.clearScreen(gameLogic.maps[1].context);
+                        gameLogic.maps[1].isActive = false;
+                        gameLogic.maps[2].isActive = true;
+                        gameLogic.maps[2].playerPosition = positions.playerPosition;
+                        gsap.to('#overlappingDiv', {
+                            opacity: 0,
+                            duration: 0.4,
+                        })
+                        // console.log("After entering");
+                        // console.log("Player position is: " + gameLogic.maps[2].playerPosition.x + " " + gameLogic.maps[2].playerPosition.y);
+                        // console.log("Canavs move: " + gameLogic.canvasMove.x + " " + gameLogic.canvasMove.y);
+                        gameLogic.animate();
+                    }
+                })
+            }
+        
+        
+        
+
+            // Stairs down from Players Room
+            gameLogic.maps[2].doors[0].enterFunction = () => {
+                window.cancelAnimationFrame(gameLogic.animationID);
+                // console.log("Before entering");
+                // console.log("Player position is: " + gameLogic.maps[2].playerPosition.x + " " + gameLogic.maps[2].playerPosition.y);
+                // console.log("Canavs move: " + gameLogic.canvasMove.x + " " + gameLogic.canvasMove.y);
+                // audio.Map.stop()
+                // Turns on black div for a moment
+                gsap.to('#overlappingDiv', {
+                    opacity: 1,
+                    repeat: 0,
+                    yoyo: false,
+                    duration: 1,
+                    onComplete() {
+                        gameLogic.maps[1].backgroundSprite.gamePosition = positions.PlayerHouseFromPlayerRoom;
+                        gameLogic.maps[1].foregroundSprite.gamePosition = positions.PlayerHouseFromPlayerRoom;
+                        gameLogic.maps[1].offset = positions.PlayerHouseFromPlayerRoom;
+        
+                        gameLogic.maps[1].collidingObjects = [];
+        
+                        gameLogic.maps[1].collisionsMap.forEach((row, i) => {
+                            row.forEach((symbol, j) => {
+                                if(symbol != 0) {
+                                    gameLogic.maps[1].collidingObjects.push(
+                                        new Boundary({
+                                            gamePosition: {
+                                                x: j * Boundary.width + gameLogic.maps[1].offset.x, 
+                                                y: i * Boundary.height + gameLogic.maps[1].offset.y,
+                                            }
+                                        })
+                                    )
+                                }
+                            })
+                        });
+
+                        let doorIndex = 0;
+                        gameLogic.maps[1].doorsMap.forEach((row, i) => {
+                            row.forEach((symbol, j) => {
+                                if(symbol != 0){
+                                    gameLogic.maps[1].doors[doorIndex].gamePosition = {
+                                        x: j * Boundary.width + gameLogic.maps[1].offset.x, 
+                                        y: i * Boundary.height + gameLogic.maps[1].offset.y, 
+                                    }
+                                    doorIndex++;
+                                }
+                            })
+                        })
+                        positions.playerPosition.x -= gameLogic.canvasMove.x;
+                        positions.playerPosition.y -= gameLogic.canvasMove.y;
+                        gameLogic.canvasMove = {
+                            x: 0,
+                            y: 0
+                        }
+                        gameLogic.player.image = gameLogic.playerLeftImage;
+                        canvasSetup.clearScreen(gameLogic.maps[2].context);
+                        gameLogic.maps[2].isActive = false;
+                        gameLogic.maps[1].isActive = true;
+                        gameLogic.maps[1].playerPosition = positions.playerPosition;
+                        
+                        gsap.to('#overlappingDiv', {
+                            opacity: 0,
+                            duration: 0.4,
+                        })
+                        // console.log("After entering");
+                        // console.log("Player position is: " + gameLogic.maps[1].playerPosition.x + " " + gameLogic.maps[1].playerPosition.y);
+                        // console.log("Canavs move: " + gameLogic.canvasMove.x + " " + gameLogic.canvasMove.y);
+                        gameLogic.animate();
+                    }
+                })
+            }
+        
+            // Exit from players house
+            gameLogic.maps[1].doors[1].enterFunction = () => {
+                window.cancelAnimationFrame(gameLogic.animationID);
+                // console.log("Before entering");
+                // console.log("Player position is: " + gameLogic.maps[1].playerPosition.x + " " + gameLogic.maps[1].playerPosition.y);
+                // console.log("Canavs move: " + gameLogic.canvasMove.x + " " + gameLogic.canvasMove.y);
+                // audio.Map.stop()
+                // Turns on black div for a moment
+                gsap.to('#overlappingDiv', {
+                    opacity: 1,
+                    repeat: 0,
+                    yoyo: false,
+                    duration: 1,
+                    onComplete() {
+                        gameLogic.maps[0].backgroundSprite.gamePosition = positions.GhasblrFromPlayerHouse;
+                        gameLogic.maps[0].foregroundSprite.gamePosition = positions.GhasblrFromPlayerHouse;
+                        gameLogic.maps[0].offset = positions.GhasblrFromPlayerHouse;
+        
+                        gameLogic.maps[0].collidingObjects = [];
+        
+                        gameLogic.maps[0].collisionsMap.forEach((row, i) => {
+                            row.forEach((symbol, j) => {
+                                if(symbol != 0) {
+                                    gameLogic.maps[0].collidingObjects.push(
+                                        new Boundary({
+                                            gamePosition: {
+                                                x: j * Boundary.width + gameLogic.maps[0].offset.x, 
+                                                y: i * Boundary.height + gameLogic.maps[0].offset.y,
+                                            }
+                                        })
+                                    )
+                                }
+                            })
+                        });
+
+                        let doorIndex = 0;
+                        gameLogic.maps[0].doorsMap.forEach((row, i) => {
+                            row.forEach((symbol, j) => {
+                                if(symbol != 0){
+                                    gameLogic.maps[0].doors[doorIndex].gamePosition = {
+                                        x: j * Boundary.width + gameLogic.maps[0].offset.x, 
+                                        y: i * Boundary.height + gameLogic.maps[0].offset.y, 
+                                    }
+                                    doorIndex++;
+                                }
+                            })
+                        })
+                        positions.playerPosition.x -= gameLogic.canvasMove.x;
+                        positions.playerPosition.y -= gameLogic.canvasMove.y;
+                        gameLogic.canvasMove = {
+                            x: 0,
+                            y: 0
+                        }
+                        gameLogic.player.image = gameLogic.playerDownImage;
+                        canvasSetup.clearScreen(gameLogic.maps[1].context);
+                        gameLogic.maps[1].isActive = false;
+                        gameLogic.maps[0].isActive = true;
+                        gameLogic.maps[0].playerPosition = positions.playerPosition;
+                        gsap.to('#overlappingDiv', {
+                            opacity: 0,
+                            duration: 0.4,
+                        })
+                        // console.log("After entering");
+                        // console.log("Player position is: " + gameLogic.maps[0].playerPosition.x + " " + gameLogic.maps[0].playerPosition.y);
+                        // console.log("Canavs move: " + gameLogic.canvasMove.x + " " + gameLogic.canvasMove.y);
+                        gameLogic.animate();
+                    }
+                })
+            }
         
         gameLogic.team = new Team([], 4);
         gameLogic.inventory =  new Inventory([], 10);
@@ -416,7 +709,7 @@ const gameLogic = {
 
                 if(gameLogic.moving) {
                     gameLogic.gameMap.context.translate(0, gameLogic.playerSpeed);
-                    gameLogic.gameMap.canvasMove.y += gameLogic.playerSpeed;
+                    gameLogic.canvasMove.y -= gameLogic.playerSpeed;
                     gameLogic.gameMap.playerPosition.y -= gameLogic.playerSpeed;
                 }
             } else if(gameLogic.keys.a.pressed && gameLogic.lastKey === 'a') {
@@ -455,7 +748,7 @@ const gameLogic = {
                 };
                 if(gameLogic.moving) {
                     gameLogic.gameMap.context.translate(gameLogic.playerSpeed, 0);
-                    gameLogic.gameMap.canvasMove.x += gameLogic.playerSpeed;
+                    gameLogic.canvasMove.x -= gameLogic.playerSpeed;
                     gameLogic.gameMap.playerPosition.x -= gameLogic.playerSpeed;
                 }
             } else if(gameLogic.keys.s.pressed && gameLogic.lastKey === 's') {
@@ -494,7 +787,7 @@ const gameLogic = {
                 };
                 if(gameLogic.moving) {
                     gameLogic.gameMap.context.translate(0, -gameLogic.playerSpeed);
-                    gameLogic.gameMap.canvasMove.y -= gameLogic.playerSpeed;
+                    gameLogic.canvasMove.y += gameLogic.playerSpeed;
                     gameLogic.gameMap.playerPosition.y += gameLogic.playerSpeed;
                 }
             } else if(gameLogic.keys.d.pressed && gameLogic.lastKey === 'd') {
@@ -533,7 +826,7 @@ const gameLogic = {
                 };
                 if(gameLogic.moving) {
                     gameLogic.gameMap.context.translate(-gameLogic.playerSpeed, 0);
-                    gameLogic.gameMap.canvasMove.x -= gameLogic.playerSpeed;
+                    gameLogic.canvasMove.x += gameLogic.playerSpeed;
                     gameLogic.gameMap.playerPosition.x += gameLogic.playerSpeed;
                 }
             }
