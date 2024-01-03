@@ -17,7 +17,8 @@ class GameMap {
         backgroundSprite,
         foregroundSprite,
         battleBackgroundSprite,
-        itemsInWorld
+        itemsInWorld,
+        hiddenItemsInWorldData,
     }) {
         this.isActive = isActive;
         this.widthInTiles = widthInTiles;
@@ -29,6 +30,7 @@ class GameMap {
         this.doorsData = doorsData; 
         this.doorsMap = [];
         this.doors = [];
+
         this.battleZonesMap = [];
         this.battleZones = [];
         this.collidingObjects = collidingObjects;
@@ -92,6 +94,30 @@ class GameMap {
             });
         } else {
             this.battleZones = [];
+        }
+
+
+        this.hiddenItemsInWorldData = hiddenItemsInWorldData;
+        this.hiddenItemsInWorldMap = [];
+        this.hiddenItemsInWorld = [];
+        if(this.hiddenItemsInWorldData.length > 0){
+            for(let i = 0; i < this.hiddenItemsInWorldData.length; i+= this.widthInTiles){
+                this.hiddenItemsInWorldMap.push(this.hiddenItemsInWorldData.slice(i, i + this.widthInTiles))
+            }
+            this.hiddenItemsInWorldMap.forEach((row, i) => {
+                row.forEach((symbol, j) => {
+                    if(symbol != 0){
+                        this.hiddenItemsInWorld.push(
+                            new HiddenItem({
+                                gamePosition: {
+                                    x: j * Boundary.width + this.offset.x,
+                                    y: i * Boundary.height + this.offset.y
+                                }
+                            })
+                        )
+                    }
+                })
+            })
         }
        
         

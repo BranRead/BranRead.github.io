@@ -60,6 +60,52 @@ const gameLogic = {
         gameLogic.maps.push(new GameMap(gameMapsData.PlayerHouse));
         gameLogic.maps.push(new GameMap(gameMapsData.PlayerRoom));
 
+       
+        gameLogic.maps[2].hiddenItemsInWorld[0].pickupFunction = () => {
+            let item = gameLogic.maps[2].hiddenItemsInWorld[0];
+            if(gameLogic.rectangularCollision({
+                rectangle1: gameLogic.player, 
+                rectangle2: {...item, gamePosition: {
+                    x: item.gamePosition.x + gameLogic.playerSpeed,
+                    y: item.gamePosition.y
+                }}
+            }) || gameLogic.rectangularCollision({
+                rectangle1: gameLogic.player, 
+                rectangle2: {...item, gamePosition: {
+                    x: item.gamePosition.x - gameLogic.playerSpeed,
+                    y: item.gamePosition.y
+                }}
+            }) || gameLogic.rectangularCollision({
+                rectangle1: gameLogic.player, 
+                rectangle2: {...item, gamePosition: {
+                    x: item.gamePosition.x,
+                    y: item.gamePosition.y + gameLogic.playerSpeed
+                }}
+            }) || gameLogic.rectangularCollision({
+                rectangle1: gameLogic.player, 
+                rectangle2: {...item, gamePosition: {
+                    x: item.gamePosition.x,
+                    y: item.gamePosition.y - gameLogic.playerSpeed
+                }}
+            })
+            ){
+                dialog.clearDialog();
+                let hiddenItem = new Item(itemsGhasblr.HealthPotion);
+                hiddenItem.quantity = 2
+                dialog.displayDialog("You found " + hiddenItem.quantity + " " + hiddenItem.name + "s!");
+                gameLogic.maps[2].hiddenItemsInWorld.splice(gameLogic.maps[2].hiddenItemsInWorld.indexOf(item), 1);
+
+                
+                gameLogic.player.inventory.pickUp(hiddenItem);
+            }
+        }
+        gameLogic.maps[2].hiddenItemsInWorld.forEach(item => {
+            canvasSetup.canvas.addEventListener("click", () => {
+                item.pickupFunction()
+            })
+        })
+
+
         // Entrance to players house
         gameLogic.maps[0].doors[1].enterFunction = () => {
                 window.cancelAnimationFrame(gameLogic.animationID);
@@ -603,6 +649,9 @@ const gameLogic = {
                 map.itemsInWorld.forEach(item => {
                     item.draw(map.context);
                 });
+                map.hiddenItemsInWorld.forEach(item => {
+                    item.draw(map.context);
+                })
             }
         })
         gameLogic.player.animate = false;
