@@ -1,6 +1,6 @@
 const gameLogic = {
     itemUsed: "false",
-    playerSpeed: 10,
+    playerSpeed: 3,
     moving: true,
     statsSave: [],
     clicked: false,
@@ -77,6 +77,7 @@ const gameLogic = {
 
         additionalGameFunctions.addHiddenItems();
         additionalGameFunctions.addDoorFunctions();
+        additionalGameFunctions.peopleFunctions();
         
         gameLogic.team = new Team([], 4);
         gameLogic.inventory =  new Inventory([], 10);

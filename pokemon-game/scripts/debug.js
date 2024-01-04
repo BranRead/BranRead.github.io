@@ -71,6 +71,6 @@ const debug = {
 }
 
 document.addEventListener("click", (e) => {
-    console.log(e.clientX);
-    console.log(e.clientY);
+    console.log(e.clientX - gameLogic.canvasMove.x);
+    console.log(e.clientY - gameLogic.canvasMove.y);
 })

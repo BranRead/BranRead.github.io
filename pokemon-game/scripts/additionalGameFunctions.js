@@ -101,6 +101,7 @@ additionalGameFunctions = {
      * Change logic here when adding more entrances/exits
      */
     addDoorFunctions: () => {
+        // Entering player house
         gameLogic.maps[0].doors[1].enterFunction = () => {
             window.cancelAnimationFrame(gameLogic.animationID);
             // console.log("Before entering");
@@ -144,6 +145,10 @@ additionalGameFunctions = {
                             }
                         })
                     })
+                    gameLogic.maps[1].peopleInWorld[0].gamePosition = {
+                        x: positions.PlayerHouseFromPlayerRoom.x + positions.HealerPosition.x,
+                        y: positions.PlayerHouseFromPlayerRoom.y + positions.HealerPosition.y,
+                    }
                     positions.playerPosition.x -= gameLogic.canvasMove.x;
                     positions.playerPosition.y -= gameLogic.canvasMove.y;
                     gameLogic.canvasMove = {
@@ -280,6 +285,10 @@ additionalGameFunctions = {
                             }
                         })
                     })
+                    gameLogic.maps[1].peopleInWorld[0].gamePosition = {
+                        x: positions.PlayerHouseFromPlayerRoom.x + positions.HealerPosition.x,
+                        y: positions.PlayerHouseFromPlayerRoom.y + positions.HealerPosition.y,
+                    }
                     positions.playerPosition.x -= gameLogic.canvasMove.x;
                     positions.playerPosition.y -= gameLogic.canvasMove.y;
                     gameLogic.canvasMove = {
@@ -368,5 +377,70 @@ additionalGameFunctions = {
                 }
             })
         }
+    },
+
+    peopleFunctions: () => {
+        
+        canvasSetup.canvas.addEventListener('click', () => {
+            if(gameLogic.rectangularCollision({
+                rectangle1: gameLogic.player, 
+                rectangle2: {...gameLogic.maps[1].peopleInWorld[0], gamePosition: {
+                    x: gameLogic.maps[1].peopleInWorld[0].gamePosition.x + gameLogic.playerSpeed,
+                    y: gameLogic.maps[1].peopleInWorld[0].gamePosition.y
+                }}
+            }) || gameLogic.rectangularCollision({
+                rectangle1: gameLogic.player, 
+                rectangle2: {...gameLogic.maps[1].peopleInWorld[0], gamePosition: {
+                    x: gameLogic.maps[1].peopleInWorld[0].gamePosition.x - gameLogic.playerSpeed,
+                    y: gameLogic.maps[1].peopleInWorld[0].gamePosition.y
+                }}
+            }) || gameLogic.rectangularCollision({
+                rectangle1: gameLogic.player, 
+                rectangle2: {...gameLogic.maps[1].peopleInWorld[0], gamePosition: {
+                    x: gameLogic.maps[1].peopleInWorld[0].gamePosition.x,
+                    y: gameLogic.maps[1].peopleInWorld[0].gamePosition.y + gameLogic.playerSpeed
+                }}
+            }) || gameLogic.rectangularCollision({
+                rectangle1: gameLogic.player, 
+                rectangle2: {...gameLogic.maps[1].peopleInWorld[0], gamePosition: {
+                    x: gameLogic.maps[1].peopleInWorld[0].gamePosition.x,
+                    y: gameLogic.maps[1].peopleInWorld[0].gamePosition.y - gameLogic.playerSpeed
+                }}
+            })
+            ){
+                //Heals monsters
+                const yesBtn = document.createElement("button");
+                const noBtn = document.createElement("button");
+                dialog.nextBtn.style.display = "none";
+                dialog.clearDialog();
+
+
+                dialog.displayDialog("Would you like to heal your monsters?");
+
+
+                yesBtn.classList.add("yesBtn", "dialogBtn");
+                yesBtn.innerHTML = "Yes";
+                noBtn.classList.add("noBtn", "dialogBtn");
+                noBtn.innerHTML = "No";
+            
+                yesBtn.addEventListener("click", () => {
+                    gameLogic.player.team.roster.forEach((monster) => {
+                        monster.stats.hp = monster.stats.maxHP;
+                    })
+
+                    dialog.clearDialog();
+                    dialog.displayDialog("Your monsters are healed!");
+                    dialog.nextBtn.style.display = "block";
+                })
+            
+                noBtn.addEventListener("click", () => {
+                    dialog.dialogBox.style.display = "none";
+                    dialog.nextBtn.style.display = "block";
+                })
+
+                dialog.dialogBox.append(yesBtn);
+                dialog.dialogBox.append(noBtn);
+            }
+        })
     }
 }
