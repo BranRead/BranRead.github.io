@@ -18,7 +18,7 @@ const battleSetup = {
         battleSetup.userChoice.style.display = "flex";
         battleSetup.attackTypeBox.style.display = "none";
         gameLogic.isBattleInitiated = true;
-        gameLogic.gameMap.context.translate(-gameLogic.gameMap.canvasMove.x, -gameLogic.gameMap.canvasMove.y);
+        gameLogic.gameMap.context.translate(+gameLogic.canvasMove.x, +gameLogic.canvasMove.y);
         
         document.querySelector('#userInterface').style.display = 'block';
         document.querySelector('#dialogBox').style.display = 'none';

@@ -1,5 +1,6 @@
 class GameMap {
     constructor({
+        name,
         isActive,
         widthInTiles = 60,
         canvas,
@@ -20,6 +21,7 @@ class GameMap {
         itemsInWorld,
         hiddenItemsInWorldData,
     }) {
+        this.name = name;
         this.isActive = isActive;
         this.widthInTiles = widthInTiles;
         this.canvas = canvas;

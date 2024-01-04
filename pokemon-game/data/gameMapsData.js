@@ -120,6 +120,7 @@ const playerRoomForegroundSprite = new Sprite({
 
 const gameMapsData = {
     Ghasblr: {
+        name: "Ghasblr",
         isActive: true,
         canvas: canvasSetup.canvas,
         collisionsData: collisionsData.Ghasblr,
@@ -133,12 +134,11 @@ const gameMapsData = {
         foregroundSprite: ghasblrForegroundSprite,
         battleBackgroundSprite: ghasblrBattleBackgroundSprite,
         itemsInWorld: [
-            new Item (itemsGhasblr.AtkBoost),
-            new Item (itemsGhasblr.DefBoost),
             new Item (itemsGhasblr.HealthPotion)
         ],
     },
     PlayerHouse: {
+        name: "PlayerHouse",
         isActive: false,
         widthInTiles: 20,
         canvas: canvasSetup.canvas,
@@ -155,6 +155,7 @@ const gameMapsData = {
     },
 
     PlayerRoom: {
+        name: "PlayerRoom",
         isActive: false,
         widthInTiles: 20,
         canvas: canvasSetup.canvas,

@@ -10,7 +10,7 @@ class HiddenItem extends Boundary {
 
    }
    draw(context) {
-    context.fillStyle = 'rgba(0, 255, 0, 0.5)'
+    context.fillStyle = 'rgba(0, 255, 0, 0.0)'
     context.fillRect(this.gamePosition.x, this.gamePosition.y, Boundary.width, Boundary.height)
 }
 }
