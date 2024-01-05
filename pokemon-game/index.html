@@ -1,15 +1,6 @@
 <!--Pokemon JavaScript Game Tutorial with HTML Canvas-->
 <!--https://www.youtube.com/watch?v=yP5DKzriqXA-->
 <!--
-Color Scheme so it doesn't get lost:
-#fcf5e5
-#729B79
-#040403
-#416788
-#00A1E4
-20% darker for button hover effect
-Slowly switching it over to the above
-
 Also switching innerHTML for textContent. textContent just replaces text 
 whereas innerHTML replaces all the html
 
@@ -25,9 +16,12 @@ I'll do that after some more work on other things
 
 <!DOCTYPE html>
 <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet"> -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="stylesheets/styles.css">
 </head>
 <div id="content">
@@ -36,11 +30,11 @@ I'll do that after some more work on other things
     <div id="overlappingDiv"></div>
     <div id="menu">
         <div id="menu-title"><h3>Menu</h3></div>
-        <div class="menu-item"><h3>Team</h3></div>
-        <div class="menu-item"><h3>Inventory</h3></div>
-        <div class="menu-item"><h3>Settings</h3></div>
-        <div class="menu-item"><h3>Save</h3></div>
-        <div class="menu-item"><h3>Quit</h3></div>
+        <div class="menu-item standardBtn"><h3>Team</h3></div>
+        <div class="menu-item standardBtn"><h3>Inventory</h3></div>
+        <div class="menu-item standardBtn"><h3>Settings</h3></div>
+        <div class="menu-item standardBtn"><h3>Save</h3></div>
+        <div class="menu-item standardBtn"><h3>Quit</h3></div>
     </div>
     
     <canvas id="gameCamera"></canvas>
@@ -74,19 +68,19 @@ I'll do that after some more work on other things
         <div id="dialogOutputBox">
             <p id="dialog"></p>
         </div>
-        <button class="nextBtn">▼</button>
+        <button class="nextBtn standardBtn">▼</button>
     </div>
 
     <div id="combatBox">
         <div id="goBack"><div id="backBtnAttack">Back</div></div>
         <div id="userChoice">
             <div id="topRow">
-                <div class="userChoiceBtn"></div>
-                <div class="userChoiceBtn"></div>
+                <div class="combatBtn"></div>
+                <div class="combatBtn"></div>
             </div>
             <div id="bottomRow">
-                <div class="userChoiceBtn"></div>
-                <div class="userChoiceBtn"></div>
+                <div class="combatBtn"></div>
+                <div class="combatBtn"></div>
             </div>
         </div>
         <div id="attackTypeBox">
@@ -99,6 +93,7 @@ I'll do that after some more work on other things
     <div id="fullMonsterView">
         <div id="header">
             <div id="monsterName"><p id="nameTeamView">Name: Emby</p></div>
+            <div class="verticalLine"></div>
             <div id="type"><p id="typeTeamView">Type: Fire</p></div>
         </div>
         <div id="monDescrip">
@@ -143,15 +138,15 @@ I'll do that after some more work on other things
 
     <div id="fullInventoryView">
         <div id="inventoryHeader">
-            <div class="inventoryOption" data-value="restore"><canvas id="restore" class="inventoryIcons" width="32" height="32"></canvas></div>
+            <div class="inventoryOption standardBtn" data-value="restore"><canvas id="restore" class="inventoryIcons" width="32" height="32"></canvas></div>
             <div class="verticalLine"></div>
-            <div class="inventoryOption" data-value="statBoost"><canvas id="statBoost" class="inventoryIcons" width="32" height="32"></canvas></div>
+            <div class="inventoryOption standardBtn" data-value="statBoost"><canvas id="statBoost" class="inventoryIcons" width="32" height="32"></canvas></div>
             <div class="verticalLine"></div>
-            <div class="inventoryOption" data-value="food"><canvas id="food" class="inventoryIcons" width="32" height="32"></canvas></div>
+            <div class="inventoryOption standardBtn" data-value="food"><canvas id="food" class="inventoryIcons" width="32" height="32"></canvas></div>
             <div class="verticalLine"></div>
-            <div class="inventoryOption" data-value="valuables"><canvas id="valuables" class="inventoryIcons" width="32" height="32"></canvas></div>
+            <div class="inventoryOption standardBtn" data-value="valuables"><canvas id="valuables" class="inventoryIcons" width="32" height="32"></canvas></div>
             <div class="verticalLine"></div>
-            <div class="inventoryOption" data-value="keyItems"><canvas id="keyItems" class="inventoryIcons" width="32" height="32"></canvas></div>
+            <div class="inventoryOption standardBtn" data-value="keyItems"><canvas id="keyItems" class="inventoryIcons" width="32" height="32"></canvas></div>
         </div>
         <div id="inventoryBody"></div>
        
@@ -164,6 +159,7 @@ I'll do that after some more work on other things
             </div>
             <div id="itemDescription">
                 <p id="itemDescriptionText"></p>
+                <button class="cancelBtn">Cancel</bwutton>
             </div>
         </div>
     </div>
@@ -184,33 +180,34 @@ I'll do that after some more work on other things
 </script>
 <script src="/pokemon-game/scripts/debug.js"></script>
 <script src="/pokemon-game/scripts/canvasSetup.js"></script>
+<script src="/pokemon-game/data/positions.js"></script>
 <script src="/pokemon-game/data/audio.js"></script>
 <script src="/pokemon-game/data/battleZones.js"></script>
 <script src="/pokemon-game/data/doorsData.js"></script>
 <script src="/pokemon-game/data/hiddenItemsData.js"></script>
 <script src="/pokemon-game/data/peopleData.js"></script>
 <script src="/pokemon-game/data/collisions.js"></script>
-<script src="/pokemon-game/scripts/sprite.js"></script> 
+<script src="/pokemon-game/scripts/classes/sprite.js"></script> 
 <script src="/pokemon-game/data/itemsGhasblr.js"></script>
-<script src="/pokemon-game/scripts/item.js"></script> 
-<script src="/pokemon-game/scripts/boundary.js"></script>
-<script src="/pokemon-game/scripts/door.js"></script>
-<script src="/pokemon-game/scripts/hiddenItem.js"></script>
+<script src="/pokemon-game/scripts/classes/item.js"></script> 
+<script src="/pokemon-game/scripts/classes/boundary.js"></script>
+<script src="/pokemon-game/scripts/classes/door.js"></script>
+<script src="/pokemon-game/scripts/classes/hiddenItem.js"></script>
 <script src="/pokemon-game/data/gameMapsData.js"></script>
-<script src="/pokemon-game/scripts/gameMap.js"></script> 
+<script src="/pokemon-game/scripts/classes/gameMap.js"></script> 
 <script src="/pokemon-game/scripts/additionalGameFunctions.js"></script> 
 <script src="/pokemon-game/scripts/dialog.js"></script>
 <script src="/pokemon-game/scripts/battleFunctions.js"></script>
 <script src="/pokemon-game/data/attacks.js"></script>
 <script src="/pokemon-game/data/monsters.js"></script>
-<script src="/pokemon-game/scripts/monster.js"></script> 
+<script src="/pokemon-game/scripts/classes/monster.js"></script> 
 <script src="/pokemon-game/scripts/inventory.js"></script>  
 <script src="/pokemon-game/scripts/inventoryMenu.js"></script>  
 <script src="/pokemon-game/scripts/settings.js"></script>  
 <script src="/pokemon-game/scripts/save.js"></script>  
-<script src="/pokemon-game/scripts/team.js"></script>  
+<script src="/pokemon-game/scripts/classes/team.js"></script>  
 <script src="/pokemon-game/scripts/menu.js"></script>  
-<script src="/pokemon-game/scripts/person.js"></script>
+<script src="/pokemon-game/scripts/classes/person.js"></script>
 <script src="/pokemon-game/scripts/battleMenu.js"></script>
 <script src="/pokemon-game/scripts/battleSetup.js"></script> 
 <script src="/pokemon-game/scripts/gameLogic.js"></script>

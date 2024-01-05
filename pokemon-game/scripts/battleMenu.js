@@ -29,7 +29,7 @@ const battleMenu = {
         battleMenu.clearButtons('.attackOptions');
         battleMenu.clearButtons('.battleCommands');
     
-        const userChoiceBtns = document.querySelectorAll(".userChoiceBtn");
+        const userChoiceBtns = document.querySelectorAll(".combatBtn");
         const userCombatOptions = [
             () => {
                 battleMenu.fight();
@@ -65,7 +65,7 @@ const battleMenu = {
         battleMenu.goBackBtn.addEventListener("click", () => {
             battleMenu.battleOptions();
         })
-        const attackBtns = document.querySelectorAll(".userChoiceBtn");
+        const attackBtns = document.querySelectorAll(".combatBtn");
         //Adds attack buttons in
         battleSetup.playerMonster.attacks.forEach((attack, index) => {
             const button = document.createElement('button');

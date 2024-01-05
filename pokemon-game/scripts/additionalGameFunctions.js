@@ -1,4 +1,20 @@
 additionalGameFunctions = {
+    intervalAnimate: "",
+
+    textInterval: () => {
+        
+        if(dialog.dialogBox.style.display != 'none') {
+            additionalGameFunctions.intervalAnimate = setInterval(() => {
+                if(dialog.nextBtn.textContent == "▼"){
+                    dialog.nextBtn.textContent = "▽";
+                } else {
+                    dialog.nextBtn.textContent = "▼";
+                }
+            }, 300)
+        } else {
+            clearInterval(additionalGameFunctions.intervalAnimate);
+        }
+    },
 
     /**
      * Function which adds items to world maps
@@ -423,10 +439,11 @@ additionalGameFunctions = {
                 dialog.displayDialog("Would you like to heal your monsters?");
 
 
-                yesBtn.classList.add("yesBtn", "dialogBtn");
-                yesBtn.innerHTML = "Yes";
-                noBtn.classList.add("noBtn", "dialogBtn");
-                noBtn.innerHTML = "No";
+                // .dialogBtn is just used for ease of getting rid of the yes and no buttons
+                yesBtn.classList.add("yesBtn", "standardBtn", "dialogBtn");
+                yesBtn.textContent = "Yes";
+                noBtn.classList.add("noBtn", "standardBtn", "dialogBtn");
+                noBtn.textContent = "No";
             
                 yesBtn.addEventListener("click", () => {
                     gameLogic.player.team.roster.forEach((monster) => {
@@ -434,8 +451,9 @@ additionalGameFunctions = {
                     })
 
                     dialog.clearDialog();
-                    dialog.displayDialog("Your monsters are healed!");
                     dialog.nextBtn.style.display = "block";
+                    dialog.displayDialog("Your monsters are healed!");
+                    
                 })
             
                 noBtn.addEventListener("click", () => {

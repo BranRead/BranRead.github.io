@@ -1,5 +1,9 @@
 const menu = {
     open: () => {
+        if(gameLogic.isBattleInitiated){
+            document.getElementById("combatBox").style.pointerEvents = "none";
+        }
+
         if(!gameLogic.menuDisplayed) {
             if (document.querySelector(".menu-item").style.display == "none"){
                 document.querySelectorAll(".menu-item").forEach(item => {
@@ -15,11 +19,15 @@ const menu = {
     },
 
     close: () => {
+        if(gameLogic.isBattleInitiated){
+            document.getElementById("combatBox").style.pointerEvents = "auto";
+        }
         document.getElementById("overlappingDiv").style.display = "none";
         document.getElementById("overlappingDiv").style.opacity = "0";
         document.getElementById("menu").style.display = "none";
         document.getElementById("inventoryFooter").style.display = "none";
         inventoryMenu.isDescriptionOpen = false;
+        document.querySelector(".cancelBtn").style.display = "none";
         
         //Removes buttons so inventory doesn't populate multiple instances
         const toRemove = document.querySelectorAll('.toRemove');

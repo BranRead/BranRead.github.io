@@ -1,5 +1,3 @@
-
-
 const ghasblrBackground = new Image();
 ghasblrBackground.src = '/pokemon-game/img/gameWorld/ghasblrBackground.png';
 const ghasblrBackgroundSprite = new Sprite({ 

@@ -596,22 +596,21 @@ const gameLogic = {
     quit: () => {
         //Dialog
         menu.close();
-        dialogBackground.style.display = "flex";
-        dialogBox.style.display = "block";
-        dialogBox.innerHTML = "Are you sure you'd like to quit? Unsaved changes will be lost.";
-        
+        dialog.displayDialog("Are you sure you'd like to quit? Unsaved changes will be lost.")
+    
+        document.querySelector(".nextBtn").style.display = "none";
         const yesBtn = document.createElement("button");
-        yesBtn.className = "yesBtn";
-        yesBtn.innerHTML = "Yes";
+        yesBtn.classList.add("yesBtn", "standardBtn", "dialogBtn");
+        yesBtn.textContent = "Yes";
         yesBtn.addEventListener("click", () => {
             window.location.href = "/projects.html";
         })
 
         const noBtn = document.createElement("button");
-        noBtn.className = "noBtn";
-        noBtn.innerHTML = "No";
+        noBtn.classList.add("noBtn", "standardBtn", "dialogBtn");
+        noBtn.textContent = "No";
         noBtn.addEventListener("click", () => {
-            dialogBackground.style.display = "none";
+            dialog.progressTurn();
         })
         
         dialogBox.append(yesBtn);

@@ -1,11 +1,19 @@
 /*
  * Buttons get 20% darker tint from original colour
  * Border radius is 5px
+ * Color Scheme so it doesn't get lost:
+ * #563e77
+ * #00A1E4
+ * #248232
+ * #fcf5e5
+ * #040403
  */
 
 * {
-    font-family: 'Press Start 2P', cursive;
+    /* font-family: 'VT323', monospace; */
+    font-family: 'Press Start 2P', system-ui;
 }
+
 body {
     background-color: #131622;
 }
@@ -15,14 +23,21 @@ h1 {
 }
 
 #gameCamera {
-    border: 1px solid white;
+    border: 1px solid #fcf5e5;
 }
 
 #back-btn-menu {
     display: none;
 }
 
-button, .userChoiceBtn, #backBtnAttack {
+button, .standardBtn, .combatBtn {
+    background-color: #00A1E4;
+    color: #040403;
+    border: 2px solid #040403;
+    border-radius: 5px;
+}
+
+button, .combatBtn, #backBtnAttack {
     padding-top: 1rem;
     padding-bottom: 1rem;
     cursor: pointer;
@@ -34,12 +49,6 @@ button, .userChoiceBtn, #backBtnAttack {
     width: 80px;
     justify-content: center;
     cursor: pointer;
-}
-
-.inventoryOption:hover {
-    background-color: #73529e;
-    /* border: 1px solid black;*/
-    border-radius: 5px; 
 }
 
 .verticalLine {
@@ -56,6 +65,7 @@ button, .userChoiceBtn, #backBtnAttack {
 
 .inventoryItemContainer {
     background-color: #FCF5E5;
+    color: black;
     /* cursor: pointer; */
     display: flex;
     flex-direction: row;
@@ -66,12 +76,7 @@ button, .userChoiceBtn, #backBtnAttack {
     border-radius: 5px;
 }
 
-/* .inventoryItemContainer:hover {
-    background-color: #5b7c61;
-} */
-
-
-button:hover, #release:hover, .monsterInfo:hover, .menu-item:hover, .inventoryOption:hover, .userChoiceBtn:hover, #backBtnAttack:hover, .useBtn:hover, .trashBtn:hover, .yesBtn:hover, .noBtn:hover, .nextBtn:hover, .backBtn:hover {
+button:hover, .standardBtn:hover, .monsterInfo:hover, .inventoryOption:hover, .combatBtn:hover {
     background-color:  #0081b6;
 }
 
@@ -98,9 +103,8 @@ button:hover, #release:hover, .monsterInfo:hover, .menu-item:hover, .inventoryOp
     color: white;
     top: 0;
     right: 800px;
-    
     left: 0;
-    border: 2px solid white;
+    border: 2px solid #040403;
     display: none;
     flex-direction: column;
     align-items: center;
@@ -110,15 +114,13 @@ button:hover, #release:hover, .monsterInfo:hover, .menu-item:hover, .inventoryOp
 #menu-title {
     background-color: #563e77;
     text-align: center;
-    border-bottom: 2px solid white;
+    border-bottom: 2px solid #040403;
     width: 100%;
 }
 
 .menu-item, .backBtn {
-    background-color: #00a1e4;
     color: black;
     text-align: center;
-    border: 1px solid white;
     border-radius: 5px;
     width: 80%;
     margin-top: 0.5rem;
@@ -142,7 +144,7 @@ button:hover, #release:hover, .monsterInfo:hover, .menu-item:hover, .inventoryOp
     padding: 5px;
     background-color: #563E77;
     color: white;
-    border: 2px solid white;
+    border: 2px solid #040403;
     font-size: 8px;
 }
 
@@ -153,7 +155,7 @@ button:hover, #release:hover, .monsterInfo:hover, .menu-item:hover, .inventoryOp
     right: 3px;
     bottom: 3px;
     left: 3px;
-    border: 2px solid white;
+    border: 2px solid #040403;
     border-radius: 5px;
 }
 
@@ -162,7 +164,7 @@ button:hover, #release:hover, .monsterInfo:hover, .menu-item:hover, .inventoryOp
     flex-direction: row;
     align-items: center;
     padding: 1rem;
-    border-bottom: 2px solid white;
+    border-bottom: 2px solid #040403;
     margin-bottom: 1rem;
     font-size: 16px;
 }
@@ -173,11 +175,7 @@ button:hover, #release:hover, .monsterInfo:hover, .menu-item:hover, .inventoryOp
 
 .inventoryOption {
     z-index: 3;
-    background-color: #00a1e4;
-    border: 1px white solid;
-    border-radius: 5px;
     padding: 0.2rem;
-
 }
 
 #monsterName {
@@ -207,8 +205,8 @@ button:hover, #release:hover, .monsterInfo:hover, .menu-item:hover, .inventoryOp
 }
 
 #flavourText {
-    background-color: #5F773E;
-    color: white;
+    background-color: #FCF5E5;
+    color: black;
     position: relative;
     width: 50%;
     height: 75px;
@@ -251,6 +249,7 @@ button:hover, #release:hover, .monsterInfo:hover, .menu-item:hover, .inventoryOp
     background-color: #563e77;
     margin-top: 3rem;
     width: 100%;
+    height: 44px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -259,9 +258,9 @@ button:hover, #release:hover, .monsterInfo:hover, .menu-item:hover, .inventoryOp
 }
 
 #release {
-    background-color: #00A1E4;
-    color: white;
-    font-size: 8px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    font-size: 12px;
     cursor: pointer;
     margin-left: auto;
     margin-right: auto;
@@ -328,8 +327,8 @@ button:hover, #release:hover, .monsterInfo:hover, .menu-item:hover, .inventoryOp
     align-items: center;
 }
 
-.infoBtn, .useBtn, .trashBtn {
-    background-color: #00A1E4;
+.inventoryBtn {
+    border: 1px solid #040403;
     font-size: 12px;
     text-align: center;
     padding-top: 2rem;
@@ -339,7 +338,6 @@ button:hover, #release:hover, .monsterInfo:hover, .menu-item:hover, .inventoryOp
     width: 60px !important;
     height: 20px;
     padding: 1px;
-    border: 1px solid white;
     border-radius: 5px;
 }
 
@@ -432,14 +430,15 @@ button:hover, #release:hover, .monsterInfo:hover, .menu-item:hover, .inventoryOp
     right: 0;
     border-top: 3px black solid;
     display: none;
-    z-index: 2;
+    z-index: 3;
 }
 
 #dialogBox {
-    background-color: rgba(4, 4, 3, 0.7); 
+    /* background-color: rgba(4, 4, 3, 0.7);  */
     /* background-color: rgba(86, 62, 119, 1);  */
-    color: #fcf5e5;
-    border: 3px #5F773E solid;
+    background-color: #fcf5e5;
+    color: #040403;
+    border: 3px solid #040403;
     border-radius: 5px;
 }
 
@@ -480,11 +479,10 @@ button:hover, #release:hover, .monsterInfo:hover, .menu-item:hover, .inventoryOp
     height: 50%
 }
 
-.userChoiceBtn {
+.combatBtn {
     padding: 0;
     text-align: center;
     width: 50%;
-    border: 1px solid black;
 }
 
 .battleCommands, .attackOptions {
@@ -499,12 +497,13 @@ button:hover, #release:hover, .monsterInfo:hover, .menu-item:hover, .inventoryOp
 
 .monsterInfo {
     background-color: #00A1E4;
+    color: black;
     display: flex;
     flex-direction: column;
     margin-top: 0.26rem;
     border: 2px solid black;
     cursor: pointer;
-    width: 98%; 
+    width: 94%; 
 }
 
 .imgNameContainer {
@@ -568,47 +567,38 @@ button:hover, #release:hover, .monsterInfo:hover, .menu-item:hover, .inventoryOp
 
 /*Dialogue Stuff*/
 .yesBtn {
-    background-color: #00a1e4;
     position: absolute;
     right: 200px;
     bottom: 10px;
     width: 100px;
     height: 50px;
-    border: 2px solid #5F773E;
-    border-radius: 5px;
 }
 
 .noBtn {
-    background-color: #00a1e4;
     position: absolute;
     right: 80px;
     bottom: 10px;
     width: 100px;
     height: 50px;
-    border: 2px solid #5F773E;
-    border-radius: 5px;
 }
 
-
-
 .nextBtn {
-    background-color: #00a1e4;
+    display: none;
+    border-radius: 40px;
     position: absolute;
     right: 10px;
     bottom: 10px;
     width: 50px;
-    border: 2px solid #5F773E;
-    border-radius: 40px;
     height: 50px;
 }
 
 .cancelBtn {
+    display: none;
     position: absolute;
-    right: 80px;
+    right: 10px;
     bottom: 10px;
     width: 120px;
     height: 50px;
-    border: 1px solid black;
 } 
 
 #goBack {
@@ -620,5 +610,4 @@ button:hover, #release:hover, .monsterInfo:hover, .menu-item:hover, .inventoryOp
 #backBtnAttack {
     width: 100%;
     text-align: center;
-    border: 1px solid black;
 }

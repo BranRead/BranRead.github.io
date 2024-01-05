@@ -7,50 +7,80 @@ class Team{
         this.maxSize = maxSize;
     }
     removeMonster(e){
-        console.log("Releasing " + gameLogic.player.team.roster[e.target.parentNode.parentNode.value])
-        gameLogic.player.team.roster.splice(e.target.parentNode.parentNode.value, 1);
-        e.target.parentNode.parentNode.remove();
-
-        let listHTML = document.querySelectorAll(".toRemove");
-        for(let i = 0; i < gameLogic.player.team.roster.length; i++){
-            for(let j = 0; j < listHTML.length; j++){
-                if(listHTML[j].childNodes[1].innerHTML == gameLogic.player.team.roster[i].name){
-                    listHTML[j].style.order = i;
-                    listHTML[j].value = i;
-                }
-            }
-        }
-    }
-
-    switchMonster(e){
-        if(gameLogic.team.priorClick){
-            let firstMonster = gameLogic.player.team.roster[gameLogic.team.toSwitch.parentNode.parentNode.value];
-            let secondMonster = gameLogic.player.team.roster[e.target.parentNode.parentNode.value];
-            player.team.roster[e.target.parentNode.parentNode.value] = firstMonster;
-            player.team.roster[gameLogic.team.toSwitch.parentNode.parentNode.value] = secondMonster;
-            
-            let listHTML = document.querySelectorAll(".toRemove");
-
-            gameLogic.team.toSwitch.parentNode.parentNode.style.order = e.target.parentNode.parentNode.value;
-            e.target.parentNode.parentNode.style.order = gameLogic.team.toSwitch.parentNode.parentNode.value;
-            gameLogic.team.toSwitch = null;
-            gameLogic.team.priorClick = false;
-            
-            for(let i = 0; i < player.team.roster.length; i++){
-                for(let j = 0; j < listHTML.length; j++){
-                    if(listHTML[j].childNodes[1].innerHTML == gameLogic.player.team.roster[i].name){
-                        listHTML[j].style.order = i;
-                        listHTML[j].value = i;
+        if(gameLogic.player.team.roster.length > 1){
+            dialog.displayDialog("Are you sure you'd like to release " + gameLogic.player.team.roster[e.target.value].name + "?");
+            document.querySelector(".nextBtn").style.display = "none";
+            const yesBtn = document.createElement("button");
+            yesBtn.classList.add("yesBtn", "standardBtn", "dialogBtn");
+            yesBtn.textContent = "Yes";
+            yesBtn.addEventListener("click", () => {
+                console.log("Releasing " + gameLogic.player.team.roster[e.target.value])
+                dialog.clearDialog();
+                dialog.displayDialog(gameLogic.player.team.roster[e.target.value].name + " looked a little sad and left...");
+                document.querySelector(".nextBtn").style.display = "block";
+                gameLogic.player.team.roster.splice(e.target.value, 1);
+                let listHTML = document.querySelectorAll(".monsterList");
+                for(let i = 0; i < gameLogic.player.team.roster.length; i++){
+                    for(let j = 0; j < listHTML.length; j++){
+                        if(listHTML[j].childNodes[0].textContent == gameLogic.player.team.roster[i].name){
+                            listHTML[j].style.order = i;
+                            listHTML[j].value = i;
+                        }
                     }
                 }
-            }
+                menu.close();
+                menu.open();
+                this.viewTeam();
+            })
+    
+            const noBtn = document.createElement("button");
+            noBtn.classList.add("noBtn", "standardBtn", "dialogBtn");
+            noBtn.textContent = "No";
+            noBtn.addEventListener("click", () => {
+                dialog.clearDialog();
+                dialog.displayDialog("You chose to keep " + gameLogic.player.team.roster[e.target.value].name + " around!");
+                document.querySelector(".nextBtn").style.display = "block";
+            })
+            
+            dialogBox.append(yesBtn);
+            dialogBox.append(noBtn);
         } else {
-            gameLogic.team.priorClick = true;
-            gameLogic.team.toSwitch = e.target;
-            console.log("Current Target " + gameLogic.player.team.roster[e.target.value].name);
-            console.log("toSwitch " + gameLogic.player.team.roster[gameLogic.team.toSwitch.value].name);
+            dialog.displayDialog("You can't release your only monster!")
         }
+        
     }
+        
+    
+
+    // switchMonster(e){
+    //     if(gameLogic.team.priorClick){
+    //         let firstMonster = gameLogic.player.team.roster[gameLogic.team.toSwitch.parentNode.parentNode.value];
+    //         let secondMonster = gameLogic.player.team.roster[e.target.parentNode.parentNode.value];
+    //         player.team.roster[e.target.parentNode.parentNode.value] = firstMonster;
+    //         player.team.roster[gameLogic.team.toSwitch.parentNode.parentNode.value] = secondMonster;
+            
+    //         let listHTML = document.querySelectorAll(".toRemove");
+
+    //         gameLogic.team.toSwitch.parentNode.parentNode.style.order = e.target.parentNode.parentNode.value;
+    //         e.target.parentNode.parentNode.style.order = gameLogic.team.toSwitch.parentNode.parentNode.value;
+    //         gameLogic.team.toSwitch = null;
+    //         gameLogic.team.priorClick = false;
+            
+    //         for(let i = 0; i < player.team.roster.length; i++){
+    //             for(let j = 0; j < listHTML.length; j++){
+    //                 if(listHTML[j].childNodes[1].innerHTML == gameLogic.player.team.roster[i].name){
+    //                     listHTML[j].style.order = i;
+    //                     listHTML[j].value = i;
+    //                 }
+    //             }
+    //         }
+    //     } else {
+    //         gameLogic.team.priorClick = true;
+    //         gameLogic.team.toSwitch = e.target;
+    //         console.log("Current Target " + gameLogic.player.team.roster[e.target.value].name);
+    //         console.log("toSwitch " + gameLogic.player.team.roster[gameLogic.team.toSwitch.value].name);
+    //     }
+    // }
     
     viewTeam(item, itemIndex){ 
         if(gameLogic.teamWindow){
@@ -69,11 +99,11 @@ class Team{
         
         document.querySelector("#menu-title").firstChild.textContent = "Team";
         
-        gameLogic.player.teamWindow = true;
+        gameLogic.teamWindow = true;
         
         this.roster.forEach((monster, index) => {
             const monsterBlock = document.createElement('div');
-            monsterBlock.className = "monsterInfo toRemove";
+            monsterBlock.className = "monsterInfo monsterList toRemove";
             monsterBlock.value = index;
             monsterBlock.style.order = index;
             const monsterImgNameContainer = document.createElement('div');
@@ -137,13 +167,12 @@ class Team{
             monsterBlock.append(statDisplay);
             document.querySelector('#menu').append(monsterBlock);
             monsterBlock.addEventListener('click', (e) => {
-                if(!gameLogic.usingItem){
-                    if(gameLogic.inventoryWindow) {
+                if(!gameLogic.isUsingItem){
+                    if(gameLogic.isInventoryWindowOpen) {
                         document.getElementById("fullInventoryView").style.display = "none";
                     }
-                    this.teamMenu(gameLogic.player.team.roster[[e.currentTarget.value]]);
+                    this.teamMenu(gameLogic.player.team.roster[[e.currentTarget.value]], index);
                 } else {
-                    document.querySelector(".cancelBtn").remove();
                     gameLogic.player.inventory.use(item, itemIndex, e.currentTarget.value);
                 }
             })
@@ -152,7 +181,7 @@ class Team{
         const backBtn = document.createElement('div');
         const backBtnText = document.createElement('h3');
         backBtnText.textContent = "Back";
-        backBtn.classList.add("backBtn", "toRemove");
+        backBtn.classList.add("backBtn", "standardBtn", "toRemove");
         backBtn.style.order = 4;
         backBtn.addEventListener("click", () => {
             menu.close();
@@ -167,7 +196,7 @@ class Team{
     }
 
     //In depth menu
-    teamMenu(monster){
+    teamMenu(monster, index){
         const contextTeam = canvasSetup.cvsTeam.getContext("2d");
 
         gameLogic.isTeamSpriteVisible = true;
@@ -205,7 +234,9 @@ class Team{
         monster.frontImage = true;
         monster.backImage = false;
 
-        document.querySelector("#release").addEventListener('click', (e) => {
+        const releaseBtn = document.querySelector("#release")
+        releaseBtn.value = index;
+        releaseBtn.addEventListener('click', (e) => {
                 this.removeMonster(e);
             })
 

@@ -46,21 +46,25 @@ class Inventory {
 
     selection(btn){
         const itemIndex = btn.parentElement.parentElement.dataset.value;
-        gameLogic.usingItem = true;
-        const cancelBtn = document.createElement("button");
-        cancelBtn.className = "cancelBtn";
-        cancelBtn.textContent = "Cancel";
+        const cancelBtn = document.querySelector(".cancelBtn");
+        cancelBtn.style.display = "block";
+        gameLogic.isUsingItem = true;
         cancelBtn.addEventListener("click", () => {
             menu.close();
             menu.open();
             gameLogic.player.inventory.openInventory();
-            gameLogic.usingItem = false;
+            gameLogic.isUsingItem = false;
         })
-        switch(gameLogic.player.inventory.items[itemIndex].useCategory){
+        let item = gameLogic.player.inventory.items[itemIndex]
+        switch(item.useCategory){
             case 'restore':
-                dialog.displayDialog("Who would you like to use it on?");
-                dialog.dialogBox.append(cancelBtn);
-                gameLogic.player.team.viewTeam(gameLogic.player.inventory.items[itemIndex], itemIndex);
+                gameLogic.player.inventory.items[itemIndex]
+                document.getElementById("inventoryFooter").style.display = "flex";
+                document.getElementById("itemDescriptionText").textContent =
+                         "Who would you like to use the " + item.name + " on?";
+                document.getElementById("itemDescription").style.display = "block";
+                
+                gameLogic.player.team.viewTeam(item, itemIndex);
                 break;
         }
     }
@@ -102,7 +106,7 @@ class Inventory {
                                 menu.open();
                                 gameLogic.player.inventory.openInventory();
                                 inventoryMenu.display(item.useCategory);
-                                gameLogic.usingItem = false;
+                                gameLogic.isUsingItem = false;
                                 gameLogic.player.team.viewTeam();
                             })
                         }
