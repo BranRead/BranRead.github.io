@@ -7,6 +7,7 @@ Color Scheme so it doesn't get lost:
 #040403
 #416788
 #00A1E4
+20% darker for button hover effect
 Slowly switching it over to the above
 
 Also switching innerHTML for textContent. textContent just replaces text 
@@ -16,19 +17,10 @@ whereas innerHTML replaces all the html
 
 **Make better UI for item** In progress
 
-key items could have their own methods for use, since theyre so custom
-
-
-
+Finalizing stuff:
+Need to adjust foreground layer due to collisionBuffer
 Still need to hook up release button and swap monster order 
 I'll do that after some more work on other things
-
-Finalizing stuff:
-
-Settings
-Make building enterable **This might as well come later so I can make the map better at the same time. 
-
-Need to adjust foreground layer due to collisionBuffer
 -->
 
 <!DOCTYPE html>
@@ -43,8 +35,12 @@ Need to adjust foreground layer due to collisionBuffer
     
     <div id="overlappingDiv"></div>
     <div id="menu">
-        <button id="back-btn-menu">Back</button>
-        <div><h3 id="menu-title">Menu</h3></div>
+        <div id="menu-title"><h3>Menu</h3></div>
+        <div class="menu-item"><h3>Team</h3></div>
+        <div class="menu-item"><h3>Inventory</h3></div>
+        <div class="menu-item"><h3>Settings</h3></div>
+        <div class="menu-item"><h3>Save</h3></div>
+        <div class="menu-item"><h3>Quit</h3></div>
     </div>
     
     <canvas id="gameCamera"></canvas>
@@ -98,13 +94,7 @@ Need to adjust foreground layer due to collisionBuffer
         </div>
     </div>
 
-    <div id="menu-options">
-        <button class="menu-item">Team</button>
-        <button class="menu-item">Inventory</button>
-        <button class="menu-item">Settings</button>
-        <button class="menu-item">Save</button>
-        <button class="menu-item">Quit</button>
-    </div>
+    
 
     <div id="fullMonsterView">
         <div id="header">

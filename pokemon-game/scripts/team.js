@@ -52,9 +52,8 @@ class Team{
         }
     }
     
-    viewTeam(item, itemIndex){
-        console.log(itemIndex); 
-        if(gameLogic.player.teamWindow){
+    viewTeam(item, itemIndex){ 
+        if(gameLogic.teamWindow){
             const teamDisplay = document.querySelectorAll(".toRemove");
             if(teamDisplay != null){
                 teamDisplay.forEach(monster => {
@@ -66,9 +65,9 @@ class Team{
         document.querySelectorAll(".menu-item").forEach(item => {
             item.style.display = "none";
         })
-        gameLogic.backBtn.style.display = "block";
         
-        document.querySelector("#menu-title").textContent = "Team";
+        
+        document.querySelector("#menu-title").firstChild.textContent = "Team";
         
         gameLogic.player.teamWindow = true;
         
@@ -77,6 +76,8 @@ class Team{
             monsterBlock.className = "monsterInfo toRemove";
             monsterBlock.value = index;
             monsterBlock.style.order = index;
+            const monsterImgNameContainer = document.createElement('div');
+            monsterImgNameContainer.className = "imgNameContainer";
             const monsterImgContainer = document.createElement('div');
             monsterImgContainer.className = "imgContainer";
             const monsterImg = document.createElement('img');
@@ -113,14 +114,16 @@ class Team{
             hpBar.style.width = `${hp}%`;
             const monsterLevel = document.createElement('p');
             monsterLevel.className = "monsterLvlText"
-            monsterLevel.textContent = `Lvl: ${monster.stats.level}`;
+            monsterLevel.textContent = `Lvl: \n ${monster.stats.level}`;
             const monsterHP = document.createElement('p');
             monsterHP.className = "monsterHpText"
             monsterHP.textContent = `HP: ${monster.stats.hp}/${monster.stats.maxHP}`;
             monsterImgContainer.append(monsterImg);
-            monsterBlock.append(monsterImgContainer);
+           
             monsterNameDiv.append(monsterName);
-            monsterBlock.append(monsterNameDiv);
+            monsterImgNameContainer.append(monsterNameDiv);
+            monsterImgNameContainer.append(monsterImgContainer);
+            monsterBlock.append(monsterImgNameContainer);
             lvlDiv.append(monsterLevel);
             expBarDiv.append(expBarBackground);
             expBarDiv.append(expBar);
@@ -132,9 +135,12 @@ class Team{
             statDisplay.append(hpDiv);
             statDisplay.append(lvlDiv);
             monsterBlock.append(statDisplay);
-            document.querySelector('#menu-options').append(monsterBlock);
+            document.querySelector('#menu').append(monsterBlock);
             monsterBlock.addEventListener('click', (e) => {
                 if(!gameLogic.usingItem){
+                    if(gameLogic.inventoryWindow) {
+                        document.getElementById("fullInventoryView").style.display = "none";
+                    }
                     this.teamMenu(gameLogic.player.team.roster[[e.currentTarget.value]]);
                 } else {
                     document.querySelector(".cancelBtn").remove();
@@ -142,6 +148,21 @@ class Team{
                 }
             })
         })
+
+        const backBtn = document.createElement('div');
+        const backBtnText = document.createElement('h3');
+        backBtnText.textContent = "Back";
+        backBtn.classList.add("backBtn", "toRemove");
+        backBtn.style.order = 4;
+        backBtn.addEventListener("click", () => {
+            menu.close();
+            menu.open();
+        })
+        document.querySelector('#menu').append(backBtn);
+
+        backBtn.append(backBtnText)
+
+
         
     }
 

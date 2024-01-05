@@ -155,6 +155,11 @@ additionalGameFunctions = {
                         x: 0,
                         y: 0
                     }
+                    gameLogic.maps[1].peopleInWorld[0].gamePosition = {
+                        x: positions.PlayerHouseFromGhasblr.x + positions.HealerPosition.x,
+                        y: positions.PlayerHouseFromGhasblr.y + positions.HealerPosition.y,
+                    }
+
                     gameLogic.player.image = gameLogic.playerUpImage;
                     canvasSetup.clearScreen(gameLogic.maps[0].context);
                     gameLogic.maps[1].isActive = true;

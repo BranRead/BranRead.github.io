@@ -5,16 +5,12 @@ const menu = {
                 document.querySelectorAll(".menu-item").forEach(item => {
                     item.style.display = "block";
                 })
-                document.querySelector("#menu-title").innerHTML = "Menu";
-            }
-            if(gameLogic.backBtn.style.display == "block"){
-                gameLogic.backBtn.style.display = "none";
+                document.querySelector("#menu-title").firstChild.textContent = "Menu";
             }
             gameLogic.menuDisplayed = true;
             document.getElementById("overlappingDiv").style.display = "block";
             document.getElementById("overlappingDiv").style.opacity = ".8";
             document.getElementById("menu").style.display = "flex";
-            document.getElementById("menu-options").style.display = "flex";
         } 
     },
 
@@ -22,7 +18,8 @@ const menu = {
         document.getElementById("overlappingDiv").style.display = "none";
         document.getElementById("overlappingDiv").style.opacity = "0";
         document.getElementById("menu").style.display = "none";
-        document.getElementById("menu-options").style.display = "none";
+        document.getElementById("inventoryFooter").style.display = "none";
+        inventoryMenu.isDescriptionOpen = false;
         
         //Removes buttons so inventory doesn't populate multiple instances
         const toRemove = document.querySelectorAll('.toRemove');
@@ -35,15 +32,15 @@ const menu = {
         }
         gameLogic.player.team.roster[0].frontImage = false;
         gameLogic.player.team.roster[0].backImage = true;
-        document.querySelector('#fullMonsterView').style.display = "none";
-        document.querySelector("#fullInventoryView").style.display = "none";
+        document.getElementById('fullMonsterView').style.display = "none";
+        document.getElementById("fullInventoryView").style.display = "none";
         if(gameLogic.isInventoryWindowOpen){
             const toRemove = document.querySelectorAll('.inventoryItem');
             toRemove.forEach(item => {
                 item.remove();
             })
-            document.querySelector("#itemTitle").style.display = "none";
-            document.querySelector("#itemDescription").style.display = "none";
+            document.getElementById("itemTitle").style.display = "none";
+            document.getElementById("itemDescription").style.display = "none";
             dialog.dialogBox.style.display = "none";
         }
         

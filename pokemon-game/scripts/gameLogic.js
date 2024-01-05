@@ -89,6 +89,9 @@ const gameLogic = {
             // inventory.items.push(items.DefBoost);
             
             gameLogic.team.roster.push(new Monster(monsters.Emby));
+            gameLogic.team.roster.push(new Monster(monsters.Axy));
+            gameLogic.team.roster.push(new Monster(monsters.Bambo));
+            gameLogic.team.roster.push(new Monster(monsters.Spookli));
             gameLogic.team.roster[0].frontImage = false;
             gameLogic.team.roster[0].backImage = true;
             gameLogic.team.roster[0].gamePosition = {
@@ -257,7 +260,7 @@ const gameLogic = {
         // Maybe add elsewhere
         document.querySelectorAll(".menu-item").forEach(item => {
             item.addEventListener('click', () => {
-                let selection = item.innerHTML
+                let selection = item.firstChild.textContent
                 switch (selection) {
                     case "Team":
                         gameLogic.player.team.viewTeam();
@@ -280,10 +283,7 @@ const gameLogic = {
                 }
             })
         })
-        gameLogic.backBtn.addEventListener("click", () => {
-            menu.close();
-            menu.open();
-        })
+       
         gameLogic.inventoryOptions.forEach((option) =>{
             option.addEventListener("click", (e) => {
                 document.querySelectorAll(".inventoryItem").forEach((item) => {

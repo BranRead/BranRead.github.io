@@ -55,7 +55,7 @@ button, .userChoiceBtn, #backBtnAttack {
 }
 
 .inventoryItemContainer {
-    background-color: #729B79;
+    background-color: #FCF5E5;
     /* cursor: pointer; */
     display: flex;
     flex-direction: row;
@@ -70,18 +70,14 @@ button, .userChoiceBtn, #backBtnAttack {
     background-color: #5b7c61;
 } */
 
-button:hover, .userChoiceBtn:hover, #backBtnAttack:hover, .useBtn:hover, .trashBtn:hover {
-    background-color: #cac4b7;
+
+button:hover, #release:hover, .monsterInfo:hover, .menu-item:hover, .inventoryOption:hover, .userChoiceBtn:hover, #backBtnAttack:hover, .useBtn:hover, .trashBtn:hover, .yesBtn:hover, .noBtn:hover, .nextBtn:hover, .backBtn:hover {
+    background-color:  #0081b6;
 }
 
 #content {
     display: inline-block;
     position: relative;
-}
-
-#menu > div {
-    text-align: center;
-    border-bottom: 2px solid black;
 }
 
 #overlappingDiv {
@@ -97,16 +93,42 @@ button:hover, .userChoiceBtn:hover, #backBtnAttack:hover, .useBtn:hover, .trashB
 }
 
 #menu {
-    background-color: #F8F8F8;
+    background-color: #563e77; 
     position: absolute;
+    color: white;
     top: 0;
-    right: 700px;
-    bottom: 0;
+    right: 800px;
+    
     left: 0;
-    border: 2px solid black;
+    border: 2px solid white;
     display: none;
     flex-direction: column;
+    align-items: center;
     z-index: 3;
+}
+
+#menu-title {
+    background-color: #563e77;
+    text-align: center;
+    border-bottom: 2px solid white;
+    width: 100%;
+}
+
+.menu-item, .backBtn {
+    background-color: #00a1e4;
+    color: black;
+    text-align: center;
+    border: 1px solid white;
+    border-radius: 5px;
+    width: 80%;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+}
+
+.menu-item > h3, .backBtn > h3 {
+    margin-top: 0.6rem;
+    margin-bottom: 0.6rem;
 }
 
 #fullMonsterView, #fullInventoryView {
@@ -116,10 +138,11 @@ button:hover, .userChoiceBtn:hover, #backBtnAttack:hover, .useBtn:hover, .trashB
     top: 0;
     right: 0;
     bottom: 0;
-    left: 324px;
+    left: 236px;
     padding: 5px;
-    background-color: #416788;
-    border: 2px solid black;
+    background-color: #563E77;
+    color: white;
+    border: 2px solid white;
     font-size: 8px;
 }
 
@@ -130,17 +153,16 @@ button:hover, .userChoiceBtn:hover, #backBtnAttack:hover, .useBtn:hover, .trashB
     right: 3px;
     bottom: 3px;
     left: 3px;
-    border: 2px solid black;
+    border: 2px solid white;
     border-radius: 5px;
 }
 
 #header, #inventoryHeader {
-    background-color: #00A1E4;
     display: flex;
     flex-direction: row;
     align-items: center;
     padding: 1rem;
-    border-bottom: 4px solid black;
+    border-bottom: 2px solid white;
     margin-bottom: 1rem;
     font-size: 16px;
 }
@@ -151,6 +173,11 @@ button:hover, .userChoiceBtn:hover, #backBtnAttack:hover, .useBtn:hover, .trashB
 
 .inventoryOption {
     z-index: 3;
+    background-color: #00a1e4;
+    border: 1px white solid;
+    border-radius: 5px;
+    padding: 0.2rem;
+
 }
 
 #monsterName {
@@ -176,11 +203,12 @@ button:hover, .userChoiceBtn:hover, #backBtnAttack:hover, .useBtn:hover, .trashB
     height: 100px;
     margin-left: auto;
     margin-right: auto;
-    background-color: #FFE87C;
+    background-color: #FCF5E5;
 }
 
 #flavourText {
-    background-color: #FFE87C;
+    background-color: #5F773E;
+    color: white;
     position: relative;
     width: 50%;
     height: 75px;
@@ -231,31 +259,13 @@ button:hover, .userChoiceBtn:hover, #backBtnAttack:hover, .useBtn:hover, .trashB
 }
 
 #release {
-    background-color: #984447;
+    background-color: #00A1E4;
     color: white;
     font-size: 8px;
     cursor: pointer;
     margin-left: auto;
     margin-right: auto;
     z-index: 10;
-}
-
-#release:hover {
-    background-color: #ddd;
-}
-
-#menu-options{
-    flex-direction: column;
-    background-color: #F8F8F8;
-    position: absolute;
-    top: 100px;
-    right: 700px;
-    bottom: 0;
-    left: 0;
-    display: none;
-    z-index: 3;
-    border-left: 2px solid black;
-    border-right: 2px solid black;
 }
 
 #inventoryBody {
@@ -268,16 +278,16 @@ button:hover, .userChoiceBtn:hover, #backBtnAttack:hover, .useBtn:hover, .trashB
 #inventoryFooter {
     display: none;
     position: absolute;
-    right: 7px;
-    left: 331px;
-    bottom: 7px;
+    right: 30px;
+    left: 266px;
+    bottom: 17px;
     top: 416px;
     border-radius: 5px;
     background-color: #FCF5E5;
     color: #000;
     flex-direction: column;
     align-items: center;
-    border-top: 2px solid black;
+    border: 2px solid black;
     z-index: 4;
     font-size: 16px;
 } 
@@ -319,17 +329,17 @@ button:hover, .userChoiceBtn:hover, #backBtnAttack:hover, .useBtn:hover, .trashB
 }
 
 .infoBtn, .useBtn, .trashBtn {
-    background-color: #FCF5E5;
+    background-color: #00A1E4;
+    font-size: 12px;
     text-align: center;
     padding-top: 2rem;
     cursor: pointer;
-    font-size: 8px;
-    margin-left: .25rem;
-    margin-right: .25rem;
-    width: 45px !important;
-    height: 12px;
+    margin-left: .75rem;
+    margin-right: .75rem;
+    width: 60px !important;
+    height: 20px;
     padding: 1px;
-    border: 1px solid black;
+    border: 1px solid white;
     border-radius: 5px;
 }
 
@@ -425,6 +435,14 @@ button:hover, .userChoiceBtn:hover, #backBtnAttack:hover, .useBtn:hover, .trashB
     z-index: 2;
 }
 
+#dialogBox {
+    background-color: rgba(4, 4, 3, 0.7); 
+    /* background-color: rgba(86, 62, 119, 1);  */
+    color: #fcf5e5;
+    border: 3px #5F773E solid;
+    border-radius: 5px;
+}
+
 #dialogueOutput {
     background-color: white;
     position: absolute; 
@@ -480,16 +498,25 @@ button:hover, .userChoiceBtn:hover, #backBtnAttack:hover, .useBtn:hover, .trashB
 }
 
 .monsterInfo {
+    background-color: #00A1E4;
+    display: flex;
+    flex-direction: column;
+    margin-top: 0.26rem;
+    border: 2px solid black;
+    cursor: pointer;
+    width: 98%; 
+}
+
+.imgNameContainer {
     display: flex;
     flex-direction: row;
-    margin-bottom: 1rem;
-    border: 2px solid black;
-    cursor: pointer; 
+    justify-content: space-between;
+    width: 100%;
 }
 
 .imgContainer {
     display: flex;
-    margin-left: 0.65rem;
+    margin-right: 0.65rem;
 }
 
 .monsterImg {
@@ -500,23 +527,31 @@ button:hover, .userChoiceBtn:hover, #backBtnAttack:hover, .useBtn:hover, .trashB
 
 .monsterNameDiv {
     display: flex;
-    width: 50%
+    width: fit-content;
+    margin-left: 0.65rem;
 }
 
 .monsterName {
     width: 100%;
-    margin-left: 1rem;
+    padding: 0.1rem;
     align-self: center;
 }
 
 .statDisplay {
     display: flex;
-    flex-direction: column;
-    align-self: flex-end;
+    flex-direction: row;
     font-size: 8px;
     text-align: center;
-    width: 30%;
-    margin-right: 0.65rem;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.monsterLvlText {
+    white-space: pre-line;
+}
+
+.statDisplay > div {
+    width: 40%
 }
 
 .teamOptions > button {
@@ -533,29 +568,36 @@ button:hover, .userChoiceBtn:hover, #backBtnAttack:hover, .useBtn:hover, .trashB
 
 /*Dialogue Stuff*/
 .yesBtn {
+    background-color: #00a1e4;
     position: absolute;
     right: 200px;
     bottom: 10px;
     width: 100px;
     height: 50px;
-    border: 1px solid black;
+    border: 2px solid #5F773E;
+    border-radius: 5px;
 }
 
 .noBtn {
+    background-color: #00a1e4;
     position: absolute;
     right: 80px;
     bottom: 10px;
     width: 100px;
     height: 50px;
-    border: 1px solid black;
+    border: 2px solid #5F773E;
+    border-radius: 5px;
 }
 
+
+
 .nextBtn {
+    background-color: #00a1e4;
     position: absolute;
     right: 10px;
     bottom: 10px;
     width: 50px;
-    border: 1px solid black;
+    border: 2px solid #5F773E;
     border-radius: 40px;
     height: 50px;
 }

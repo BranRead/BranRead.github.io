@@ -3,8 +3,10 @@ const inventoryMenu = {
     isDescriptionOpen: false,
 
     display: (type) => {
+        gameLogic.inventoryWindow = true;
         gameLogic.player.inventory.items.forEach((item, index) => {
             if(item.useCategory == type){
+                gameLogic.inventoryWindow = true;
                 const inventoryItem = document.createElement('div');
                 inventoryItem.className = "inventoryItem"
 
@@ -41,16 +43,16 @@ const inventoryMenu = {
                 infoBtn.textContent = "Info";
                 infoBtn.className = "infoBtn";
                 infoBtn.addEventListener("click", () => {
-                    gameLogic.player.inventoryWindow = true;
                     if(!inventoryMenu.isDescriptionOpen){
-                        inventoryMenu.isDescriptionOpen = true;
                         document.getElementById("inventoryFooter").style.display = "flex";
-                        document.querySelector("#itemTitleText").textContent = item.name;
-                        document.querySelector("#itemDescriptionText").textContent = item.description;
+                        document.getElementById("itemTitleText").textContent = item.name;
+                        document.getElementById("itemTitle").style.display = "block";
+                        document.getElementById("itemDescriptionText").textContent = item.description;
+                        document.getElementById("itemDescription").style.display = "block";
                     } else {
-                        inventoryMenu.isDescriptionOpen = false;
                         document.getElementById("inventoryFooter").style.display = "none";
                     }
+                    inventoryMenu.isDescriptionOpen = !inventoryMenu.isDescriptionOpen;
                 })
                 
                 const useBtn = document.createElement('button');
