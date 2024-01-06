@@ -2,7 +2,9 @@ const gameLogic = {
     itemUsed: "false",
     playerSpeed: 3,
     moving: true,
-    statsSave: [],
+    teamStatsSave: [],
+    inventoryStatsSave: [],
+    mapStatsSave: [],
     clicked: false,
     canvasMove: {
         x: 0,
@@ -40,6 +42,7 @@ const gameLogic = {
     usingItem: false,
     menuDisplayed: false,
     isInventoryWindowOpen: false,
+    intervalAnimate: "",
 
     // I think this is for the menu animated sprite
     isTeamSpriteVisible: false, 
@@ -56,6 +59,15 @@ const gameLogic = {
 
 
     init: () => {
+        setInterval(() => {
+                    if(dialog.nextBtn.textContent == "▼"){
+                        dialog.nextBtn.textContent = "▽";
+                    } else {
+                        dialog.nextBtn.textContent = "▼";
+                    }
+                }, 300)
+
+    
         gameLogic.maps.push(new GameMap(gameMapsData.Ghasblr));
         gameLogic.maps.push(new GameMap(gameMapsData.PlayerHouse));
         gameLogic.maps.push(new GameMap(gameMapsData.PlayerRoom));
@@ -82,44 +94,52 @@ const gameLogic = {
         gameLogic.team = new Team([], 4);
         gameLogic.inventory =  new Inventory([], 10);
 
-         //Save Game management, load unless save doesn't exist
-        // if(localStorage.getItem("monsterGame") === null){
-            // inventory.items.push(items.HealthPotion);
-            // inventory.items.push(items.AtkBoost);
-            // inventory.items.push(items.DefBoost);
-            
+        
+        //  Save Game management, load unless save doesn't exist
+        if(localStorage.getItem("monsterGame") === null){
             gameLogic.team.roster.push(new Monster(monsters.Emby));
-            gameLogic.team.roster.push(new Monster(monsters.Axy));
-            gameLogic.team.roster.push(new Monster(monsters.Bambo));
-            gameLogic.team.roster.push(new Monster(monsters.Spookli));
             gameLogic.team.roster[0].frontImage = false;
             gameLogic.team.roster[0].backImage = true;
             gameLogic.team.roster[0].gamePosition = {
-                        x: 280,
-                        y: 325
-                    };
-        // } else {
-        //     let save = JSON.parse(localStorage.getItem("monsterGame"));
-        //     console.log("Loaded");
-        //     inventory.items = save.inventory.items;
-        //     canvasMove.x = save.canvasPosition.x;
-        //     canvasMove.y = save.canvasPosition.y;
-        //     c.translate(canvasMove.x, canvasMove.y);
-        //     playerPosition = save.playerPosition
+                x: 280,
+                y: 325
+            };
+        } else {
+            let save = JSON.parse(localStorage.getItem("monsterGame"));
+            console.log("Loaded");
+            
+            gameLogic.canvasMove.x = save.canvasPosition.x;
+            gameLogic.canvasMove.y = save.canvasPosition.y;
+            let indexOfMap = 0;
+            gameLogic.maps.forEach((map, index) => {
+                if(map.name == save.activeMap){
+                    map.isActive = true;
+                    indexOfMap = index;
+                    gameLogic.gameMap = map;
+                } else {
+                    map.isActive = false;
+                }
+            })
+            gameLogic.gameMap.context.translate(-gameLogic.canvasMove.x, -gameLogic.canvasMove.y);
+            positions.playerPosition.x += gameLogic.canvasMove.x;
+            positions.playerPosition.y += gameLogic.canvasMove.y;
+            gameLogic.maps[indexOfMap].playerPosition = positions.playerPosition;
+            // inventory.items = save.inventory.items;
+            // playerPosition = save.playerPosition
                 
-        //     save.team.stats.forEach((monster, index) => {
-        //         let name = monster.name.replace(/\s/g, '');
-        //         team.roster.push(new Monster(monsters[name]));
-        //         team.roster[index].stats = monster.stats;
-        //         team.roster[index].attacks = monster.attacks;
-        //         team.roster[index].isEnemy = monster.isEnemy;
-        //         team.roster[index].image = team.roster[index].sprites.backImage;
-        //         team.roster[index].position = {
-        //             x: 280,
-        //             y: 325
-        //         };
-        //     })
-        // }
+            // save.team.stats.forEach((monster, index) => {
+            //     let name = monster.name.replace(/\s/g, '');
+            //     team.roster.push(new Monster(monsters[name]));
+            //     team.roster[index].stats = monster.stats;
+            //     team.roster[index].attacks = monster.attacks;
+            //     team.roster[index].isEnemy = monster.isEnemy;
+            //     team.roster[index].image = team.roster[index].sprites.backImage;
+            //     team.roster[index].position = {
+            //         x: 280,
+            //         y: 325
+            //     };
+            // })
+        }
 
         gameLogic.playerUpImage.src = '/pokemon-game/img/people/playerUp.png';
         gameLogic.playerRightImage.src = '/pokemon-game/img/people/playerRight.png';
@@ -272,7 +292,7 @@ const gameLogic = {
                         settings.open();
                         break;
                     case "Save":
-                        gameLogic.save();
+                        save.save();
                         break;
                     case "Quit":
                         gameLogic.quit();
@@ -566,32 +586,6 @@ const gameLogic = {
             }
         } // End of moving if/else statement
     }, //end of animate function
-    
-    
-    /*Save this for after everything else is done*/
-    // save: () => {
-    //     game.player.team.roster.forEach(monster => {
-    //         let statsObject = {
-    //             name: monster.name,
-    //             isEnemy: monster.isEnemy,
-    //             stats: monster.stats,
-    //             attacks: monster.attacks
-    //         }
-
-    //         game.statsSave.push(statsObject);
-    //     })
-    //     const saveState = {
-    //         canvasPosition: game.canvasMove,
-    //         playerPosition: game.player.gamePosition,
-    //         team: {
-    //             stats: game.statsSave,
-    //             size: game.player.team.maxSize
-    //         },
-    //         inventory: game.player.inventory
-    //     }
-    //     localStorage.setItem("monsterGame", JSON.stringify(saveState));
-    //     console.log("Saved");
-    // },
 
     quit: () => {
         //Dialog

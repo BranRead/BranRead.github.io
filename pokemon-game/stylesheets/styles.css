@@ -583,7 +583,6 @@ button:hover, .standardBtn:hover, .monsterInfo:hover, .inventoryOption:hover, .c
 }
 
 .nextBtn {
-    display: none;
     border-radius: 40px;
     position: absolute;
     right: 10px;

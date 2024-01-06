@@ -8,7 +8,6 @@ const dialog = {
     dialogBox: document.querySelector("#dialogBox"),
 
     displayDialog: (message) => {
-        additionalGameFunctions.textInterval();
         battleSetup.combatBox.style.display = "none";
         dialog.dialogBox.style.display = "block";
         dialog.dialog.innerHTML = message
@@ -18,7 +17,7 @@ const dialog = {
         //Clears dialog box
         const buttonToRemove = document.querySelectorAll('.dialogBtn');
         buttonToRemove.forEach(button => {
-        button.remove();
+            button.remove();
         })
     },
 
@@ -31,7 +30,6 @@ const dialog = {
             battleSetup.queue.shift()
         } else {
             dialog.dialogBox.style.display = 'none';
-            additionalGameFunctions.textInterval();
         }
     },
     

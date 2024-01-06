@@ -9,7 +9,7 @@ class Team{
     removeMonster(e){
         if(gameLogic.player.team.roster.length > 1){
             dialog.displayDialog("Are you sure you'd like to release " + gameLogic.player.team.roster[e.target.value].name + "?");
-            document.querySelector(".nextBtn").style.display = "none";
+            dialog.nextBtn.style.display = "none";
             const yesBtn = document.createElement("button");
             yesBtn.classList.add("yesBtn", "standardBtn", "dialogBtn");
             yesBtn.textContent = "Yes";
@@ -17,7 +17,7 @@ class Team{
                 console.log("Releasing " + gameLogic.player.team.roster[e.target.value])
                 dialog.clearDialog();
                 dialog.displayDialog(gameLogic.player.team.roster[e.target.value].name + " looked a little sad and left...");
-                document.querySelector(".nextBtn").style.display = "block";
+                dialog.nextBtn.style.display = "block";
                 gameLogic.player.team.roster.splice(e.target.value, 1);
                 let listHTML = document.querySelectorAll(".monsterList");
                 for(let i = 0; i < gameLogic.player.team.roster.length; i++){
@@ -39,7 +39,7 @@ class Team{
             noBtn.addEventListener("click", () => {
                 dialog.clearDialog();
                 dialog.displayDialog("You chose to keep " + gameLogic.player.team.roster[e.target.value].name + " around!");
-                document.querySelector(".nextBtn").style.display = "block";
+                dialog.nextBtn.style.display = "block";
             })
             
             dialogBox.append(yesBtn);

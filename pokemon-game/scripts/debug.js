@@ -1,6 +1,16 @@
 const debug = {
     noClip: false,
 
+    deleteSave: () => {
+        localStorage.removeItem("monsterGame")
+    },
+
+    fullTeam: () => {
+        gameLogic.team.roster.push(new Monster(monsters.Axy));
+        gameLogic.team.roster.push(new Monster(monsters.Bambo));
+        gameLogic.team.roster.push(new Monster(monsters.Spookli));
+    },
+
     killEnemy: () => {
         battleSetup.enemyMonster.stats.hp = 10;
     },

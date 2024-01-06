@@ -225,7 +225,7 @@ const battleFunctions = {
                     })
                     battleSetup.queue = [];
                     battleSetup.endQueue = [];
-                    gameLogic.gameMap.context.translate(gameLogic.canvasMove.x, gameLogic.canvasMove.y);
+                    gameLogic.gameMap.context.translate(-gameLogic.canvasMove.x, -gameLogic.canvasMove.y);
                     dialog.dialogBox.style.display = "none";
                     gameLogic.gameMap.battleBackgroundSprite.opacity = 0;
                     audio.battle.stop();   

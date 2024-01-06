@@ -1,21 +1,4 @@
 additionalGameFunctions = {
-    intervalAnimate: "",
-
-    textInterval: () => {
-        
-        if(dialog.dialogBox.style.display != 'none') {
-            additionalGameFunctions.intervalAnimate = setInterval(() => {
-                if(dialog.nextBtn.textContent == "▼"){
-                    dialog.nextBtn.textContent = "▽";
-                } else {
-                    dialog.nextBtn.textContent = "▼";
-                }
-            }, 300)
-        } else {
-            clearInterval(additionalGameFunctions.intervalAnimate);
-        }
-    },
-
     /**
      * Function which adds items to world maps
      * Change logic here when adding new worlds or hidden items.
