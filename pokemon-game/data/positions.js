@@ -1,4 +1,9 @@
 const positions = {
+    GameStart: {
+        x: -224,
+        y: -190 
+    },
+
     GhasblrFromPlayerHouse: {
         x: -1952,
         y: -710

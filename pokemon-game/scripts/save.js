@@ -4,7 +4,6 @@ const save = {
         gameLogic.player.team.roster.forEach(monster => {
             let teamStatsObject = {
                 name: monster.name,
-                isEnemy: monster.isEnemy,
                 stats: monster.stats,
                 attacks: monster.attacks
             }
@@ -28,15 +27,15 @@ const save = {
         })
 
         const saveState = {
-            canvasPosition: gameLogic.canvasMove,
-            // playerPosition: game.player.gamePosition,
+            canvasPosition: gameLogic.canvasMove, // Done
             team: {
-                stats: gameLogic.teamStatsSave,
+                stats: gameLogic.teamStatsSave, // Done
+                // Not needed right now but I had the idea of upgrades to enlarge team size.
                 size: gameLogic.player.team.maxSize
             },
-            inventory: gameLogic.inventoryStatsSave,
-            gameMaps: gameLogic.mapStatsSave,
-            activeMap: gameLogic.gameMap.name
+            inventory: gameLogic.inventoryStatsSave, // Done
+            gameMaps: gameLogic.mapStatsSave, // Done
+            activeMap: gameLogic.gameMap.name // Done
         }
         localStorage.setItem("monsterGame", JSON.stringify(saveState));
         console.log("Saved");

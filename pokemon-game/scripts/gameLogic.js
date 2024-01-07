@@ -6,6 +6,7 @@ const gameLogic = {
     inventoryStatsSave: [],
     mapStatsSave: [],
     clicked: false,
+
     canvasMove: {
         x: 0,
         y: 0
@@ -57,7 +58,6 @@ const gameLogic = {
     inventoryOptions: document.querySelectorAll(".inventoryOption"),
     isBattleInitiated: false,
 
-
     init: () => {
         setInterval(() => {
                     if(dialog.nextBtn.textContent == "▼"){
@@ -70,7 +70,15 @@ const gameLogic = {
     
         gameLogic.maps.push(new GameMap(gameMapsData.Ghasblr));
         gameLogic.maps.push(new GameMap(gameMapsData.PlayerHouse));
-        gameLogic.maps.push(new GameMap(gameMapsData.PlayerRoom));
+        if(localStorage.getItem("monsterGame") === null){
+            gameMapsData.PlayerRoom.offset = positions.GameStart;
+            playerRoomBackgroundSprite.gamePosition = positions.GameStart;
+            playerRoomForegroundSprite.gamePosition = positions.GameStart;
+            gameLogic.maps.push(new GameMap(gameMapsData.PlayerRoom));
+        } else {
+            gameLogic.maps.push(new GameMap(gameMapsData.PlayerRoom));
+        }
+        
 
        
         gameLogic.maps.forEach(map => {
@@ -97,6 +105,7 @@ const gameLogic = {
         
         //  Save Game management, load unless save doesn't exist
         if(localStorage.getItem("monsterGame") === null){
+            console.log("No saved game found, starting new game.");
             gameLogic.team.roster.push(new Monster(monsters.Emby));
             gameLogic.team.roster[0].frontImage = false;
             gameLogic.team.roster[0].backImage = true;
@@ -104,6 +113,9 @@ const gameLogic = {
                 x: 280,
                 y: 325
             };
+            gameLogic.maps[2].offset = positions.GameStart;
+            gameLogic.maps[2].backgroundSprite.gamePosition = positions.GameStart;
+            gameLogic.maps[2].foregroundSprite.gamePosition = positions.GameStart;
         } else {
             let save = JSON.parse(localStorage.getItem("monsterGame"));
             console.log("Loaded");
@@ -124,21 +136,25 @@ const gameLogic = {
             positions.playerPosition.x += gameLogic.canvasMove.x;
             positions.playerPosition.y += gameLogic.canvasMove.y;
             gameLogic.maps[indexOfMap].playerPosition = positions.playerPosition;
-            // inventory.items = save.inventory.items;
-            // playerPosition = save.playerPosition
-                
-            // save.team.stats.forEach((monster, index) => {
-            //     let name = monster.name.replace(/\s/g, '');
-            //     team.roster.push(new Monster(monsters[name]));
-            //     team.roster[index].stats = monster.stats;
-            //     team.roster[index].attacks = monster.attacks;
-            //     team.roster[index].isEnemy = monster.isEnemy;
-            //     team.roster[index].image = team.roster[index].sprites.backImage;
-            //     team.roster[index].position = {
-            //         x: 280,
-            //         y: 325
-            //     };
-            // })
+            
+            save.team.stats.forEach((monster, index) => {
+                let name = monster.name.replace(/\s/g, '');
+                gameLogic.team.roster.push(new Monster(monsters[name]));
+                gameLogic.team.roster[index].stats = monster.stats;
+                gameLogic.team.roster[index].attacks = monster.attacks;
+                gameLogic.team.roster[index].isEnemy = false;
+                gameLogic.team.roster[index].position = {
+                    x: 280,
+                    y: 325
+                };
+            })
+
+            save.inventory.forEach(item => {
+                let name = item.name.replace(/\s/g, '');
+                let savedItem = new Item(itemsGhasblr[name])
+                savedItem.quantity = item.quantity
+                gameLogic.inventory.items.push(savedItem);
+            }) 
         }
 
         gameLogic.playerUpImage.src = '/pokemon-game/img/people/playerUp.png';

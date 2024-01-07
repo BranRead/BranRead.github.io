@@ -107,7 +107,7 @@ const gameMapsData = {
     },
     PlayerHouse: {
         name: "PlayerHouse",
-        isActive: true,
+        isActive: false,
         widthInTiles: 20,
         canvas: canvasSetup.canvas,
         collisionsData: collisionsData.PlayerHouse,
@@ -125,7 +125,7 @@ const gameMapsData = {
 
     PlayerRoom: {
         name: "PlayerRoom",
-        isActive: false,
+        isActive: true,
         widthInTiles: 20,
         canvas: canvasSetup.canvas,
         collisionsData: collisionsData.PlayerRoom,

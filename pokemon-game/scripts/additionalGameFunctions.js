@@ -209,7 +209,7 @@ additionalGameFunctions = {
                         })
                     });
                     let doorIndex = 0;
-                    gameLogic.maps[1].doorsMap.forEach((row, i) => {
+                    gameLogic.maps[2].doorsMap.forEach((row, i) => {
                         row.forEach((symbol, j) => {
                             if(symbol != 0){
                                 gameLogic.maps[1].doors[doorIndex].gamePosition = {
