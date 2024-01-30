@@ -9,7 +9,7 @@ class Inventory {
 
     openInventory(){
         const image = new Image();
-        image.src = "/pokemon-game/img/inventory/itemSpritesheet.png";
+        image.src = "./img/inventory/itemSpritesheet.png";
 
         const cvsRestore = document.getElementById("restore");
         const ctxRestore = cvsRestore.getContext("2d");

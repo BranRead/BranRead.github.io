@@ -1,5 +1,5 @@
 const itemSpritesheet = new Image();
-itemSpritesheet.src = "/pokemon-game/img/inventory/itemSpritesheet.png";
+itemSpritesheet.src = "./img/inventory/itemSpritesheet.png";
 
 const itemsGhasblr = {
     HealthPotion: {

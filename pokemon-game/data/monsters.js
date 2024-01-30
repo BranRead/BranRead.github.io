@@ -1,41 +1,41 @@
 const axyImage = new Image();
-axyImage.src = '/pokemon-game/img/monsterSpriteSheets/axy.png';
+axyImage.src = './img/monsterSpriteSheets/axy.png';
 
 const axyBlueImage = new Image();
-axyBlueImage.src = '/pokemon-game/img/monsterSpriteSheets/axyBlue.png';
+axyBlueImage.src = './img/monsterSpriteSheets/axyBlue.png';
 
 const bambooImage = new Image();
-bambooImage.src = '/pokemon-game/img/monsterSpriteSheets/bamboo.png';
+bambooImage.src = './img/monsterSpriteSheets/bamboo.png';
 
 const bambooYellowImage = new Image();
-bambooYellowImage.src = '/pokemon-game/img/monsterSpriteSheets/bambooYellow.png';
+bambooYellowImage.src = './img/monsterSpriteSheets/bambooYellow.png';
 
 const butterflyImage = new Image();
-butterflyImage.src = '/pokemon-game/img/monsterSpriteSheets/butterfly.png';
+butterflyImage.src = './img/monsterSpriteSheets/butterfly.png';
 
 const butterflyBlueImage = new Image();
-butterflyBlueImage.src = '/pokemon-game/img/monsterSpriteSheets/butterflyBlue.png';
+butterflyBlueImage.src = './img/monsterSpriteSheets/butterflyBlue.png';
 
 const cyclopeImage = new Image();
-cyclopeImage.src = '/pokemon-game/img/monsterSpriteSheets/cyclope.png';
+cyclopeImage.src = './img/monsterSpriteSheets/cyclope.png';
 
 const draggleImage = new Image();
-draggleImage.src = '/pokemon-game/img/monsterSpriteSheets/draggle.png';
+draggleImage.src = './img/monsterSpriteSheets/draggle.png';
 
 const embyImage = new Image();
-embyImage.src = '/pokemon-game/img/monsterSpriteSheets/emby.png';
+embyImage.src = './img/monsterSpriteSheets/emby.png';
 
 const skullImage = new Image();
-skullImage.src = '/pokemon-game/img/monsterSpriteSheets/skull.png';
+skullImage.src = './img/monsterSpriteSheets/skull.png';
 
 const skullBlueImage = new Image();
-skullBlueImage.src = '/pokemon-game/img/monsterSpriteSheets/skullBlue.png';
+skullBlueImage.src = './img/monsterSpriteSheets/skullBlue.png';
 
 const spiritImage = new Image();
-spiritImage.src = '/pokemon-game/img/monsterSpriteSheets/spirit.png';
+spiritImage.src = './img/monsterSpriteSheets/spirit.png';
 
 const spiritRedImage = new Image();
-spiritRedImage.src = '/pokemon-game/img/monsterSpriteSheets/spiritRed.png';
+spiritRedImage.src = './img/monsterSpriteSheets/spiritRed.png';
 
 const monsters = {
     Axy: {
@@ -45,7 +45,7 @@ const monsters = {
             y: 100
         },
         image: axyImage,
-        icon: "/pokemon-game/img/icons/axyIcon.png",
+        icon: "./img/icons/axyIcon.png",
         frames: {
             max: 4,
             hold: 30
@@ -86,7 +86,7 @@ const monsters = {
             y: 100
         },
         image: bambooImage,
-        icon: "/pokemon-game/img/icons/bambooIcon.png",
+        icon: "./img/icons/bambooIcon.png",
         frames: {
             max: 4,
             hold: 30
@@ -127,7 +127,7 @@ const monsters = {
             y: 100
         },
         image: butterflyImage,
-        icon: "/pokemon-game/img/icons/butterflyIcon.png",
+        icon: "./img/icons/butterflyIcon.png",
         frames: {
             max: 4,
             hold: 30
@@ -168,7 +168,7 @@ const monsters = {
             y: 100
         },
         image: skullImage,
-        icon: "/pokemon-game/img/icons/skullIcon.png",
+        icon: "./img/icons/skullIcon.png",
         frames: {
             max: 4,
             hold: 30
@@ -209,7 +209,7 @@ const monsters = {
             y: 100
         },
         image: draggleImage,
-        icon: "/pokemon-game/img/icons/draggleIcon.png",
+        icon: "./img/icons/draggleIcon.png",
         frames: {
             max: 4,
             hold: 30
@@ -250,7 +250,7 @@ const monsters = {
             y: 325
         },
         image: embyImage,
-        icon: "/pokemon-game/img/icons/embyIcon.png",
+        icon: "./img/icons/embyIcon.png",
         frames: {
             max: 4,
             hold: 30
@@ -291,7 +291,7 @@ const monsters = {
             y: 100
         },
         image: spiritImage,
-        icon: "/pokemon-game/img/icons/spiritIcon.png",
+        icon: "./img/icons/spiritIcon.png",
         frames: {
             max: 4,
             hold: 30
@@ -332,7 +332,7 @@ const monsters = {
             y: 100
         },
         image: cyclopeImage,
-        icon: "/pokemon-game/img/icons/cyclopeIcon.png",
+        icon: "./img/icons/cyclopeIcon.png",
         frames: {
             max: 4,
             hold: 30

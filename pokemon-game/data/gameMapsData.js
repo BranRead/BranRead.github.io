@@ -1,5 +1,5 @@
 const ghasblrBackground = new Image();
-ghasblrBackground.src = '/pokemon-game/img/gameWorld/ghasblrBackground.png';
+ghasblrBackground.src = './img/gameWorld/ghasblrBackground.png';
 const ghasblrBackgroundSprite = new Sprite({ 
     gamePosition: positions.GhasblrFromPlayerHouse,
     dimensions: {
@@ -10,7 +10,7 @@ const ghasblrBackgroundSprite = new Sprite({
 });
 
 const ghasblrForeground = new Image();
-ghasblrForeground.src = '/pokemon-game/img/gameWorld/ghasblrForeground.png';
+ghasblrForeground.src = './img/gameWorld/ghasblrForeground.png';
 const ghasblrForegroundSprite = new Sprite({ 
     gamePosition: positions.GhasblrFromPlayerHouse,
     dimensions: {
@@ -21,7 +21,7 @@ const ghasblrForegroundSprite = new Sprite({
 });
 
 const ghasblrBattleBackground = new Image();
-ghasblrBattleBackground.src = '/pokemon-game/img/gameWorld/ghasblrBattleBackground.png';
+ghasblrBattleBackground.src = './img/gameWorld/ghasblrBattleBackground.png';
 const ghasblrBattleBackgroundSprite = new Sprite({
     gamePosition: {
         x: 0,
@@ -38,7 +38,7 @@ const ghasblrBattleBackgroundSprite = new Sprite({
 
 // Player House
 const playerHouseBackground = new Image();
-playerHouseBackground.src = '/pokemon-game/img/gameWorld/playerHouseBackground.png';
+playerHouseBackground.src = '../img/gameWorld/playerHouseBackground.png';
 
 const playerHouseBackgroundSprite = new Sprite({
    gamePosition: positions.PlayerHouseFromGhasblr,
@@ -49,7 +49,7 @@ const playerHouseBackgroundSprite = new Sprite({
    image: playerHouseBackground
 })
 const playerHouseForeground = new Image();
-playerHouseForeground.src = '/pokemon-game/img/gameWorld/playerHouseForeground.png';
+playerHouseForeground.src = '../img/gameWorld/playerHouseForeground.png';
 
 const playerHouseForegroundSprite = new Sprite({
     gamePosition: positions.PlayerHouseFromGhasblr,
@@ -62,7 +62,7 @@ const playerHouseForegroundSprite = new Sprite({
 
 // Player room
 const playerRoomBackground = new Image();
-playerRoomBackground.src = '/pokemon-game/img/gameWorld/playerRoomBackground.png';
+playerRoomBackground.src = '../img/gameWorld/playerRoomBackground.png';
 
 const playerRoomBackgroundSprite = new Sprite({
     gamePosition: positions.PlayerRoomFromPlayerHouse,
@@ -74,7 +74,7 @@ const playerRoomBackgroundSprite = new Sprite({
  })
 
 const playerRoomForeground = new Image();
-playerRoomForeground.src = '/pokemon-game/img/gameWorld/playerRoomForeground.png';
+playerRoomForeground.src = '../img/gameWorld/playerRoomForeground.png';
 
 const playerRoomForegroundSprite = new Sprite({
     gamePosition: positions.PlayerRoomFromPlayerHouse,

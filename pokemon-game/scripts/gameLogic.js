@@ -157,10 +157,10 @@ const gameLogic = {
             }) 
         }
 
-        gameLogic.playerUpImage.src = '/pokemon-game/img/people/playerUp.png';
-        gameLogic.playerRightImage.src = '/pokemon-game/img/people/playerRight.png';
-        gameLogic.playerDownImage.src = '/pokemon-game/img/people/playerDown.png';
-        gameLogic.playerLeftImage.src = '/pokemon-game/img/people/playerLeft.png';
+        gameLogic.playerUpImage.src = './img/people/playerUp.png';
+        gameLogic.playerRightImage.src = './img/people/playerRight.png';
+        gameLogic.playerDownImage.src = './img/people/playerDown.png';
+        gameLogic.playerLeftImage.src = './img/people/playerLeft.png';
 
         gameLogic.player = new Person({
             name: "Brandon",

@@ -20,7 +20,7 @@ const battleFunctions = {
                 //Plays initial fireball sound and creates it
                 audio.initFireball.play();
                 const fireballImage = new Image();
-                fireballImage.src="/pokemon-game/img/attacks/fireball.png";
+                fireballImage.src="./img/attacks/fireball.png";
                 const fireball = new Sprite({
                     spritePosition: {
                         x: 0,
