@@ -5,10 +5,10 @@ const peopleDataImages = {
     playerRightImage: new Image(),
 }
 
-peopleDataImages.playerUpImage.src = './img/people/playerUp.png';
-peopleDataImages.playerRightImage.src = './img/people/playerRight.png';
-peopleDataImages.playerDownImage.src = './img/people/playerDown.png';
-peopleDataImages.playerLeftImage.src = './img/people/playerLeft.png';
+peopleDataImages.playerUpImage.src = 'img/people/playerUp.png';
+peopleDataImages.playerRightImage.src = 'img/people/playerRight.png';
+peopleDataImages.playerDownImage.src = 'img/people/playerDown.png';
+peopleDataImages.playerLeftImage.src = 'img/people/playerLeft.png';
 
 const peopleData = {
     Healer: {
