@@ -38,7 +38,7 @@ const ghasblrBattleBackgroundSprite = new Sprite({
 
 // Player House
 const playerHouseBackground = new Image();
-playerHouseBackground.src = '../img/gameWorld/playerHouseBackground.png';
+playerHouseBackground.src = './img/gameWorld/playerHouseBackground.png';
 
 const playerHouseBackgroundSprite = new Sprite({
    gamePosition: positions.PlayerHouseFromGhasblr,
@@ -49,7 +49,7 @@ const playerHouseBackgroundSprite = new Sprite({
    image: playerHouseBackground
 })
 const playerHouseForeground = new Image();
-playerHouseForeground.src = '../img/gameWorld/playerHouseForeground.png';
+playerHouseForeground.src = './img/gameWorld/playerHouseForeground.png';
 
 const playerHouseForegroundSprite = new Sprite({
     gamePosition: positions.PlayerHouseFromGhasblr,
@@ -62,7 +62,7 @@ const playerHouseForegroundSprite = new Sprite({
 
 // Player room
 const playerRoomBackground = new Image();
-playerRoomBackground.src = '../img/gameWorld/playerRoomBackground.png';
+playerRoomBackground.src = './img/gameWorld/playerRoomBackground.png';
 
 const playerRoomBackgroundSprite = new Sprite({
     gamePosition: positions.PlayerRoomFromPlayerHouse,
@@ -74,7 +74,7 @@ const playerRoomBackgroundSprite = new Sprite({
  })
 
 const playerRoomForeground = new Image();
-playerRoomForeground.src = '../img/gameWorld/playerRoomForeground.png';
+playerRoomForeground.src = './img/gameWorld/playerRoomForeground.png';
 
 const playerRoomForegroundSprite = new Sprite({
     gamePosition: positions.PlayerRoomFromPlayerHouse,
