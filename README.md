@@ -1,4 +1,6 @@
 # Portfolio
+> [!important]
+> Currently the paths don't work for the rpg game. It DOES seem to work if you click on it to play and then go back and click on it again. I will be fixing the paths very soon.
 ## General
 ### This was started as an assignment at NSCC but I will be maintaining it long after. It's very much a work in progress (Always will be by definition of a portfolio but is especially so, right now)
 ### Included in the files under pokemon-game is a game made with HTML, CSS and JS. It can be played directly in your browser, as long as your screen size is above what the canvas size is set to, it should work fine and be layed out how it's intended to be.
