@@ -139,7 +139,7 @@
 }
 
 #info {
-    height: 250px;
+    height: 100px !important;
     font-family: 'Chakra Petch', sans-serif;
 }
 
@@ -211,6 +211,11 @@ a.inside-card:hover, a.inside-card:active {
     padding: 5px;
 }
 
+#crowScreen {
+    width: 400px;
+    height: 50px;
+}
+
 /*////////////////////////////////////////////////////*/
 /*Responsive*/
 /*////////////////////////////////////////////////////*/
@@ -272,11 +277,23 @@ a.inside-card:hover, a.inside-card:active {
         margin-bottom: 2rem;
     }
 
+    #triangleCursor {
+        margin-bottom: 0;
+    }
+
+    .inside {
+        height: 720px;
+    }
+
     #info {
-        height: 43vh;
+        height: 200px !important;
         padding-left: 0;
         padding-right: 0;
         font-size: 1rem;
+    }
+
+    #crowScreen {
+        width: 280px;
     }
 
 }
