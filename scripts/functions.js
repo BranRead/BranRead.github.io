@@ -3,13 +3,7 @@ const triangleCursor = document.getElementById("triangleCursor");
 const readMore = document.getElementById("advanceText");
 let animationID;
 
-const dialogOptions = new Map([
-    ["intro", "Having loved computers and technology my entire life, I switched careers and went back to school for programming. At my core I truly care for others, place a high value on my work and always strive to do better. I bring my passion and dedication to everything I do."],
-    ["languages", "I have worked with Java, JavaScript, PHP, Node.JS, C, C++, SQL, HTML, CSS and Bootstrap."],
-    ["currently", "In my own time I'm working on learning Godot and Android Studio. While my main goal is to "
-    + "get into game development, I'm open to creating websites for people or buisnesses that want one made."],
-    ["conclusion", "Please check out my projects! I'm available for both game development as well as creating and building websites."]
-])
+const dialogOptions = ["#info1", "#info2", "#info3", "#info4", "#info5"]
 
 function copyEmail() {
     let copiedEmail = "branrtread@gmail.com";
@@ -18,28 +12,27 @@ function copyEmail() {
 }
 
 function dialog() {
-    const dialogBox = document.getElementById("info");
-    switch (dialogBox.innerHTML) {
-        case dialogOptions.get("intro"):
-            dialogBox.innerHTML = dialogOptions.get("languages");
-            break;
-        case dialogOptions.get("languages"):
-            dialogBox.innerHTML = dialogOptions.get("currently");
-            break;
-        case dialogOptions.get("currently"):
-            dialogBox.innerHTML = dialogOptions.get("conclusion");
-            break;
-        case dialogOptions.get("conclusion"):
-            dialogBox.innerHTML = dialogOptions.get("intro");
-            break;   
-        default:
-            dialogBox.innerHTML = dialogOptions.get("intro");
-            break;
+    let visibleIndex;
+
+    dialogOptions.forEach((para, index) => {
+        if (document.querySelector(para).style.display == 'block'){
+            visibleIndex = index
+        }
+    });
+
+    document.querySelector(dialogOptions[visibleIndex]).style.display = "none";
+    let nextIndex = visibleIndex + 1;
+    if(nextIndex >= dialogOptions.length){
+        document.querySelector(dialogOptions[0]).style.display = "block"
+    } else {
+        document.querySelector(dialogOptions[nextIndex]).style.display = "block";
     }
 }
 
 if(window.location.href == "https://branread.github.io/" || window.location.href == "https://branread.github.io/index.html") {
 
+    email.addEventListener('click', copyEmail);
+    readMore.addEventListener('click', dialog);
     setInterval(() => {
         
         if(triangleCursor.innerHTML == "▼"){
@@ -50,9 +43,18 @@ if(window.location.href == "https://branread.github.io/" || window.location.href
     }, 300)
 }
 
-email.addEventListener('click', copyEmail);
-readMore.addEventListener('click', dialog);
 
+let portfolioItems = document.querySelectorAll(".inside-card");
+
+portfolioItems.forEach(card => {
+    card.addEventListener('mouseover', function () {
+        this.querySelector(".playable").style.display = "block";
+    })
+
+    card.addEventListener('mouseout', function () {
+        this.querySelector(".playable").style.display = "none";
+    })
+});
 
 if(window.location.href == "https://branread.github.io/" || window.location.href == "https://branread.github.io/index.html" || window.location.href == 'http://127.0.0.1:5501/index.html') {
     const canvas = document.getElementById("crowScreen");
