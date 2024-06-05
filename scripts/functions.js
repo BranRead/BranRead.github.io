@@ -2,6 +2,8 @@ const email = document.getElementById("email");
 const triangleCursor = document.getElementById("triangleCursor");
 const readMore = document.getElementById("advanceText");
 let animationID;
+let previousTime = 0;
+let currentTime = 0;
 
 const dialogOptions = ["#info1", "#info2", "#info3", "#info4", "#info5"]
 
@@ -100,10 +102,16 @@ if(window.location.href == "https://branread.github.io/" || window.location.href
 
     function animation(){
         animationID = window.requestAnimationFrame(animation);
+
+        previousTime = currentTime;
+        currentTime = performance.now();
+        let deltaTime = currentTime - previousTime; 
+        deltaTime /= 10;
+        console.log("Delta Time: " + deltaTime)
         if(crow.isGoingRight) {
-            crow.canvasPosition.x += 1;
+            crow.canvasPosition.x += 1 * deltaTime;
         } else {
-            crow.canvasPosition.x -= 1;
+            crow.canvasPosition.x -= 1 * deltaTime;
         }
 
         if(crow.canvasPosition.x > canvas.width){
@@ -114,7 +122,7 @@ if(window.location.href == "https://branread.github.io/" || window.location.href
             crow.image = crow.sprite.right;
         }
         context.clearRect(0, 0, canvas.width, canvas.height);
-        crow.draw(context);
+        crow.draw(context, deltaTime);
     }
 
     animation();
