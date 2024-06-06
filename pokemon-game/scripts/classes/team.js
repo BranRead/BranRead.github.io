@@ -242,8 +242,12 @@ class Team{
 
         function animateMenu(){
             const menuAnimate = window.requestAnimationFrame(animateMenu);
+            gameLogic.previousTime =  gameLogic.currentTime;
+            gameLogic.currentTime = performance.now();
+            let deltaTime =  gameLogic.currentTime -  gameLogic.previousTime; 
+            deltaTime /= 10;
             contextTeam .clearRect(0, 0, 100, 100);
-            monster.drawMonster(contextTeam);
+            monster.drawMonster(contextTeam, deltaTime);
             if(!gameLogic.isTeamSpriteVisible){
                 window.cancelAnimationFrame(menuAnimate)
             }

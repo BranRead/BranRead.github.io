@@ -1,8 +1,13 @@
 //Might need to change how I track stat changes due to better javascripting
 const battleFunctions = {
     animateBattle: () => {
+        gameLogic.previousTime =  gameLogic.currentTime;
+        gameLogic.currentTime = performance.now();
+        let deltaTime =  gameLogic.currentTime -  gameLogic.previousTime; 
+        // deltaTime /= 10;
+
         battleSetup.battleAnimationId = window.requestAnimationFrame(battleFunctions.animateBattle)
-        gameLogic.gameMap.battleBackgroundSprite.draw(gameLogic.gameMap.context);
+        gameLogic.gameMap.battleBackgroundSprite.draw(gameLogic.gameMap.context, deltaTime);
         
         battleSetup.renderedMonsters.forEach((sprite) => {
             sprite.drawMonster(gameLogic.gameMap.context);
@@ -14,6 +19,7 @@ const battleFunctions = {
     },
     
     animateAttack: (attack, user, target, renderedAttacks, healthBar, rotation) => {
+       
         switch(attack.name) {
             //Switch statement for animations
             case 'Fireball':

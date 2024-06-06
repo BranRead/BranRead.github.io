@@ -6,6 +6,9 @@ const gameLogic = {
     inventoryStatsSave: [],
     mapStatsSave: [],
     clicked: false,
+    previousTime: 0,
+    currentTime: 0,
+
 
     canvasMove: {
         x: 0,
@@ -350,7 +353,10 @@ const gameLogic = {
 
     animate: () => {
         gameLogic.animationID = window.requestAnimationFrame(gameLogic.animate);
-
+        gameLogic.previousTime =  gameLogic.currentTime;
+        gameLogic.currentTime = performance.now();
+        let deltaTime =  gameLogic.currentTime -  gameLogic.previousTime; 
+        deltaTime /= 10;
         gameLogic.maps.forEach((map, index) => {
             if(map.isActive){
                 gameLogic.gameMap = gameLogic.maps[index];
@@ -364,7 +370,7 @@ const gameLogic = {
                 map.doors.forEach(door => {
                     door.draw(map.context)
                 })
-                gameLogic.player.draw(map.context, map.playerPosition);
+                gameLogic.player.draw(map.context, map.playerPosition, deltaTime);
                 gameLogic.player.gamePosition = map.playerPosition;
                 map.foregroundSprite.draw(map.context);
                 map.itemsInWorld.forEach(item => {
