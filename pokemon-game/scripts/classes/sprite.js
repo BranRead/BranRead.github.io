@@ -1,6 +1,6 @@
 class Sprite {
     constructor({
-        
+        speedOfAnimation = 1,
         // On spritesheet
         spritePosition = {
             x: 0,
@@ -27,6 +27,7 @@ class Sprite {
 
     }) {
 
+        this.speedOfAnimation = speedOfAnimation;
         this.spritePosition = spritePosition
         this.gamePosition = gamePosition
         this.dimensions = dimensions
@@ -43,9 +44,10 @@ class Sprite {
             this.rotation = rotation
         
     }
+    
 
     draw(context, deltaTime) {
-        // console.log(this.image.src)
+        // console.log("Overloading does NOT work")
         context.save()
         context.translate(
             this.gamePosition.x + this.dimensions.width / 2, 
@@ -92,7 +94,7 @@ class Sprite {
         if(!this.animate) return
 
         if(this.frames.max > 1) {
-            this.frames.elapsed += 1 * deltaTime;
+            this.frames.elapsed += this.speedOfAnimation * gameLogic.deltaTime;
         }
 
         if(this.frames.elapsed > this.frames.hold) {

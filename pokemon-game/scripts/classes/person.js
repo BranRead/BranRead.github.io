@@ -29,7 +29,7 @@ class Person extends Sprite{
         this.monsterFriend = monsterFriend;
     }
 
-    draw(context, gamePosition, deltaTime) {
+    draw(context, gamePosition) {
         // console.log(this.image.src)
         context.save()
         context.translate(
@@ -77,7 +77,7 @@ class Person extends Sprite{
         if(!this.animate) return
 
         if(this.frames.max > 1) {
-            this.frames.elapsed += 1 * deltaTime;
+            this.frames.elapsed += 1 *  gameLogic.deltaTime;
         }
 
         if(this.frames.elapsed > this.frames.hold) {

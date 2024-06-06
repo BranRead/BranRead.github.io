@@ -1,6 +1,6 @@
 const gameLogic = {
     itemUsed: "false",
-    playerSpeed: 3,
+    playerSpeed: 2,
     moving: true,
     teamStatsSave: [],
     inventoryStatsSave: [],
@@ -8,7 +8,11 @@ const gameLogic = {
     clicked: false,
     previousTime: 0,
     currentTime: 0,
-
+    deltaTime: 0,
+    numOfWaterFrames: 4,
+    currentWaterFrame: 0,
+    elapsedWaterFrames: 0,
+    speedOfWaterWaves: 100,
 
     canvasMove: {
         x: 0,
@@ -180,7 +184,7 @@ const gameLogic = {
             image: gameLogic.playerDownImage,
             frames: {
                 max: 4,
-                hold: 10
+                hold: 20
             },
             sprites: {
                 up:  gameLogic.playerUpImage,
@@ -355,11 +359,44 @@ const gameLogic = {
         gameLogic.animationID = window.requestAnimationFrame(gameLogic.animate);
         gameLogic.previousTime =  gameLogic.currentTime;
         gameLogic.currentTime = performance.now();
-        let deltaTime =  gameLogic.currentTime -  gameLogic.previousTime; 
-        deltaTime /= 10;
+        gameLogic.deltaTime =  gameLogic.currentTime -  gameLogic.previousTime; 
+        gameLogic.deltaTime /= 10;
         gameLogic.maps.forEach((map, index) => {
             if(map.isActive){
                 gameLogic.gameMap = gameLogic.maps[index];
+                if(index === 0){
+                    gameLogic.elapsedWaterFrames += gameLogic.deltaTime;
+                   
+                    if(gameLogic.elapsedWaterFrames > gameLogic.speedOfWaterWaves) {
+                        if(gameLogic.currentWaterFrame < gameLogic.numOfWaterFrames - 1) {
+                            gameLogic.currentWaterFrame++;
+                            gameLogic.elapsedWaterFrames = 0;
+                        }
+                        else {
+                            gameLogic.currentWaterFrame = 0;
+                            gameLogic.elapsedWaterFrames = 0;
+                        }
+                    }
+                    
+                    switch(gameLogic.currentWaterFrame){
+                        case 0: 
+                            map.backgroundSprite.image = map.backgroundSprite.sprites.first;
+                            break;
+                        case 1:
+                            map.backgroundSprite.image = map.backgroundSprite.sprites.second;
+                            break;
+                        case 2:
+                            map.backgroundSprite.image = map.backgroundSprite.sprites.third;
+                            break;
+                        case 3:
+                            map.backgroundSprite.image = map.backgroundSprite.sprites.second;
+                            break;
+                        default: 
+                            map.backgroundSprite.image = map.backgroundSprite.sprites.first;
+                            break;
+                    }
+                }
+                
                 map.backgroundSprite.draw(map.context);
                 map.collidingObjects.forEach(boundary => {
                     boundary.draw(map.context);
@@ -370,7 +407,7 @@ const gameLogic = {
                 map.doors.forEach(door => {
                     door.draw(map.context)
                 })
-                gameLogic.player.draw(map.context, map.playerPosition, deltaTime);
+                gameLogic.player.draw(map.context, map.playerPosition);
                 gameLogic.player.gamePosition = map.playerPosition;
                 map.foregroundSprite.draw(map.context);
                 map.itemsInWorld.forEach(item => {
@@ -484,9 +521,10 @@ const gameLogic = {
                 };
 
                 if(gameLogic.moving) {
-                    gameLogic.gameMap.context.translate(0, gameLogic.playerSpeed);
-                    gameLogic.canvasMove.y -= gameLogic.playerSpeed;
-                    gameLogic.gameMap.playerPosition.y -= gameLogic.playerSpeed;
+                    console.log(gameLogic.playerSpeed)
+                    gameLogic.gameMap.context.translate(0, gameLogic.deltaTime * gameLogic.playerSpeed);
+                    gameLogic.canvasMove.y -=  gameLogic.deltaTime * gameLogic.playerSpeed;
+                    gameLogic.gameMap.playerPosition.y -=  gameLogic.deltaTime * gameLogic.playerSpeed;
                 }
             } else if(gameLogic.keys.a.pressed && gameLogic.lastKey === 'a') {
                 gameLogic.player.animate = true;
@@ -523,9 +561,9 @@ const gameLogic = {
                     };
                 };
                 if(gameLogic.moving) {
-                    gameLogic.gameMap.context.translate(gameLogic.playerSpeed, 0);
-                    gameLogic.canvasMove.x -= gameLogic.playerSpeed;
-                    gameLogic.gameMap.playerPosition.x -= gameLogic.playerSpeed;
+                    gameLogic.gameMap.context.translate( gameLogic.deltaTime * gameLogic.playerSpeed, 0);
+                    gameLogic.canvasMove.x -=  gameLogic.deltaTime * gameLogic.playerSpeed;
+                    gameLogic.gameMap.playerPosition.x -=  gameLogic.deltaTime * gameLogic.playerSpeed;
                 }
             } else if(gameLogic.keys.s.pressed && gameLogic.lastKey === 's') {
                 gameLogic.player.animate = true;
@@ -562,9 +600,9 @@ const gameLogic = {
                     };
                 };
                 if(gameLogic.moving) {
-                    gameLogic.gameMap.context.translate(0, -gameLogic.playerSpeed);
-                    gameLogic.canvasMove.y += gameLogic.playerSpeed;
-                    gameLogic.gameMap.playerPosition.y += gameLogic.playerSpeed;
+                    gameLogic.gameMap.context.translate(0,  gameLogic.deltaTime * -gameLogic.playerSpeed);
+                    gameLogic.canvasMove.y +=  gameLogic.deltaTime * gameLogic.playerSpeed;
+                    gameLogic.gameMap.playerPosition.y +=  gameLogic.deltaTime * gameLogic.playerSpeed;
                 }
             } else if(gameLogic.keys.d.pressed && gameLogic.lastKey === 'd') {
                 gameLogic.player.animate = true;
@@ -601,9 +639,9 @@ const gameLogic = {
                     };
                 };
                 if(gameLogic.moving) {
-                    gameLogic.gameMap.context.translate(-gameLogic.playerSpeed, 0);
-                    gameLogic.canvasMove.x += gameLogic.playerSpeed;
-                    gameLogic.gameMap.playerPosition.x += gameLogic.playerSpeed;
+                    gameLogic.gameMap.context.translate( gameLogic.deltaTime * -gameLogic.playerSpeed, 0);
+                    gameLogic.canvasMove.x +=  gameLogic.deltaTime * gameLogic.playerSpeed;
+                    gameLogic.gameMap.playerPosition.x +=  gameLogic.deltaTime * gameLogic.playerSpeed;
                 }
             }
         } // End of moving if/else statement

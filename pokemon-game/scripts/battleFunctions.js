@@ -3,18 +3,20 @@ const battleFunctions = {
     animateBattle: () => {
         gameLogic.previousTime =  gameLogic.currentTime;
         gameLogic.currentTime = performance.now();
-        let deltaTime =  gameLogic.currentTime -  gameLogic.previousTime; 
-        // deltaTime /= 10;
-
+        gameLogic.deltaTime =  gameLogic.currentTime -  gameLogic.previousTime; 
+        gameLogic.deltaTime /= 10;
+        // console.log(deltaTime)
         battleSetup.battleAnimationId = window.requestAnimationFrame(battleFunctions.animateBattle)
-        gameLogic.gameMap.battleBackgroundSprite.draw(gameLogic.gameMap.context, deltaTime);
+        gameLogic.gameMap.battleBackgroundSprite.draw(gameLogic.gameMap.context);
         
         battleSetup.renderedMonsters.forEach((sprite) => {
             sprite.drawMonster(gameLogic.gameMap.context);
         });
     
         battleSetup.renderedAttacks.forEach((sprite) => {
+            console.log(sprite.frames.elapsed)
             sprite.draw(gameLogic.gameMap.context);
+            
         });
     },
     
@@ -28,6 +30,7 @@ const battleFunctions = {
                 const fireballImage = new Image();
                 fireballImage.src="./img/attacks/fireball.png";
                 const fireball = new Sprite({
+                    speedOfAnimation: 50,
                     spritePosition: {
                         x: 0,
                         y: 0

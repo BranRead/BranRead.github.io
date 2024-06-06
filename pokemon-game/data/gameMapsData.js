@@ -1,12 +1,22 @@
-const ghasblrBackground = new Image();
-ghasblrBackground.src = 'img/gameWorld/ghasblrBackground.png';
+const ghasblrBackgroundWaterFirst = new Image();
+const ghasblrBackgroundWaterSecond = new Image();
+const ghasblrBackgroundWaterThird = new Image();
+
+ghasblrBackgroundWaterFirst.src = 'img/gameWorld/ghasblrBackgroundWaterFirst.png';
+ghasblrBackgroundWaterSecond.src = 'img/gameWorld/ghasblrBackgroundWaterSecond.png';
+ghasblrBackgroundWaterThird.src = 'img/gameWorld/ghasblrBackgroundWaterThird.png';
 const ghasblrBackgroundSprite = new Sprite({ 
     gamePosition: positions.GhasblrFromPlayerHouse,
     dimensions: {
         width: 3840,
         height: 2560
     },
-    image: ghasblrBackground,
+    image: ghasblrBackgroundWaterFirst,
+    sprites: {
+        first: ghasblrBackgroundWaterFirst,
+        second: ghasblrBackgroundWaterSecond,
+        third: ghasblrBackgroundWaterThird
+    }
 });
 
 const ghasblrForeground = new Image();
