@@ -138,7 +138,7 @@
     border-radius: 30px;
 }
 
-#info {
+.about-me {
     height: 100px !important;
     font-family: 'Chakra Petch', sans-serif;
 }
@@ -154,6 +154,26 @@
 /*////////////////////////////////////////////////////*/
 /*Projects*/
 /*////////////////////////////////////////////////////*/
+.playable {
+    position: absolute;
+    top: 50px;
+    left: 70px;
+    font-family: 'Chakra Petch', sans-serif;
+}
+
+.github-repo {
+    text-align: center;
+    color: #FFFFF0
+}
+
+a.github-repo:link {
+   color: #FFFFF0;
+}
+
+a.github-repo:hover {
+    color: #ccccc0;
+}
+
 #content-wrap-projects {
     padding-top: 3rem;
     padding-bottom: 7rem;    /* Footer height plus 3 for extra space */
@@ -199,6 +219,7 @@ a.inside-card:hover, a.inside-card:active {
     width: 100%;
     height: 185px;
     overflow: hidden;
+    position: relative;
 }
 
 .project-pic > img {
