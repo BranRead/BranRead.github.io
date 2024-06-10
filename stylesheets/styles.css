@@ -156,6 +156,7 @@
 /*////////////////////////////////////////////////////*/
 .playable {
     position: absolute;
+    color: #FFFFF0;
     top: 50px;
     left: 70px;
     font-family: 'Chakra Petch', sans-serif;
