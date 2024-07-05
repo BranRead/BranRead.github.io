@@ -31,7 +31,11 @@ function dialog() {
     }
 }
 
-if(window.location.href == "https://branread.github.io/" || window.location.href == "https://branread.github.io/index.html") {
+if(window.location.href == "https://branread.github.io/" || 
+    window.location.href == "https://branread.github.io/index.html" || 
+    window.location.href == "http://127.0.0.1:5501/" ||
+    window.location.href == "http://127.0.0.1:5501/index.html"
+    ) {
 
     email.addEventListener('click', copyEmail);
     readMore.addEventListener('click', dialog);
@@ -107,7 +111,7 @@ if(window.location.href == "https://branread.github.io/" || window.location.href
         currentTime = performance.now();
         let deltaTime = currentTime - previousTime; 
         deltaTime /= 10;
-        console.log("Delta Time: " + deltaTime)
+        // console.log("Delta Time: " + deltaTime)
         if(crow.isGoingRight) {
             crow.canvasPosition.x += 1 * deltaTime;
         } else {
